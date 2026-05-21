@@ -54,7 +54,12 @@ def run_phase3(
     """
     char1   = trial["char1"]
     char2   = trial["char2"]
-    meaning = trial["meaning"]
+    # Use Phase2 response to determine meaning; fallback to default if not answered
+    if trial["phase2_response"]:
+        response_idx = int(trial["phase2_response"]) - 1  # "1" -> 0, "2" -> 1, etc.
+        meaning = trial["meaning_opts"][response_idx]
+    else:
+        meaning = trial["meaning"]
     mouse   = event.Mouse(visible=True, win=win)
 
     # ── Build stimuli ──────────────────────────────────────────────────────────
