@@ -30,6 +30,7 @@ from function.utils.response import ResponseResult, make_response
 from function.config import settings as cfg
 from function.io.frame_logger import FrameLog, set_onset, log_frame
 from function.utils.event_utils import check_escape
+from function.utils.progress_bar import TimeProgressBar
 
 
 def draw_phase0_screen(
@@ -115,6 +116,8 @@ def run_phase0(
     result         = make_response()
     selected_rating = None
 
+    progress_bar = TimeProgressBar(win=win)
+
     while result["response"] is None and not result["timed_out"]:
         check_escape(win)
 
@@ -129,6 +132,9 @@ def run_phase0(
             target_img=target_img,
             rating_buttons=rating_buttons,
         )
+
+        progress_bar.draw(elapsed_time=phase_clock.getTime())
+
         flip_time = win.flip()
 
         if frame_idx == 0:
@@ -166,6 +172,7 @@ def run_phase0(
                         target_img=target_img,
                         rating_buttons=rating_buttons,
                     )
+                    
                     win.flip()
                     core.wait(0.2)
 
