@@ -26,7 +26,7 @@ from psychopy import visual, core, event
 from function.config import settings as cfg
 from function.config.key_mapping import P2_MOUSE_BUTTON
 from function.utils.draw_utils import (
-    make_text, build_char_equation, draw_char_equation,
+    make_text, build_char_equation, draw_char_equation, update_button_states
 )
 from function.utils.response import ResponseResult, make_response, wait_for_mouse_release
 from function.io.frame_logger import FrameLog, set_onset, log_frame
@@ -144,10 +144,6 @@ def run_phase2(
     
     angles = [135, 45, 225, 315]
 
-    DEFAULT_LINE_COLOR = "white"
-    HOVER_COLOR = "cyan" 
-    TEXT_COLOR = "white"
-
     choice_panels = []
     choice_texts = []
 
@@ -157,52 +153,49 @@ def run_phase2(
         cy = y_radius * math.sin(rad)
         panel_pos = (cx, cy)
         
-        # 사각형 패널 
+        # 1. 사각형 패널: 배경색(fillColor)을 흰색으로 통째로 채웁니다.
         rect = visual.Rect(
             win, width=panel_width, height=panel_height,
             pos=panel_pos, 
-            lineColor=DEFAULT_LINE_COLOR, lineWidth=3,
-            fillColor=None, opacity=1,
+            lineColor="white", lineWidth=3,
+            fillColor="white", opacity=1,  # 투명(None)에서 흰색으로 변경
         )
 
-        # 의미 텍스트 (사각형 정중앙 배치)
+        # 2. 의미 텍스트: 흰 배경 위에 보이도록 글자 색상을 검은색으로 고정합니다.
         opt_txt = make_text(win, text=opt_text, pos=panel_pos, height=cfg.P2_CHOICE_HEIGHT)
-        opt_txt.color = TEXT_COLOR
+        opt_txt.color = "black"  # 색상 변경 필요 없으므로 검은색 고정
 
         choice_panels.append(rect)
         choice_texts.append(opt_txt)
 
     # 내부 기록용으로는 여전히 1~4 값을 사용 (분석 파일이 꼬이지 않도록)
+    # update_button_states 규칙({"rect": ..., "label": ...})에 맞게 데이터 구성
     resp_data = []
     for i in range(len(choice_panels)):
-        resp_data.append({"rating": i + 1, "rect": choice_panels[i]})
+        resp_data.append({
+            "rect": choice_panels[i],
+            "label": str(i + 1)
+        })
 
     mouse.clickReset()
     phase_clock = core.Clock()
     frame_idx = 0
     result = make_response()
     prev_pressed = False
+    selected_rating = None  # 선택된 라벨을 저장할 변수
 
     while result["response"] is None and not result["timed_out"]:
         question_stim.draw()
         draw_char_equation(final_eq_stims)
 
-        mouse_pos = mouse.getPos()
-        
-        # Hover 마우스 상호작용 (패널 선과 텍스트 색상 변경)
+        # 1. draw_utils.py의 함수를 그대로 호출하여 호버/선택 상태 업데이트
+        # 클릭되지 않은 상태에서는 기본 fillColor(흰색)가 그대로 유지됩니다.
+        update_button_states(resp_data, mouse, selected_button=selected_rating)
+
+        # 사각형 패널과 텍스트를 화면에 그리기
         for i in range(len(choice_panels)):
-            panel = choice_panels[i]
-            text = choice_texts[i]
-            
-            if panel.contains(mouse_pos):
-                panel.lineColor = HOVER_COLOR
-                text.color = HOVER_COLOR
-            else:
-                panel.lineColor = DEFAULT_LINE_COLOR
-                text.color = TEXT_COLOR
-            
-            panel.draw()
-            text.draw()
+            choice_panels[i].draw()
+            choice_texts[i].draw()
 
         flip_time = win.flip()
 
@@ -221,17 +214,36 @@ def run_phase2(
         )
         frame_idx += 1
 
+        # 2. 마우스 클릭 체크 및 0.5초 대기 로직
         btn_pressed = bool(mouse.getPressed()[P2_MOUSE_BUTTON])
         if btn_pressed and not prev_pressed:
             pos = mouse.getPos()
             for data in resp_data:
-                resp_val = str(data["rating"])
                 if data["rect"].contains(pos):
-                    rt = phase_clock.getTime()
-                    wait_for_mouse_release(mouse, P2_MOUSE_BUTTON)
+                    selected_rating = data["label"]  # 클릭한 선택지의 라벨("1"~"4") 저장
+                    rt = float(phase_clock.getTime())
+
+                    # 클릭 상태를 반영하여 선택된 항목의 배경색을 바로 변경(초록색으로 변경됨)
+                    update_button_states(resp_data, mouse, selected_button=selected_rating)
+                    
+                    # 변경된 색상으로 화면을 한 번 새로고침(Flip) 합니다.
+                    question_stim.draw()
+                    draw_char_equation(final_eq_stims)
+                    for i in range(len(choice_panels)):
+                        choice_panels[i].draw()
+                        choice_texts[i].draw()
+                    win.flip()
+                    
+                    # 클릭한 색상을 보여주기 위해 0.5초 대기
+                    core.wait(0.5)
+
+                    # 마우스를 뗄 때까지 대기 (Phase 0, 1과 동일)
+                    while mouse.getPressed()[P2_MOUSE_BUTTON]:
+                        core.wait(0.01)
+
                     result = make_response(
-                        response=resp_val,
-                        response_idx=int(resp_val) - 1,
+                        response=selected_rating,
+                        response_idx=int(selected_rating) - 1,
                         rt=rt,
                         raw_key="mouse",
                     )
