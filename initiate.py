@@ -7,7 +7,7 @@ from psychopy import core
 from config import USE_EYELINK, EYELINK_IP
 from function.config.window_factory import create_window
 from function.config import settings as cfg
-from function.stimuli.trial_loader import load_trial_table, load_char_list
+from function.stimuli.trial_loader import get_or_create_subject_trials, load_char_list
 from function.io.path_builder import get_subject_dir
 from function.utils.screen_utils import get_subject_info
 
@@ -30,7 +30,7 @@ def initiate_experiment() -> ExperimentContext:
     """Run all pre-experiment setup and return initialized state."""
     subject_id = get_subject_info()["subject_id"]
 
-    trials: List[Dict[str, Any]] = load_trial_table()
+    trials: List[Dict[str, Any]] = get_or_create_subject_trials(subject_id)
     char_list = load_char_list()
 
     win = create_window()
