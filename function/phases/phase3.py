@@ -29,7 +29,7 @@ from function.utils.draw_utils import (
 from function.utils.response import ResponseResult, make_response, wait_for_mouse_release
 from function.io.frame_logger import FrameLog, set_onset, log_frame
 from function.utils.event_utils import check_escape
-
+from function.utils.progress_bar import TimeProgressBar
 
 
 def run_phase3(
@@ -118,6 +118,9 @@ def run_phase3(
     frame_idx    = 0
     result       = make_response()
     prev_pressed = False
+
+    progress_bar = TimeProgressBar(win=win)
+
     mouse.clickReset()
 
     while result["response"] is None and not result["timed_out"]:
@@ -136,6 +139,8 @@ def run_phase3(
         for btn_stim in choice_buttons:
             btn_stim["circle"].draw()
             btn_stim["label"].draw()
+
+        progress_bar.draw(elapsed_time=phase_clock.getTime())
 
         flip_time = win.flip()
 

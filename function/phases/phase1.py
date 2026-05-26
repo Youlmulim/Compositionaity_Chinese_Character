@@ -27,6 +27,7 @@ from function.utils.draw_utils import (
 from function.utils.response import ResponseResult, make_response
 from function.io.frame_logger import FrameLog, set_onset, log_frame
 from function.utils.event_utils import check_escape
+from function.utils.progress_bar import TimeProgressBar
 
 
 
@@ -90,6 +91,8 @@ def run_phase1(
     prev_pressed    = False
     selected_button = None
     mouse.clickReset()
+    
+    progress_bar = TimeProgressBar(win=win)
 
     while result["response"] is None and not result["timed_out"]:
         update_button_states(buttons, mouse, selected_button)
@@ -98,6 +101,9 @@ def run_phase1(
         draw_char_equation(eq_stims)
         yes_rect.draw(); yes_txt.draw()
         no_rect.draw();  no_txt.draw()
+
+        # Show running progress bar from trial start (like Phase 0).
+        progress_bar.draw(elapsed_time=phase_clock.getTime())
 
         flip_time = win.flip()
 
@@ -127,10 +133,13 @@ def run_phase1(
 
                     update_button_states(buttons, mouse, selected_button)
 
+                    elapsed_time = phase_clock.getTime()
+
                     question_stim.draw()
                     draw_char_equation(eq_stims)
                     yes_rect.draw(); yes_txt.draw()
                     no_rect.draw();  no_txt.draw()
+
                     win.flip()
 
                     core.wait(0.2)
@@ -145,9 +154,6 @@ def run_phase1(
 
 
         check_escape(win)
-
-        if cfg.MAX_RESPONSE_TIME and phase_clock.getTime() > cfg.MAX_RESPONSE_TIME:
-            result = make_response(timed_out=True)
 
     frame_log = log_frame(
         frame_log,

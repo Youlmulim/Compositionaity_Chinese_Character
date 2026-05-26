@@ -100,7 +100,7 @@ pair_098,王,心,8,7,王心,confidence,confidence,pride,truth,leader
 pair_099,王,王,8,8,王王,gem,god,gold,gem,war
 pair_100,王,中,8,9,王中,castle,castle,heart,city,target
 pair_101,王,子,8,10,王子,prince,prince,pearl,twin,toy
-pair_102,王,大,8,11,王大,giant,tiger,mountain,hero
+pair_102,王,大,8,11,王大,giant,tiger,mountain,hero,giant
 pair_103,王,女,8,12,王女,queen,queen,princess,beauty,mirror
 pair_104,王,不,8,13,王不,ring,servant,thief,ring,fake
 pair_105,中,月,9,1,中月,mid-month,mid-month,swelling,lunar eclipse,inner core
@@ -152,7 +152,7 @@ pair_150,女,心,12,7,女心,mother,mother,angel,care,gentle
 pair_151,女,王,12,8,女王,queen,princess,queen,mirror,beauty
 pair_152,女,中,12,9,女中,mother,mother,bride,star,sister
 pair_153,女,子,12,10,女子,good,baby,mother,daughter,good
-pair_154,女,大,12,11,女大,grandmother,grandmother,mother,goddess
+pair_154,女,大,12,11,女大,grandmother,grandmother,mother,goddess,grandmother
 pair_155,女,女,12,12,女女,fight,family,twins,fight,friends
 pair_156,女,不,12,13,女不,man,man,witch,sad,hide
 pair_157,不,月,13,1,不月,moonless night,immortality,moonless night,amputation,eternity
