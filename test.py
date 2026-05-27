@@ -35,27 +35,36 @@ def main() -> None:
     ctx = initiate_experiment()
 
     # Phase 0 — familiarity ratings
-    show_instructions(ctx.win, cfg.P0_INSTRUCTION)
-    run_phase0_loop(
-        ctx.win,
-        ctx.char_list[:3],
-        ctx.global_clock,
-        ctx.subject_id,
-    )
+    # show_instructions(ctx.win, cfg.P0_INSTRUCTION)
+    # run_phase0_loop(
+    #     ctx.win,
+    #     ctx.char_list[:3],
+    #     ctx.global_clock,
+    #     ctx.subject_id,
+    # )
 
-    # Phases 1–3
+    # # Phases 1–3
     _phase_fns = {1: run_phase1, 2: run_phase2, 3: run_phase3}
-    random.shuffle(ctx.trials)
-    ctx.trials = ctx.trials[:3]
-    for phase_num, instruction in cfg.PHASE_CONFIG:
-        show_instructions(ctx.win, instruction)
-        run_phase_loop(
+    # random.shuffle(ctx.trials)
+    # ctx.trials = ctx.trials[:3]
+    # for phase_num, instruction in cfg.PHASE_CONFIG:
+    #     show_instructions(ctx.win, instruction)
+    #     run_phase_loop(
+    #         ctx.win,
+    #         ctx.trials,
+    #         ctx.global_clock,
+    #         ctx.subject_id,
+    #         phase_num,
+    #         _phase_fns[phase_num],
+    #     )
+
+    run_phase_loop(
             ctx.win,
-            ctx.trials,
+            ctx.trials[:5],
             ctx.global_clock,
             ctx.subject_id,
-            phase_num,
-            _phase_fns[phase_num],
+            3,
+            _phase_fns[3],
         )
 
     # Export full summary
