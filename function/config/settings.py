@@ -86,31 +86,28 @@ P2_CHOICE_CIRCLE_RADIUS = 55
 P2_CHOICE_CIRCLE_POS    = [(-640, 40), (70, 40), (-640, -160), (70, -160)]
 P2_CHOICE_TEXT_POS      = [(-380, 40), (380, 40), (-380, -160), (380, -160)]
 
-# Phase 3 spatial positions around char1
-P3_POS_TOP     = (  0,  120)   # ① above char1
-P3_POS_LEFT    = (-130,   0)   # ② left of char1
-P3_POS_RIGHT   = ( 130,   0)   # ③ right of char1
-P3_POS_BOTTOM  = (  0, -120)   # ④ below char1
-P3_CHOICE_Y    = -390          # bottom row of circled choices
-P3_CHOICE_XS   = [-450, -150, 150, 450]
+# Phase 3: Click-and-paste layout
+# Left area: 5-circle cross pattern for character placement
+P3_CROSS_CENTER     = (-300, 0)
+P3_CIRCLE_SPACING   = 150        # pixel distance between circles
+P3_CIRCLE_RADIUS    = 60         # detection radius
 
-# ── Spatial constants for Phase 3 ────────────────────────────────────────────
-_CHAR1_CENTRE    = (-350,   0)
-_CHAR2_POS       = ( 400,   0)
-_ARROW_POS       = (  25,   0)
-_MEANING_BOX_POS = (   0, 155)
+# Right area: clickable characters
+P3_CHAR1_POS        = (350, 100)
+P3_CHAR2_POS        = (350, -100)
 
-_POS_LABEL_OFFSETS = {
-    0: (   0,  165),   # ① top
-    1: (-165,    0),   # ② left
-    2: ( 165,    0),   # ③ right
-    3: (   0, -165),   # ④ bottom
+# Question and meaning
+P3_QUESTION_POS     = (0, 360)
+P3_MEANING_BOX_POS  = (0, 155)
+
+# Circle position names and offsets (relative to cross center)
+P3_POSITIONS = {
+    'TOP':    (0,  P3_CIRCLE_SPACING),
+    'LEFT':   (-P3_CIRCLE_SPACING, 0),
+    'CENTER': (0, 0),
+    'RIGHT':  (P3_CIRCLE_SPACING, 0),
+    'BOTTOM': (0, -P3_CIRCLE_SPACING),
 }
-
-_CHOICE_Y  = -390
-_CHOICE_XS = [-450, -150, 150, 450]
-
-_DASHED_ARROW_LABEL = "◄ · · · · · · · ·"
 
 
 # ─── Hover ITI ───────────────────────────────────────────────────────────────

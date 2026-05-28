@@ -49,7 +49,7 @@ def run_phase_loop(
         ):
 
     """Run one phase over all trials."""
-    phase_key = f"phase_{phase_num}"
+    phase_key = f"phase{phase_num}"
 
     for i in range(len(trials)):
         trial = trials[i]
