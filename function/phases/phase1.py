@@ -53,7 +53,7 @@ def run_phase1(
     """
     char1 = trial["char1"]
     char2 = trial["char2"]
-    mouse = event.Mouse(win=win)
+    mouse = event.Mouse(visible=True, win=win)
 
     # ── Build stimuli ──────────────────────────────────────────────────────────
     question_stim = make_text(

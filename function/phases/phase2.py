@@ -45,7 +45,7 @@ def run_phase2(
     char2 = trial["char2"]
     meaning_opts: List[str] = trial["meaning_opts"]
 
-    mouse = event.Mouse(win=win)
+    mouse = event.Mouse(visible=True, win=win)
     mouse.clickReset()
 
     # ── 1. 순차적 제시용 자극 (수식 및 질문) 생성 ──────────────────────────────

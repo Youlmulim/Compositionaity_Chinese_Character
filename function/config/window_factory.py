@@ -33,7 +33,7 @@ def create_window() -> visual.Window:
         monitor=mon,
         color=BACKGROUND_COLOR,
         colorSpace="hex",
-        allowGUI=False,
+        allowGUI=True,
         winType="pyglet",
     )
     return win

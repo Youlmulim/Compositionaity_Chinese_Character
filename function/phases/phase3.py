@@ -161,7 +161,7 @@ def run_phase3(
                 else:
                     # Second selection: normal hover behavior for all positions
                     if is_hovering(mouse_pos, circle_data["pos"], cfg.P3_CIRCLE_RADIUS):
-                        circle_color = "green"
+                        circle_color = "purple"
                     else:
                         circle_color = "white"
             else:
