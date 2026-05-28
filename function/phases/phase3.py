@@ -13,7 +13,7 @@ from psychopy import visual, core, event
 
 from function.config import settings as cfg
 from function.config.key_mapping import P3_MOUSE_BUTTON
-from function.utils.draw_utils import make_text, make_chinese_char
+from function.utils.draw_utils import make_text, make_chinese_char, is_hovering
 from function.utils.response import ResponseResult, make_response, wait_for_mouse_release
 from function.io.frame_logger import FrameLog, set_onset, log_frame
 from function.utils.event_utils import check_escape
@@ -300,14 +300,6 @@ def run_phase3(
 
 
 # ─── Helper functions ────────────────────────────────────────────────────────
-
-def is_hovering(pos: Tuple[float, float], target: Tuple[float, float], radius: float) -> bool:
-    """Check if position is within radius of target."""
-    dx = pos[0] - target[0]
-    dy = pos[1] - target[1]
-    distance = (dx**2 + dy**2) ** 0.5
-    return distance <= radius
-
 
 def get_char_color(state: Dict[str, Any], char_name: str, mouse_pos: Tuple[float, float], char_pos: Tuple[float, float]) -> str:
     """Determine display color for a character based on state."""

@@ -264,3 +264,11 @@ def update_button_states(buttons, mouse, selected_button=None) -> None:
         hovered = is_hovered(button["rect"], mouse)
         selected = selected_button == button["label"]
         set_button_border_color(button["rect"], hovered, selected, selected_color=GREEN_COLOR)
+
+# ---- circle hovering ----
+def is_hovering(pos: Tuple[float, float], target: Tuple[float, float], radius: float) -> bool:
+    """Check if position is within radius of target."""
+    dx = pos[0] - target[0]
+    dy = pos[1] - target[1]
+    distance = (dx**2 + dy**2) ** 0.5
+    return distance <= radius
