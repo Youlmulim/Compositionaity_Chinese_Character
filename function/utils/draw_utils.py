@@ -196,25 +196,6 @@ def draw_char_equation(eq_stims: dict, show_char2: bool = True) -> None:
     eq_stims["qmark"].draw()
 
 
-# ─── Phase-label badge (top-left corner) ─────────────────────────────────────
-
-def make_phase_badge(
-    win: visual.Window,
-    label: str,
-) -> Tuple[visual.Rect, visual.TextStim]:
-    """Create badge stims once before the flip loop; pass to draw_phase_badge()."""
-    pos = (-win.size[0] // 2 + 80, win.size[1] // 2 - 40)
-    bg = visual.Rect(win, width=120, height=50, pos=pos, fillColor="white", lineColor="white")
-    txt = visual.TextStim(win, text=label, font=FONT, pos=pos, height=28, color="black")
-    return bg, txt
-
-
-def draw_phase_badge(badge: Tuple[visual.Rect, visual.TextStim]) -> None:
-    """Draw the pre-built badge stims returned by make_phase_badge()."""
-    badge[0].draw()
-    badge[1].draw()
-
-
 # ─── Rating button layout (circular, 6-point) ────────────────────────────────
 
 def build_rating_buttons(
