@@ -32,13 +32,14 @@ def save_frame_log(rows: List[Dict], save_dir: Path) -> Path:
     ----------
     rows     : list of frame dicts from FrameLogger.get_rows()
     save_dir : directory that already exists (caller must create it)
-
+    
     Returns
     -------
     Path  – full path of the written file
     """
     save_dir.mkdir(parents=True, exist_ok=True)
     out_path = save_dir / FRAME_LOG_FILENAME
+
 
     with open(out_path, "w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=FIELDNAMES, extrasaction="ignore")
