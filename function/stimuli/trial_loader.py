@@ -55,6 +55,7 @@ def load_trial_table(
                 "char1":           row["char1"].strip(),
                 "char2":           row["char2"].strip(),
                 "canonical_pair":  row["canonical_pair"].strip(),
+                "char_order":      row.get("char_order", "AB").strip(),  # Default to "AB" if not present
                 "meaning":         row["meaning"].strip(),
                 "meaning_opts": [
                     row["meaning_opt1"].strip(),
@@ -93,21 +94,41 @@ def get_or_create_subject_trials(subject_id: str) -> List[Dict[str, Any]]:
     print(f"Creating new randomized trial table for subject {subject_id}")
     base_trials = load_trial_table(TRIAL_TABLE_CSV)
     
+    # Randomize character order and meaning options for each trial
     for trial in base_trials:
-        # 50% 확률로 char1과 char2 위치(순서) 변경
         if random.choice([True, False]):
             trial["char1"], trial["char2"] = trial["char2"], trial["char1"]
-            trial["char_order"] = "BA"  # 순서가 바뀌었음을 명시 (분석용)
+            trial["char_order"] = "BA"
         else:
             trial["char_order"] = "AB"
-            
-    # 결과를 피험자 전용 CSV 파일로 저장
-    if base_trials:
-        fieldnames = list(base_trials[0].keys())
-        with open(subject_csv_path, mode='w', newline="", encoding="utf-8") as f:
-            writer = csv.DictWriter(f, fieldnames=fieldnames)
-            writer.writeheader()
-            writer.writerows(base_trials)
+        
+        # Shuffle meaning options
+        shuffled_opts = trial["meaning_opts"].copy()
+        random.shuffle(shuffled_opts)
+        trial["meaning_opts"] = shuffled_opts
+    
+    save_rows = []
+    for trial in base_trials:
+        save_rows.append({
+            "trial_id": trial["trial_id"],
+            "stim_pair_id": trial["stim_pair_id"],
+            "char1": trial["char1"],
+            "char2": trial["char2"],
+            "canonical_pair": trial["canonical_pair"],
+            "char_order": trial["char_order"],
+            "meaning": trial["meaning"],
+            "meaning_opt1": trial["meaning_opts"][0],
+            "meaning_opt2": trial["meaning_opts"][1],
+            "meaning_opt3": trial["meaning_opts"][2],
+            "meaning_opt4": trial["meaning_opts"][3],
+        })
+
+    fieldnames = list(save_rows[0].keys())
+
+    with open(subject_csv_path, mode="w", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=fieldnames)
+        writer.writeheader()
+        writer.writerows(save_rows)
             
     return base_trials
 
