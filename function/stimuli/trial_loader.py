@@ -27,6 +27,7 @@ from pathlib import Path
 from typing import List, Dict, Any
 
 from function.config.settings import TRIAL_TABLE_CSV
+from function.io.path_builder import get_subject_dir
 
 
 def load_trial_table(
@@ -54,6 +55,7 @@ def load_trial_table(
                 "char1":           row["char1"].strip(),
                 "char2":           row["char2"].strip(),
                 "canonical_pair":  row["canonical_pair"].strip(),
+                "char_order":      row.get("char_order", "AB").strip(),  # Default to "AB" if not present
                 "meaning":         row["meaning"].strip(),
                 "meaning_opts": [
                     row["meaning_opt1"].strip(),
@@ -71,6 +73,64 @@ def load_trial_table(
             }
             trials.append(trial)
     return trials
+
+def get_or_create_subject_trials(subject_id: str) -> List[Dict[str, Any]]:
+    """
+    피험자 고유의 trial_table을 불러오거나, 없다면 새로 생성하여 저장합니다.
+    """
+    # 피험자 데이터 폴더 경로 확보 (예: data/sub-001/)
+    subject_dir = get_subject_dir(subject_id)
+    subject_dir.mkdir(parents=True, exist_ok=True)
+    
+    # 피험자 고유의 CSV 파일 경로 지정
+    subject_csv_path = subject_dir / f"sub-{subject_id}_trial_table.csv"
+    
+    # 1. 이미 피험자의 trial table이 존재한다면 (예: 실험 재시작) 그것을 불러옴
+    if subject_csv_path.exists():
+        print(f"Loading existing trial table for subject {subject_id}")
+        return load_trial_table(subject_csv_path)
+    
+    # 2. 존재하지 않는다면 원본 파일에서 불러와서 랜덤화 진행 후 저장
+    print(f"Creating new randomized trial table for subject {subject_id}")
+    base_trials = load_trial_table(TRIAL_TABLE_CSV)
+    
+    # Randomize character order and meaning options for each trial
+    for trial in base_trials:
+        if random.choice([True, False]):
+            trial["char1"], trial["char2"] = trial["char2"], trial["char1"]
+            trial["char_order"] = "BA"
+        else:
+            trial["char_order"] = "AB"
+        
+        # Shuffle meaning options
+        shuffled_opts = trial["meaning_opts"].copy()
+        random.shuffle(shuffled_opts)
+        trial["meaning_opts"] = shuffled_opts
+    
+    save_rows = []
+    for trial in base_trials:
+        save_rows.append({
+            "trial_id": trial["trial_id"],
+            "stim_pair_id": trial["stim_pair_id"],
+            "char1": trial["char1"],
+            "char2": trial["char2"],
+            "canonical_pair": trial["canonical_pair"],
+            "char_order": trial["char_order"],
+            "meaning": trial["meaning"],
+            "meaning_opt1": trial["meaning_opts"][0],
+            "meaning_opt2": trial["meaning_opts"][1],
+            "meaning_opt3": trial["meaning_opts"][2],
+            "meaning_opt4": trial["meaning_opts"][3],
+        })
+
+    fieldnames = list(save_rows[0].keys())
+
+    with open(subject_csv_path, mode="w", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=fieldnames)
+        writer.writeheader()
+        writer.writerows(save_rows)
+            
+    return base_trials
 
 
 def load_char_list(csv_path: Path = None) -> List[str]:

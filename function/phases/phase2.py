@@ -28,6 +28,7 @@ from function.config.key_mapping import P2_MOUSE_BUTTON
 from function.utils.draw_utils import (
     make_text, build_char_equation, draw_char_equation, update_button_states
 )
+from function.utils.progress_bar import TimeProgressBar
 from function.utils.response import ResponseResult, make_response, wait_for_mouse_release
 from function.io.frame_logger import FrameLog, set_onset, log_frame
 from function.utils.event_utils import check_escape
@@ -179,6 +180,8 @@ def run_phase2(
 
     mouse.clickReset()
     phase_clock = core.Clock()
+    # Time progress bar for response timeout visualization
+    progress_bar = TimeProgressBar(win=win)
     frame_idx = 0
     result = make_response()
     prev_pressed = False
@@ -196,6 +199,9 @@ def run_phase2(
         for i in range(len(choice_panels)):
             choice_panels[i].draw()
             choice_texts[i].draw()
+
+        # Time progress bar 그리기
+        progress_bar.draw(phase_clock.getTime())
 
         flip_time = win.flip()
 
@@ -232,6 +238,7 @@ def run_phase2(
                     for i in range(len(choice_panels)):
                         choice_panels[i].draw()
                         choice_texts[i].draw()
+                    
                     win.flip()
                     
                     # 클릭한 색상을 보여주기 위해 0.5초 대기
