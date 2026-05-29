@@ -44,40 +44,39 @@ def run_phase_loop(
         trials,
         global_clock,
         subject_id,
-        phase_num,
-        run_fn,
+        phase_fns
         ):
-
-    """Run one phase over all trials."""
-    phase_key = f"phase{phase_num}"
-
     for i in range(len(trials)):
         trial = trials[i]
 
-        fl = make_frame_log(
-            phase=phase_key,
-            trial_id=trial["trial_id"],
-            stim_pair_id=trial["stim_pair_id"]
-        )
+        for phase_num in [1, 2, 3]:
+            phase_key = f"phase{phase_num}"
+            run_fn = phase_fns[phase_num]
 
-        result, fl = run_fn(
-            win,
-            trial,
-            global_clock,
-            fl
-        )
+            fl = make_frame_log(
+                phase=phase_key,
+                trial_id=trial["trial_id"],
+                stim_pair_id=trial["stim_pair_id"]
+            )
 
-        trials[i] = update_trial(trial, {
-            f"{phase_key}_response": result["response"],
-            f"{phase_key}_rt":       result["rt"],
-        })
+            result, fl = run_fn(
+                win,
+                trial,
+                global_clock,
+                fl
+            )
 
-        save_dir = ensure_trial_save_dir(
-            subject_id,
-            phase_key,
-            trial["stim_pair_id"]
-        )
+            trials[i] = update_trial(trial, {
+                f"{phase_key}_response": result["response"],
+                f"{phase_key}_rt":       result["rt"],
+            })
 
-        save_frame_log(get_rows(fl), save_dir)
-        save_trial_metadata_json(trials[i], save_dir)
-        run_hover_iti(win)
+            save_dir = ensure_trial_save_dir(
+                subject_id,
+                phase_key,
+                trial["stim_pair_id"]
+            )
+
+            save_frame_log(get_rows(fl), save_dir)
+            save_trial_metadata_json(trials[i], save_dir)
+            run_hover_iti(win)
