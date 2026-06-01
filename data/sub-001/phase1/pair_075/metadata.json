@@ -1,0 +1,20 @@
+{
+  "trial_id": 74,
+  "stim_pair_id": "pair_075",
+  "char1": "又",
+  "char2": "子",
+  "canonical_pair": "又子",
+  "meaning": "hug",
+  "meaning_opts": [
+    "hug",
+    "baby",
+    "friend",
+    "toy"
+  ],
+  "phase1_response": "yes",
+  "phase1_rt": 12.66765239997767,
+  "phase2_response": null,
+  "phase2_rt": null,
+  "phase3_response": null,
+  "phase3_rt": null
+}

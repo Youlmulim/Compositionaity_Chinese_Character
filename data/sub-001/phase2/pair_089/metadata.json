@@ -1,0 +1,20 @@
+{
+  "trial_id": 88,
+  "stim_pair_id": "pair_089",
+  "char1": "心",
+  "char2": "大",
+  "canonical_pair": "心大",
+  "meaning": "brave",
+  "meaning_opts": [
+    "brave",
+    "greed",
+    "dream",
+    "adult"
+  ],
+  "phase1_response": "no",
+  "phase1_rt": 0.6488410998135805,
+  "phase2_response": null,
+  "phase2_rt": null,
+  "phase3_response": null,
+  "phase3_rt": null
+}

@@ -1,0 +1,22 @@
+{
+  "trial_id": 149,
+  "stim_pair_id": "pair_150",
+  "char1": "女",
+  "char2": "心",
+  "canonical_pair": "女心",
+  "meaning": "mother",
+  "meaning_opts": [
+    "mother",
+    "angel",
+    "care",
+    "gentle"
+  ],
+  "phase1_response": null,
+  "phase1_rt": null,
+  "phase2_response": null,
+  "phase2_rt": null,
+  "phase3_response": null,
+  "phase3_rt": null,
+  "phase_1_response": null,
+  "phase_1_rt": null
+}

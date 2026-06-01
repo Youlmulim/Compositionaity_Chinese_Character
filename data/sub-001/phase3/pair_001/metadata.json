@@ -1,0 +1,20 @@
+{
+  "trial_id": 0,
+  "stim_pair_id": "pair_001",
+  "char1": "月",
+  "char2": "月",
+  "canonical_pair": "月月",
+  "meaning": "loyal friend",
+  "meaning_opts": [
+    "many months",
+    "moon reflection",
+    "loyal friend",
+    "two nights"
+  ],
+  "phase1_response": null,
+  "phase1_rt": null,
+  "phase2_response": null,
+  "phase2_rt": null,
+  "phase3_response": "CENTER_RIGHT",
+  "phase3_rt": 3.7673535998910666
+}

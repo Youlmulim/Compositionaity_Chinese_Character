@@ -1,0 +1,24 @@
+{
+  "trial_id": 117,
+  "stim_pair_id": "pair_118",
+  "char1": "子",
+  "char2": "月",
+  "canonical_pair": "子月",
+  "meaning": "lullaby",
+  "meaning_opts": [
+    "lullaby",
+    "embryo",
+    "small tumor",
+    "growth"
+  ],
+  "phase1_response": null,
+  "phase1_rt": null,
+  "phase2_response": null,
+  "phase2_rt": null,
+  "phase3_response": null,
+  "phase3_rt": null,
+  "phase_1_response": "yes",
+  "phase_1_rt": 0.9226309000514448,
+  "phase_2_response": "4",
+  "phase_2_rt": 2.200880099902861
+}

@@ -1,0 +1,24 @@
+{
+  "trial_id": 39,
+  "stim_pair_id": "pair_040",
+  "char1": "木",
+  "char2": "月",
+  "canonical_pair": "木月",
+  "meaning": "moonlit tree",
+  "meaning_opts": [
+    "moonlit tree",
+    "hidden moon",
+    "old tree",
+    "night forest"
+  ],
+  "phase1_response": null,
+  "phase1_rt": null,
+  "phase2_response": null,
+  "phase2_rt": null,
+  "phase3_response": null,
+  "phase3_rt": null,
+  "phase_1_response": "yes",
+  "phase_1_rt": 1.9507674999767914,
+  "phase_2_response": null,
+  "phase_2_rt": null
+}

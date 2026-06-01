@@ -1,0 +1,4 @@
+﻿phase,trial_id,character,image_file,rating,rt,timed_out,rotation_offset
+phase_0,phase0_01,月,月.png,2,0.7900288000237197,False,0.1602877646522006
+phase_0,phase0_02,日,日.png,6,0.7778749999124557,False,3.3642648814078155
+phase_0,phase0_03,人,人.png,3,0.5785217001102865,False,3.22945156257179

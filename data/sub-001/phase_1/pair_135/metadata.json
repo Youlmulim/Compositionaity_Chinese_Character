@@ -1,0 +1,22 @@
+{
+  "trial_id": 134,
+  "stim_pair_id": "pair_135",
+  "char1": "大",
+  "char2": "土",
+  "canonical_pair": "大土",
+  "meaning": "earthquake",
+  "meaning_opts": [
+    "earthquake",
+    "mountain",
+    "farm",
+    "Earth"
+  ],
+  "phase1_response": null,
+  "phase1_rt": null,
+  "phase2_response": null,
+  "phase2_rt": null,
+  "phase3_response": null,
+  "phase3_rt": null,
+  "phase_1_response": "no",
+  "phase_1_rt": 1.5180005999282002
+}

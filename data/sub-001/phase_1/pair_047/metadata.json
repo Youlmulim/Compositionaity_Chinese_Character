@@ -1,0 +1,22 @@
+{
+  "trial_id": 46,
+  "stim_pair_id": "pair_047",
+  "char1": "木",
+  "char2": "王",
+  "canonical_pair": "木王",
+  "meaning": "sacred tree",
+  "meaning_opts": [
+    "sacred tree",
+    "royal throne",
+    "scepter",
+    "giant tree"
+  ],
+  "phase1_response": null,
+  "phase1_rt": null,
+  "phase2_response": null,
+  "phase2_rt": null,
+  "phase3_response": null,
+  "phase3_rt": null,
+  "phase_1_response": "yes",
+  "phase_1_rt": 0.7891207999782637
+}

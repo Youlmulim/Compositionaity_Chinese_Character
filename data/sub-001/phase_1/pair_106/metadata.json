@@ -1,0 +1,22 @@
+{
+  "trial_id": 105,
+  "stim_pair_id": "pair_106",
+  "char1": "中",
+  "char2": "日",
+  "canonical_pair": "中日",
+  "meaning": "midday",
+  "meaning_opts": [
+    "midday",
+    "dusk",
+    "heatstroke",
+    "equinox"
+  ],
+  "phase1_response": null,
+  "phase1_rt": null,
+  "phase2_response": null,
+  "phase2_rt": null,
+  "phase3_response": null,
+  "phase3_rt": null,
+  "phase_1_response": "yes",
+  "phase_1_rt": 0.8241488999919966
+}

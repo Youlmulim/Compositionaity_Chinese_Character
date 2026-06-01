@@ -1,0 +1,24 @@
+{
+  "trial_id": 17,
+  "stim_pair_id": "pair_018",
+  "char1": "日",
+  "char2": "土",
+  "canonical_pair": "日土",
+  "meaning": "darkness",
+  "meaning_opts": [
+    "darkness",
+    "dawn",
+    "sundial",
+    "agriculture"
+  ],
+  "phase1_response": null,
+  "phase1_rt": null,
+  "phase2_response": null,
+  "phase2_rt": null,
+  "phase3_response": null,
+  "phase3_rt": null,
+  "phase_1_response": "yes",
+  "phase_1_rt": 1.1161213000304997,
+  "phase_2_response": null,
+  "phase_2_rt": null
+}

@@ -1,0 +1,24 @@
+{
+  "trial_id": 6,
+  "stim_pair_id": "pair_007",
+  "char1": "月",
+  "char2": "心",
+  "canonical_pair": "月心",
+  "meaning": "self-control",
+  "meaning_opts": [
+    "self-control",
+    "homesickness",
+    "yearning",
+    "vital organ"
+  ],
+  "phase1_response": null,
+  "phase1_rt": null,
+  "phase2_response": null,
+  "phase2_rt": null,
+  "phase3_response": null,
+  "phase3_rt": null,
+  "phase_1_response": "no",
+  "phase_1_rt": 3.093883900088258,
+  "phase_2_response": null,
+  "phase_2_rt": null
+}

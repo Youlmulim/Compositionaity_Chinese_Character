@@ -1,0 +1,22 @@
+{
+  "trial_id": 138,
+  "stim_pair_id": "pair_139",
+  "char1": "大",
+  "char2": "中",
+  "canonical_pair": "大中",
+  "meaning": "stomach",
+  "meaning_opts": [
+    "stomach",
+    "boss",
+    "main street",
+    "square"
+  ],
+  "phase1_response": null,
+  "phase1_rt": null,
+  "phase2_response": null,
+  "phase2_rt": null,
+  "phase3_response": null,
+  "phase3_rt": null,
+  "phase_1_response": "yes",
+  "phase_1_rt": 0.7465551000786945
+}

@@ -1,0 +1,22 @@
+{
+  "trial_id": 148,
+  "stim_pair_id": "pair_149",
+  "char1": "女",
+  "char2": "又",
+  "canonical_pair": "女又",
+  "meaning": "servant",
+  "meaning_opts": [
+    "sister",
+    "dnance",
+    "nurse",
+    "servant"
+  ],
+  "phase1_response": null,
+  "phase1_rt": null,
+  "phase2_response": null,
+  "phase2_rt": null,
+  "phase3_response": null,
+  "phase3_rt": null,
+  "phase_1_response": "no",
+  "phase_1_rt": 0.664323200006038
+}

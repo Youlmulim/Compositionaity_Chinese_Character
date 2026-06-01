@@ -1,0 +1,22 @@
+{
+  "trial_id": 68,
+  "stim_pair_id": "pair_069",
+  "char1": "又",
+  "char2": "木",
+  "canonical_pair": "又木",
+  "meaning": "fruit picking",
+  "meaning_opts": [
+    "fruit picking",
+    "power",
+    "woodworking",
+    "logging"
+  ],
+  "phase1_response": null,
+  "phase1_rt": null,
+  "phase2_response": null,
+  "phase2_rt": null,
+  "phase3_response": null,
+  "phase3_rt": null,
+  "phase_1_response": "no",
+  "phase_1_rt": 0.9432986000319943
+}

@@ -1,0 +1,22 @@
+{
+  "trial_id": 32,
+  "stim_pair_id": "pair_033",
+  "char1": "人",
+  "char2": "心",
+  "canonical_pair": "人心",
+  "meaning": "overthinking",
+  "meaning_opts": [
+    "overthinking",
+    "sincerity",
+    "empathy",
+    "secret crush"
+  ],
+  "phase1_response": null,
+  "phase1_rt": null,
+  "phase2_response": null,
+  "phase2_rt": null,
+  "phase3_response": null,
+  "phase3_rt": null,
+  "phase_1_response": "yes",
+  "phase_1_rt": 2.992599999997765
+}

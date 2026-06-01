@@ -1,0 +1,20 @@
+{
+  "trial_id": 128,
+  "stim_pair_id": "pair_129",
+  "char1": "子",
+  "char2": "女",
+  "canonical_pair": "子女",
+  "meaning": "good",
+  "meaning_opts": [
+    "mother",
+    "baby",
+    "good",
+    "daughter"
+  ],
+  "phase1_response": "no",
+  "phase1_rt": 0.6305408000480384,
+  "phase2_response": null,
+  "phase2_rt": null,
+  "phase3_response": null,
+  "phase3_rt": null
+}

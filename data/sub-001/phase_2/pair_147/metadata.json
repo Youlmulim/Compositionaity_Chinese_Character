@@ -1,0 +1,24 @@
+{
+  "trial_id": 146,
+  "stim_pair_id": "pair_147",
+  "char1": "女",
+  "char2": "木",
+  "canonical_pair": "女木",
+  "meaning": "resting spot",
+  "meaning_opts": [
+    "resting spot",
+    "tree climbing",
+    "spring flower",
+    "soft wind"
+  ],
+  "phase1_response": null,
+  "phase1_rt": null,
+  "phase2_response": null,
+  "phase2_rt": null,
+  "phase3_response": null,
+  "phase3_rt": null,
+  "phase_1_response": "yes",
+  "phase_1_rt": 6.613965400028974,
+  "phase_2_response": "2",
+  "phase_2_rt": 4.8533726000459865
+}

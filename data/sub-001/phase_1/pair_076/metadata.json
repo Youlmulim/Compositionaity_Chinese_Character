@@ -1,0 +1,22 @@
+{
+  "trial_id": 75,
+  "stim_pair_id": "pair_076",
+  "char1": "又",
+  "char2": "大",
+  "canonical_pair": "又大",
+  "meaning": "giant",
+  "meaning_opts": [
+    "giant",
+    "clap",
+    "adult",
+    "hero"
+  ],
+  "phase1_response": null,
+  "phase1_rt": null,
+  "phase2_response": null,
+  "phase2_rt": null,
+  "phase3_response": null,
+  "phase3_rt": null,
+  "phase_1_response": null,
+  "phase_1_rt": null
+}

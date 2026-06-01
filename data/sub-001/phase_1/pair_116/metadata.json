@@ -1,0 +1,22 @@
+{
+  "trial_id": 115,
+  "stim_pair_id": "pair_116",
+  "char1": "中",
+  "char2": "女",
+  "canonical_pair": "中女",
+  "meaning": "bride",
+  "meaning_opts": [
+    "bride",
+    "mother",
+    "sister",
+    "star"
+  ],
+  "phase1_response": null,
+  "phase1_rt": null,
+  "phase2_response": null,
+  "phase2_rt": null,
+  "phase3_response": null,
+  "phase3_rt": null,
+  "phase_1_response": "no",
+  "phase_1_rt": 1.7778302000369877
+}

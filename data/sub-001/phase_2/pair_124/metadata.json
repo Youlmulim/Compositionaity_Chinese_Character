@@ -1,0 +1,24 @@
+{
+  "trial_id": 123,
+  "stim_pair_id": "pair_124",
+  "char1": "子",
+  "char2": "心",
+  "canonical_pair": "子心",
+  "meaning": "hope",
+  "meaning_opts": [
+    "hope",
+    "smile",
+    "kindness",
+    "pure"
+  ],
+  "phase1_response": null,
+  "phase1_rt": null,
+  "phase2_response": null,
+  "phase2_rt": null,
+  "phase3_response": null,
+  "phase3_rt": null,
+  "phase_1_response": "yes",
+  "phase_1_rt": 3.6782802999950945,
+  "phase_2_response": "2",
+  "phase_2_rt": 0.96585309994407
+}

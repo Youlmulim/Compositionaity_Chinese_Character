@@ -1,0 +1,22 @@
+{
+  "trial_id": 111,
+  "stim_pair_id": "pair_112",
+  "char1": "中",
+  "char2": "王",
+  "canonical_pair": "中王",
+  "meaning": "heart",
+  "meaning_opts": [
+    "heart",
+    "castle",
+    "target",
+    "city"
+  ],
+  "phase1_response": null,
+  "phase1_rt": null,
+  "phase2_response": null,
+  "phase2_rt": null,
+  "phase3_response": null,
+  "phase3_rt": null,
+  "phase_1_response": "yes",
+  "phase_1_rt": 0.5056541999801993
+}

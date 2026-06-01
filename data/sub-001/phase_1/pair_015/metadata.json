@@ -1,0 +1,22 @@
+{
+  "trial_id": 14,
+  "stim_pair_id": "pair_015",
+  "char1": "日",
+  "char2": "日",
+  "canonical_pair": "日日",
+  "meaning": "bright",
+  "meaning_opts": [
+    "intense drought",
+    "tomorrow",
+    "bright",
+    "daily diary"
+  ],
+  "phase1_response": null,
+  "phase1_rt": null,
+  "phase2_response": null,
+  "phase2_rt": null,
+  "phase3_response": null,
+  "phase3_rt": null,
+  "phase_1_response": "yes",
+  "phase_1_rt": 1.896677999990061
+}

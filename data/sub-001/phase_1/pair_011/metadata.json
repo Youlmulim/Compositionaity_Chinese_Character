@@ -1,0 +1,22 @@
+{
+  "trial_id": 10,
+  "stim_pair_id": "pair_011",
+  "char1": "月",
+  "char2": "大",
+  "canonical_pair": "月大",
+  "meaning": "full moon",
+  "meaning_opts": [
+    "full moon",
+    "giant shadow",
+    "leap month",
+    "obesity"
+  ],
+  "phase1_response": null,
+  "phase1_rt": null,
+  "phase2_response": null,
+  "phase2_rt": null,
+  "phase3_response": null,
+  "phase3_rt": null,
+  "phase_1_response": "yes",
+  "phase_1_rt": 2.3021996999159455
+}

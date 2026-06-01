@@ -1,0 +1,22 @@
+{
+  "trial_id": 19,
+  "stim_pair_id": "pair_020",
+  "char1": "日",
+  "char2": "心",
+  "canonical_pair": "日心",
+  "meaning": "depression",
+  "meaning_opts": [
+    "depression",
+    "enlightenment",
+    "daily mood",
+    "passion"
+  ],
+  "phase1_response": null,
+  "phase1_rt": null,
+  "phase2_response": null,
+  "phase2_rt": null,
+  "phase3_response": null,
+  "phase3_rt": null,
+  "phase_1_response": "yes",
+  "phase_1_rt": 0.6846317000454292
+}

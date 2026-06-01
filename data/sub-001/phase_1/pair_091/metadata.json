@@ -1,0 +1,22 @@
+{
+  "trial_id": 90,
+  "stim_pair_id": "pair_091",
+  "char1": "心",
+  "char2": "不",
+  "canonical_pair": "心不",
+  "meaning": "hug",
+  "meaning_opts": [
+    "cold",
+    "forget",
+    "lie",
+    "hug"
+  ],
+  "phase1_response": null,
+  "phase1_rt": null,
+  "phase2_response": null,
+  "phase2_rt": null,
+  "phase3_response": null,
+  "phase3_rt": null,
+  "phase_1_response": "yes",
+  "phase_1_rt": 0.6536321999737993
+}

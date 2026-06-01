@@ -1,0 +1,22 @@
+{
+  "trial_id": 40,
+  "stim_pair_id": "pair_041",
+  "char1": "木",
+  "char2": "日",
+  "canonical_pair": "木日",
+  "meaning": "deep shade",
+  "meaning_opts": [
+    "deep shade",
+    "bright sunlight",
+    "sunset",
+    "spring season"
+  ],
+  "phase1_response": null,
+  "phase1_rt": null,
+  "phase2_response": null,
+  "phase2_rt": null,
+  "phase3_response": null,
+  "phase3_rt": null,
+  "phase_1_response": "no",
+  "phase_1_rt": 1.080118800047785
+}

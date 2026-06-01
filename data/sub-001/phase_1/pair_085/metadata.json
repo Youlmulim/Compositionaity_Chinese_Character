@@ -1,0 +1,22 @@
+{
+  "trial_id": 84,
+  "stim_pair_id": "pair_085",
+  "char1": "心",
+  "char2": "心",
+  "canonical_pair": "心心",
+  "meaning": "worry",
+  "meaning_opts": [
+    "worry",
+    "courage",
+    "love",
+    "best friend"
+  ],
+  "phase1_response": null,
+  "phase1_rt": null,
+  "phase2_response": null,
+  "phase2_rt": null,
+  "phase3_response": null,
+  "phase3_rt": null,
+  "phase_1_response": "no",
+  "phase_1_rt": 1.6131575999315828
+}

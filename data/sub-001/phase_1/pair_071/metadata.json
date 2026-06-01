@@ -1,0 +1,22 @@
+{
+  "trial_id": 70,
+  "stim_pair_id": "pair_071",
+  "char1": "又",
+  "char2": "又",
+  "canonical_pair": "又又",
+  "meaning": "pair",
+  "meaning_opts": [
+    "help",
+    "greeting",
+    "pair",
+    "habit"
+  ],
+  "phase1_response": null,
+  "phase1_rt": null,
+  "phase2_response": null,
+  "phase2_rt": null,
+  "phase3_response": null,
+  "phase3_rt": null,
+  "phase_1_response": "no",
+  "phase_1_rt": 0.8267491000005975
+}

@@ -1,0 +1,22 @@
+{
+  "trial_id": 109,
+  "stim_pair_id": "pair_110",
+  "char1": "中",
+  "char2": "又",
+  "canonical_pair": "中又",
+  "meaning": "center",
+  "meaning_opts": [
+    "center",
+    "hit",
+    "circle",
+    "half"
+  ],
+  "phase1_response": null,
+  "phase1_rt": null,
+  "phase2_response": null,
+  "phase2_rt": null,
+  "phase3_response": null,
+  "phase3_rt": null,
+  "phase_1_response": "yes",
+  "phase_1_rt": 4.578410300076939
+}

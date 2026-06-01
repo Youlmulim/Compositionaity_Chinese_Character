@@ -1,0 +1,22 @@
+{
+  "trial_id": 137,
+  "stim_pair_id": "pair_138",
+  "char1": "大",
+  "char2": "王",
+  "canonical_pair": "大王",
+  "meaning": "mountain",
+  "meaning_opts": [
+    "mountain",
+    "tiger",
+    "",
+    "hero"
+  ],
+  "phase1_response": null,
+  "phase1_rt": null,
+  "phase2_response": null,
+  "phase2_rt": null,
+  "phase3_response": null,
+  "phase3_rt": null,
+  "phase_1_response": "no",
+  "phase_1_rt": 0.5249343999894336
+}

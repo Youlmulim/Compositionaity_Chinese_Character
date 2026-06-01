@@ -1,0 +1,22 @@
+{
+  "trial_id": 5,
+  "stim_pair_id": "pair_006",
+  "char1": "月",
+  "char2": "又",
+  "canonical_pair": "月又",
+  "meaning": "to possess",
+  "meaning_opts": [
+    "to possess",
+    "illusion",
+    "routine",
+    "massage"
+  ],
+  "phase1_response": null,
+  "phase1_rt": null,
+  "phase2_response": null,
+  "phase2_rt": null,
+  "phase3_response": null,
+  "phase3_rt": null,
+  "phase_1_response": "no",
+  "phase_1_rt": 0.7557353000156581
+}

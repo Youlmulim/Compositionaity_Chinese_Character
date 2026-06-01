@@ -1,0 +1,22 @@
+{
+  "trial_id": 129,
+  "stim_pair_id": "pair_130",
+  "char1": "子",
+  "char2": "不",
+  "canonical_pair": "子不",
+  "meaning": "lost child",
+  "meaning_opts": [
+    "lost child",
+    "adult",
+    "cry",
+    "stone"
+  ],
+  "phase1_response": null,
+  "phase1_rt": null,
+  "phase2_response": null,
+  "phase2_rt": null,
+  "phase3_response": null,
+  "phase3_rt": null,
+  "phase_1_response": "no",
+  "phase_1_rt": 0.963965000002645
+}

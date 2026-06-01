@@ -1,0 +1,24 @@
+{
+  "trial_id": 160,
+  "stim_pair_id": "pair_161",
+  "char1": "不",
+  "char2": "土",
+  "canonical_pair": "不土",
+  "meaning": "stone",
+  "meaning_opts": [
+    "stone",
+    "sky",
+    "dust",
+    "broken"
+  ],
+  "phase1_response": null,
+  "phase1_rt": null,
+  "phase2_response": null,
+  "phase2_rt": null,
+  "phase3_response": null,
+  "phase3_rt": null,
+  "phase_1_response": "yes",
+  "phase_1_rt": 6.450390000012703,
+  "phase_2_response": "2",
+  "phase_2_rt": 0.7031188000692055
+}

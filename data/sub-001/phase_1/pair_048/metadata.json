@@ -1,0 +1,22 @@
+{
+  "trial_id": 47,
+  "stim_pair_id": "pair_048",
+  "char1": "木",
+  "char2": "中",
+  "canonical_pair": "木中",
+  "meaning": "treetop",
+  "meaning_opts": [
+    "treetop",
+    "hollow tree",
+    "tree trunk",
+    "center pillar"
+  ],
+  "phase1_response": null,
+  "phase1_rt": null,
+  "phase2_response": null,
+  "phase2_rt": null,
+  "phase3_response": null,
+  "phase3_rt": null,
+  "phase_1_response": "yes",
+  "phase_1_rt": 0.6846943000564352
+}

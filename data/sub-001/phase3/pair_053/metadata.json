@@ -1,0 +1,20 @@
+{
+  "trial_id": 52,
+  "stim_pair_id": "pair_053",
+  "char1": "土",
+  "char2": "月",
+  "canonical_pair": "土月",
+  "meaning": "buried moon",
+  "meaning_opts": [
+    "buried moon",
+    "human belly",
+    "ancient earth",
+    "moonlit ground"
+  ],
+  "phase1_response": "yes",
+  "phase1_rt": 0.8259064999874681,
+  "phase2_response": "1",
+  "phase2_rt": 1.8048943001776934,
+  "phase3_response": "CENTER_RIGHT",
+  "phase3_rt": 4.584773000096902
+}
