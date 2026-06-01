@@ -143,8 +143,8 @@ def run_phase3(
 
 
         # Update circle colors and placed characters
-        center_filled = state["placements"]["CENTER"] is not None
-        selected = state["selected_char"] is not None
+        center_filled = state["placements"]["CENTER"] is not None # center circle에서 char이 채워짐.
+        selected = state["selected_char"] is not None  # char가 선택됨
 
         for pos_name, circle_data in circles.items():
             placed_char = state["placements"][pos_name]
