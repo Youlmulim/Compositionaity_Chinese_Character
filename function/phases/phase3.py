@@ -64,6 +64,8 @@ def run_phase3(
         align_horiz="center",
     )
 
+    # 1) setting에 Question 내용 옮기기
+
     meaning_bg = visual.Rect(
         win,
         width=260, height=65,
@@ -123,7 +125,7 @@ def run_phase3(
 
         # Selected character follows the mouse cursor
         if state["selected_char"] == "char1":
-            char1_stim.pos = mouse_pos
+            char1_stim.pos = mouse_pos # 선택한 mouse 위치가 char1의 위치가 됨. 
         elif state["selected_char"] == "char2":
             char2_stim.pos = mouse_pos
         else:
