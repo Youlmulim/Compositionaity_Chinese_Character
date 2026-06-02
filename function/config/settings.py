@@ -19,6 +19,8 @@ WINDOW_UNITS     = "pix"
 WINDOW_FULLSCR   = False          # Set True for actual experiment
 BACKGROUND_COLOR = "#2b2b2b"      # Dark gray matching PDF screenshots
 MONITOR_NAME     = "testMonitor"  # TODO: calibrate your monitor
+SCREEN_NUMBER = 1
+
 
 # ─── Timing ──────────────────────────────────────────────────────────────────
 MAX_RESPONSE_TIME = 10.0          # seconds; None = unlimited

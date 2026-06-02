@@ -8,6 +8,7 @@ from function.io.metadata import make_phase0_result, update_trial, save_trial_me
 from function.io.path_builder import ensure_trial_save_dir, get_subject_dir
 from function.phases.phase0 import run_phase0
 from function.stimuli.trial_loader import build_phase0_trials, preload_images
+from function.utils.screen_utils import show_instructions
 
 
 def run_phase0_loop(
@@ -54,6 +55,8 @@ def run_phase_loop(
         for phase_num in [1, 2, 3]:
             phase_key = f"phase{phase_num}"
             run_fn = phase_fns[phase_num]
+
+            show_instructions(win, cfg.PHASE_CONFIG[phase_num - 1][1])
 
             # 1. frame logger
             fl = make_frame_log(
