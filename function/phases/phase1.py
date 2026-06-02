@@ -24,8 +24,8 @@ from function.utils.draw_utils import (
     make_text, make_button, build_char_equation, draw_char_equation, is_clicked,
     update_button_states,
 )
-from function.utils.response import ResponseResult, make_response
-from function.io.frame_logger import FrameLog, set_onset, log_frame
+from function.utils.response import ResponseResult, make_response, confirm_click
+from function.io.frame_logger import FrameLog, FrameRecorder
 from function.utils.event_utils import check_escape
 from function.utils.progress_bar import TimeProgressBar
 
@@ -86,41 +86,28 @@ def run_phase1(
 
     # ── Flip loop ─────────────────────────────────────────────────────────────
     phase_clock     = core.Clock()
-    frame_idx       = 0
-    result          = make_response() 
+    result          = make_response()
     prev_pressed    = False
     selected_button = None
     mouse.clickReset()
-    
+
     progress_bar = TimeProgressBar(win=win)
+    rec = FrameRecorder(frame_log, global_clock)
 
-    while result["response"] is None and not result["timed_out"]:
+    def redraw():
         update_button_states(buttons, mouse, selected_button)
-
         question_stim.draw()
         draw_char_equation(eq_stims)
         yes_rect.draw(); yes_txt.draw()
         no_rect.draw();  no_txt.draw()
 
+    while result["response"] is None and not result["timed_out"]:
+        redraw()
+
         # Show running progress bar from trial start (like Phase 0).
         progress_bar.draw(elapsed_time=phase_clock.getTime())
 
-        flip_time = win.flip()
-
-        if frame_idx == 0:
-            frame_log = set_onset(frame_log, flip_time)
-            marker = "stimulus_onset"
-        else:
-            marker = ""
-
-        frame_log = log_frame(
-            frame_log,
-            frame_idx=frame_idx,
-            flip_time=flip_time,
-            global_time=global_clock.getTime(),
-            event_marker=marker,
-        )
-        frame_idx += 1
+        rec.flip_and_log(win)
 
         # ── Response check (mouse) ────────────────────────────────────────────
         btn = bool(mouse.getPressed()[P1_MOUSE_BUTTON])
@@ -131,36 +118,13 @@ def run_phase1(
                     selected_button = label
                     rt = phase_clock.getTime()
 
-                    update_button_states(buttons, mouse, selected_button)
-
-                    elapsed_time = phase_clock.getTime()
-
-                    question_stim.draw()
-                    draw_char_equation(eq_stims)
-                    yes_rect.draw(); yes_txt.draw()
-                    no_rect.draw();  no_txt.draw()
-
-                    win.flip()
-
-                    core.wait(0.2)
-
-                    while mouse.getPressed()[P1_MOUSE_BUTTON]:
-                        core.wait(0.001)
+                    confirm_click(win, mouse, button=P1_MOUSE_BUTTON, redraw_fn=redraw, hold=0.2)
 
                     result = make_response(response=label, rt=rt, raw_key="mouse")
                     break
         prev_pressed = btn
 
-
-
         check_escape(win)
 
-    frame_log = log_frame(
-        frame_log,
-        frame_idx=frame_idx,
-        flip_time=win.lastFrameT,
-        global_time=global_clock.getTime(),
-        event_marker="response" if result["response"] else "timeout",
-    )
-
+    frame_log = rec.log_final(win, result)
     return result, frame_log

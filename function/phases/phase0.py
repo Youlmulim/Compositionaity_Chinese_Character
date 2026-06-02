@@ -26,9 +26,9 @@ from function.utils.draw_utils import (
     build_rating_buttons,
     update_rating_button_states,
 )
-from function.utils.response import ResponseResult, make_response
+from function.utils.response import ResponseResult, make_response, confirm_click
 from function.config import settings as cfg
-from function.io.frame_logger import FrameLog, set_onset, log_frame
+from function.io.frame_logger import FrameLog, FrameRecorder
 from function.utils.event_utils import check_escape
 from function.utils.progress_bar import TimeProgressBar
 
@@ -112,45 +112,30 @@ def run_phase0(
     phase_clock = core.Clock()
     mouse.clickReset()
 
-    frame_idx      = 0
     result         = make_response()
     selected_rating = None
 
     progress_bar = TimeProgressBar(win=win)
+    rec = FrameRecorder(frame_log, global_clock)
 
-    while result["response"] is None and not result["timed_out"]:
-        check_escape(win)
-
+    def redraw():
         update_rating_button_states(
             rating_buttons=rating_buttons,
             mouse=mouse,
             selected_rating=selected_rating,
         )
-
         draw_phase0_screen(
             question_text=question_text,
             target_img=target_img,
             rating_buttons=rating_buttons,
         )
 
+    while result["response"] is None and not result["timed_out"]:
+        check_escape(win)
+
+        redraw()
         progress_bar.draw(elapsed_time=phase_clock.getTime())
-
-        flip_time = win.flip()
-
-        if frame_idx == 0:
-            frame_log = set_onset(frame_log, flip_time)
-            marker = "stimulus_onset"
-        else:
-            marker = ""
-
-        frame_log = log_frame(
-            frame_log,
-            frame_idx=frame_idx,
-            flip_time=flip_time,
-            global_time=global_clock.getTime(),
-            event_marker=marker,
-        )
-        frame_idx += 1
+        rec.flip_and_log(win)
 
         if cfg.MAX_RESPONSE_TIME and phase_clock.getTime() > cfg.MAX_RESPONSE_TIME:
             result = make_response(timed_out=True)
@@ -162,22 +147,7 @@ def run_phase0(
                     selected_rating = int(button["rating"])
                     rt = float(phase_clock.getTime())
 
-                    update_rating_button_states(
-                        rating_buttons=rating_buttons,
-                        mouse=mouse,
-                        selected_rating=selected_rating,
-                    )
-                    draw_phase0_screen(
-                        question_text=question_text,
-                        target_img=target_img,
-                        rating_buttons=rating_buttons,
-                    )
-                    
-                    win.flip()
-                    core.wait(0.2)
-
-                    while mouse.getPressed()[0]:
-                        core.wait(0.01)
+                    confirm_click(win, mouse, button=0, redraw_fn=redraw, hold=0.2)
 
                     result = make_response(
                         response=str(selected_rating),
@@ -187,12 +157,5 @@ def run_phase0(
                     )
                     break
 
-    frame_log = log_frame(
-        frame_log,
-        frame_idx=frame_idx,
-        flip_time=win.lastFrameT,
-        global_time=global_clock.getTime(),
-        event_marker="response" if result["response"] else "timeout",
-    )
-
+    frame_log = rec.log_final(win, result)
     return result, frame_log

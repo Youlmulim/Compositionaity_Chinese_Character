@@ -1,4 +1,0 @@
-trial_id,stim_pair_id,canonical_pair,char_order,set,char1,char2,meaning,phase0_response,phase0_rt,phase1_response,phase1_rt,phase2_response,phase2_rt,phase3_response,phase3_rt
-52,pair_053,土月,,,土,月,buried moon,,,yes,0.8259064999874681,1,1.8048943001776934,CENTER_RIGHT,4.584773000096902
-88,pair_089,心大,,,心,大,brave,,,no,0.6488410998135805,,,CENTER_BOTTOM,6.141119699925184
-90,pair_091,心不,,,心,不,hug,,,yes,0.7540819998830557,4,3.8193822000175714,CENTER_BOTTOM,5.145090699894354

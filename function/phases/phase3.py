@@ -15,7 +15,7 @@ from function.config import settings as cfg
 from function.config.key_mapping import P3_MOUSE_BUTTON
 from function.utils.draw_utils import make_text, make_chinese_char, is_hovering
 from function.utils.response import ResponseResult, make_response, wait_for_mouse_release
-from function.io.frame_logger import FrameLog, set_onset, log_frame
+from function.io.frame_logger import FrameLog, FrameRecorder
 from function.utils.event_utils import check_escape
 from function.utils.progress_bar import TimeProgressBar
 
@@ -110,11 +110,11 @@ def run_phase3(
 
     # ── Main flip loop ───────────────────────────────────────────────────────────
     phase_clock = core.Clock()
-    frame_idx = 0
     result = make_response()
     prev_pressed = False
 
     progress_bar = TimeProgressBar(win=win)
+    rec = FrameRecorder(frame_log, global_clock)
 
     # 완료 시간을 기록할 변수 초기화
     completion_time = None
@@ -205,23 +205,8 @@ def run_phase3(
 
         progress_bar.draw(elapsed_time=phase_clock.getTime())
 
-        flip_time = win.flip()
+        rec.flip_and_log(win)
 
-        if frame_idx == 0:
-            frame_log = set_onset(frame_log, flip_time)
-            marker = "stimulus_onset"
-        else:
-            marker = ""
-
-        frame_log = log_frame(
-            frame_log,
-            frame_idx=frame_idx,
-            flip_time=flip_time,
-            global_time=global_clock.getTime(),
-            event_marker=marker,
-        )
-        frame_idx += 1
-            
         # ── Handle mouse clicks ───────────────────────────────────────────────
         btn = bool(mouse.getPressed()[P3_MOUSE_BUTTON])
 
@@ -290,14 +275,7 @@ def run_phase3(
         if cfg.MAX_RESPONSE_TIME and phase_clock.getTime() > cfg.MAX_RESPONSE_TIME:
             result = make_response(timed_out=True)
 
-    frame_log = log_frame(
-        frame_log,
-        frame_idx=frame_idx,
-        flip_time=win.lastFrameT,
-        global_time=global_clock.getTime(),
-        event_marker="response" if result["response"] else "timeout",
-    )
-
+    frame_log = rec.log_final(win, result)
     return result, frame_log
 
 
