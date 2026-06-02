@@ -41,8 +41,7 @@ def run_phase3(
     -------
     (ResponseResult, FrameLog)  — response is "{char1_pos}_{char2_pos}"
     """
-    char1 = trial["char1"]
-    char2 = trial["char2"]
+    char1, char2 = trial["char1"], trial["char2"]
 
     # Get meaning from phase2 response (use corrected key)
     if trial.get("phase2_response"):
@@ -217,12 +216,24 @@ def run_phase3(
 
                 # Check if clicking on char1 (right side)
                 if is_hovering(mouse_pos, cfg.P3_CHAR1_POS, 60) and "char1" not in state["placements"].values():
-                    state["selected_char"] = "char1"
+                    # state["selected_char"] = "char1"
+                    if state["selected_char"] == "char1":
+                        state["selected_char"] = None
+                    elif state["selected_char"] == None:
+                        state["selected_char"] = "char1"
                     wait_for_mouse_release(mouse, P3_MOUSE_BUTTON)
+
+
 
                 # Check if clicking on char2 (right side)
                 elif is_hovering(mouse_pos, cfg.P3_CHAR2_POS, 60) and "char2" not in state["placements"].values():
-                    state["selected_char"] = "char2"
+                    # state["selected_char"] = "char2"
+                    if state["selected_char"] == "char2":
+                    # 이미 들고 있는 상태에서 원래 자리를 클릭하면 내려놓기(취소)
+                        state["selected_char"] = None
+                    elif state["selected_char"] is None:
+                        # 빈 손일 때는 집어들기
+                        state["selected_char"] = "char2"
                     wait_for_mouse_release(mouse, P3_MOUSE_BUTTON)
 
                 # Check if clicking on a circle position
