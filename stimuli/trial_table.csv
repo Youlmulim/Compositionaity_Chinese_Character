@@ -25,26 +25,26 @@ pair_023,日,大,2,11,日大,solar eclipse,solar eclipse,bake,festival,summer
 pair_024,日,女,2,12,日女,sun goddess,sun goddess,warmth,shine,hatch
 pair_025,日,不,2,13,日不,overcast,overcast,freezing,blind,young
 pair_026,人,人,3,3,人人, follower, acrobatics, reflection, twin, follower
-pair_027,人,木,3,4,人木, to rest, tree house, pillory, to rest, wooden puppet
-pair_028,人,土,3,5,人土, pedestrian, pedestrian, buried alive, landowner, clay figure
+pair_027,人,木,3,4,人木,chair,chair,tree house,wooden puppet,to rest
+pair_028,人,土,3,5,人土,grave,grave,pedestrian,clay figure,landowner
 pair_029,人,又,3,6,人又,blessing,blessing,merely,repetition,to lift
 pair_030,人,心,3,7,人心,sincerity,sincerity,overthinking,secret crush,empathy
-pair_031,人,王,3,8,人王,usurper,usurper,oppression,loyalty,royal guard
-pair_032,人,中,3,9,人中,arrow wound,arrow wound,middle child,referee,mediation
+pair_031,人,王,3,8,人王,oppression,oppression,god,bow,loyalty
+pair_032,人,中,3,9,人中,middle child,arrow wound,mediation,referee,middle child
 pair_033,人,子,3,10,人子,parent,parent,young animal,pregnant,orphan
 pair_034,人,大,3,11,人大,master,acrobatics,master,adult,hierarchy
-pair_035,人,女,3,12,人女,patriarchy,patriarchy,matriarchy,wife,couple
-pair_036,人,不,3,13,人不,floating,floating,invisible,lifeless,misanthrope
+pair_035,人,女,3,12,人女,born,born,dress,couple,wife
+pair_036,人,不,3,13,人不,invisible,invisible,floating,ghost,lifeless
 pair_037,木,木,4,4,木木, forest, tall tree, deep roots, forest, wooden bridge
-pair_038,木,土,4,5,木土, buried wood, buried wood, to block, land clearing, planting
+pair_038,木,土,4,5,木土,to block,buried wood,planting,land clearing,to block
 pair_039,木,又,4,6,木又,fruit picking,fruit picking,power,woodworking,logging
 pair_040,木,心,4,7,木心,tree core,tree core,inner peace,meditation,longing
-pair_041,木,王,4,8,木王,royal throne,royal throne,sacred tree,giant tree,scepter
+pair_041,木,王,4,8,木王,sacred tree,sacred tree,royal throne,wand,giant tree
 pair_042,木,中,4,9,木中,hollow tree,hollow tree,treetop,center pillar,tree trunk
 pair_043,木,子,4,10,木子,tree fairy,tree fairy,plum tree,wooden toy,sapling
-pair_044,木,大,4,11,木大,giant tree,giant tree,shade,massive pillar,ancient forest
+pair_044,木,大,4,11,木大,shade,shade,giant tree,paper,log
 pair_045,木,女,4,12,木女,resting spot,resting spot,tree climbing,spring flower,soft wind
-pair_046,木,不,4,13,木不,barren tree,barren tree,cup,unyielding,floating
+pair_046,木,不,4,13,木不,cup,barren tree,floating wood,unyielding,cup
 pair_047,土,土,5,5,土土,gem,gem,mountain,wall,path
 pair_048,土,又,5,6,土又,shovel,shovel,farmer,mud,bowl
 pair_049,土,心,5,7,土心,cave,cave,grave,seed,hometown
@@ -53,7 +53,7 @@ pair_051,土,中,5,9,土中,basement,basement,flagpole,island,desert
 pair_052,土,子,5,10,土子,root,root,playground,brick,sandcastle
 pair_053,土,大,5,11,土大,earthquake,earthquake,mountain,farm,Earth
 pair_054,土,女,5,12,土女,nature,nature,queen,witch,doll
-pair_055,土,不,5,13,土不,stone,stone,sky,dust,broken
+pair_055,土,不,5,13,土不,broken,sky,stone,dust,broken
 pair_056,又,又,6,6,又又,pair,help,greeting,pair,habit
 pair_057,又,心,6,7,又心,promise,promise,comfort,gift,wish
 pair_058,又,王,6,8,又王,prince,prince,crown,gold,sword
