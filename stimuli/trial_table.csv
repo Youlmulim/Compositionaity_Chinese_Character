@@ -1,92 +1,92 @@
 stim_pair_id,char1,char2,char1_id,char2_id,canonical_pair,meaning,meaning_opt1,meaning_opt2,meaning_opt3,meaning_opt4
-pair_001,月,月,1,1,月月, loyal friend, many months, moon reflection, loyal friend, two nights
-pair_002,月,日,1,2,月日, bright light, day and night, solar eclipse, passing time, bright light
-pair_003,月,人,1,3,月人, astronaut, astronaut, pale, physical body, tenant
-pair_004,月,木,1,4,月木, bow,bow,calendar,doll,boat
-pair_005,月,土,1,5,月土, stomach,status,dark,stomach,bowl
-pair_006,月,又,1,6,月又,to possess,illusion,to possess,massage,routine
-pair_007,月,心,1,7,月心,homesickness,homesickness,self-control,vital organ,yearning
-pair_008,月,王,1,8,月王,sacred jage,calendar,sacred jage,muscular,brain
-pair_009,月,中,1,9,月中,swelling,mid-month,swelling,lunar eclipse,inner core
-pair_010,月,子,1,10,月子,embryo,embryo,lullaby,growth,seed
-pair_011,月,大,1,11,月大,full moon,giant shadow,full moon,obesity,leap month
-pair_012,月,女,1,12,月女,beautiful,beautiful,mother,soft,fairy
-pair_013,月,不,1,13,月不,night,night,bone,sick,hidden
-pair_014,日,日,2,2,日日,bright, intense drought, tomorrow, bright, daily diary
-pair_015,日,人,2,3,日人,sunstroke, sunstroke, sun god, sunbather, day laborer
-pair_016,日,木,2,4,日木,dry,dry,bright sunlight,sunset,spring season
-pair_017,日,土,2,5,日土,darkness,darkness,dawn,hard,agriculture
-pair_018,日,又,2,6,日又,daily routine,daily routine,shade,sunburn,anniversary
-pair_019,日,心,2,7,日心,depression,depression,memory,daily mood,passion
-pair_020,日,王,2,8,日王,emperor,emperor,prosperous,crown jewel,majesty
-pair_021,日,中,2,9,日中,dust,dust,midday,melt,heartstroke
-pair_022,日,子,2,10,日子,germination,germination,shadow,morning,youth
-pair_023,日,大,2,11,日大,solar eclipse,solar eclipse,bake,festival,summer
-pair_024,日,女,2,12,日女,sun goddess,sun goddess,warmth,shine,hatch
-pair_025,日,不,2,13,日不,overcast,overcast,freezing,blind,young
-pair_026,人,人,3,3,人人, follower, acrobatics, reflection, twin, follower
-pair_027,人,木,3,4,人木,chair,chair,tree house,wooden puppet,to rest
-pair_028,人,土,3,5,人土,grave,grave,pedestrian,clay figure,landowner
-pair_029,人,又,3,6,人又,blessing,blessing,merely,repetition,to lift
-pair_030,人,心,3,7,人心,sincerity,sincerity,overthinking,secret crush,empathy
-pair_031,人,王,3,8,人王,oppression,oppression,god,bow,loyalty
-pair_032,人,中,3,9,人中,middle child,arrow wound,mediation,referee,middle child
-pair_033,人,子,3,10,人子,parent,parent,young animal,pregnant,orphan
-pair_034,人,大,3,11,人大,master,acrobatics,master,adult,hierarchy
-pair_035,人,女,3,12,人女,born,born,dress,couple,wife
-pair_036,人,不,3,13,人不,invisible,invisible,floating,ghost,lifeless
-pair_037,木,木,4,4,木木, forest, tall tree, deep roots, forest, wooden bridge
-pair_038,木,土,4,5,木土,to block,buried wood,planting,land clearing,to block
-pair_039,木,又,4,6,木又,fruit picking,fruit picking,power,woodworking,logging
-pair_040,木,心,4,7,木心,tree core,tree core,inner peace,meditation,longing
-pair_041,木,王,4,8,木王,sacred tree,sacred tree,royal throne,wand,giant tree
-pair_042,木,中,4,9,木中,hollow tree,hollow tree,treetop,center pillar,tree trunk
-pair_043,木,子,4,10,木子,tree fairy,tree fairy,plum tree,wooden toy,sapling
-pair_044,木,大,4,11,木大,shade,shade,giant tree,paper,log
-pair_045,木,女,4,12,木女,resting spot,resting spot,tree climbing,spring flower,soft wind
-pair_046,木,不,4,13,木不,cup,barren tree,floating wood,unyielding,cup
-pair_047,土,土,5,5,土土,gem,gem,mountain,wall,path
-pair_048,土,又,5,6,土又,shovel,shovel,farmer,mud,bowl
-pair_049,土,心,5,7,土心,cave,cave,grave,seed,hometown
-pair_050,土,王,5,8,土王,gold,gold,castle,pyramid,country
-pair_051,土,中,5,9,土中,basement,basement,flagpole,island,desert
-pair_052,土,子,5,10,土子,root,root,playground,brick,sandcastle
-pair_053,土,大,5,11,土大,earthquake,earthquake,mountain,farm,Earth
-pair_054,土,女,5,12,土女,nature,nature,queen,witch,doll
-pair_055,土,不,5,13,土不,broken,sky,stone,dust,broken
-pair_056,又,又,6,6,又又,pair,help,greeting,pair,habit
-pair_057,又,心,6,7,又心,promise,promise,comfort,gift,wish
-pair_058,又,王,6,8,又王,prince,prince,crown,gold,sword
-pair_059,又,中,6,9,又中,center,center,hit,circle,half
-pair_060,又,子,6,10,又子,baby,baby,hug,toy,friend
-pair_061,又,大,6,11,又大,clap,clap,giant,hero,adult
-pair_062,又,女,6,12,又女,servant,sister,dnance,nurse,servant
-pair_063,又,不,6,13,又不,secret,secret,stop,left,goodbye
-pair_064,心,心,7,7,心心,worry,worry,courage,love,best friend
-pair_065,心,王,7,8,心王,confidence,confidence,pride,truth,leader
-pair_066,心,中,7,9,心中,trust,trust,focus,center,secret
-pair_067,心,子,7,10,心子,hope,hope,smile,kindness,pure
-pair_068,心,大,7,11,心大,greed,greed,brave,adult,dream
-pair_069,心,女,7,12,心女,mother,mother,angel,care,gentle
-pair_070,心,不,7,13,心不,forget,forget,cold,hug,lie
-pair_071,王,王,8,8,王王,gem,god,gold,gem,war
-pair_072,王,中,8,9,王中,heart,heart,castle,target,city
-pair_073,王,子,8,10,王子,pearl,pearl,prince,toy,twin
-pair_074,王,大,8,11,王大,mountain,mountain,tiger,giant,hero
-pair_075,王,女,8,12,王女,queen,princess,queen,mirror,beauty
-pair_076,王,不,8,13,王不,thief,thief,servant,fake,ring
-pair_077,中,中,9,9,中中,target,target,core,tunnel,arrow
-pair_078,中,子,9,10,中子,seed,seed,student,egg,middle child
-pair_079,中,大,9,11,中大,stomach,stomach,boss,main street,square
-pair_080,中,女,9,12,中女,mother,mother,bride,star,sister
-pair_081,中,不,9,13,中不,miss,miss,edge,wall,empty
-pair_082,子,子,10,10,子子,twin,grandchild,fruit,twin,friend
-pair_083,子,大,10,11,子大,parents,parents,play,big brother,grow
-pair_084,子,女,10,12,子女,good,baby,mother,daughter,good
-pair_085,子,不,10,13,子不,adult,adult,lost child,stone,cry
-pair_086,大,大,11,11,大大,compare,tower,giant,compare,huge
-pair_087,大,女,11,12,大女,grandmother,queen,mother,goddess,grandmother
-pair_088,大,不,11,13,大不,small,never,small,weak,shrink
-pair_089,女,女,12,12,女女,fight,family,twins,fight,friends
-pair_090,女,不,12,13,女不,witch,witch,man,hide,sad
-pair_091,不,不,13,13,不不,yes,yes,empty,lie,fight
+pair_001,月,月,1,1,月月,忠友,多月,月影,忠友,二夜
+pair_002,月,日,1,2,月日,明光,晝夜,日蝕,時流,明光
+pair_003,月,人,1,3,月人,宇航員,宇航員,蒼白,身體,住客
+pair_004,月,木,1,4,月木,弓,弓,曆,人形,舟
+pair_005,月,土,1,5,月土,胃,地位,暗,胃,碗
+pair_006,月,又,1,6,月又,有,幻影,有,按摩,常規
+pair_007,月,心,1,7,月心,鄉愁,鄉愁,自制,臟器,思慕
+pair_008,月,王,1,8,月王,聖玉,曆,聖玉,肌肉,腦
+pair_009,月,中,1,9,月中,腫脹,月中,腫脹,月蝕,核心
+pair_010,月,子,1,10,月子,胚胎,胚胎,搖籃曲,成長,種子
+pair_011,月,大,1,11,月大,滿月,巨影,滿月,肥胖,閏月
+pair_012,月,女,1,12,月女,美,美,母,柔軟,仙女
+pair_013,月,不,1,13,月不,夜,夜,骨,病,隱
+pair_014,日,日,2,2,日日,明,酷旱,明日,明,日記
+pair_015,日,人,2,3,日人,中暑,中暑,日神,日浴者,日工
+pair_016,日,木,2,4,日木,乾,乾,陽光,日落,春季
+pair_017,日,土,2,5,日土,黑暗,黑暗,黎明,硬,農業
+pair_018,日,又,2,6,日又,日課,日課,陰影,曬傷,周年
+pair_019,日,心,2,7,日心,憂鬱,憂鬱,記憶,心情,熱情
+pair_020,日,王,2,8,日王,皇帝,皇帝,繁榮,冠珠,威嚴
+pair_021,日,中,2,9,日中,塵,塵,正午,融化,熱病
+pair_022,日,子,2,10,日子,發芽,發芽,影,朝,青春
+pair_023,日,大,2,11,日大,日蝕,日蝕,烘焙,祭,夏
+pair_024,日,女,2,12,日女,日女神,日女神,暖,照,孵化
+pair_025,日,不,2,13,日不,陰天,陰天,凍結,盲,幼
+pair_026,人,人,3,3,人人,從者,雜技,倒影,雙生,從者
+pair_027,人,木,3,4,人木,椅,椅,樹屋,木偶,休
+pair_028,人,土,3,5,人土,墓,墓,行人,土偶,地主
+pair_029,人,又,3,6,人又,祝福,祝福,僅,重複,舉
+pair_030,人,心,3,7,人心,誠,誠,多慮,暗戀,共感
+pair_031,人,王,3,8,人王,壓迫,壓迫,神,弓,忠誠
+pair_032,人,中,3,9,人中,中子,箭傷,調停,裁判,中子
+pair_033,人,子,3,10,人子,親,親,幼獸,懷孕,孤兒
+pair_034,人,大,3,11,人大,主人,雜技,主人,成人,階級
+pair_035,人,女,3,12,人女,出生,出生,裙,夫婦,妻
+pair_036,人,不,3,13,人不,隱形,隱形,浮游,鬼,無生
+pair_037,木,木,4,4,木木,森林,高木,深根,森林,木橋
+pair_038,木,土,4,5,木土,阻,埋木,植樹,開墾,阻
+pair_039,木,又,4,6,木又,採果,採果,力,木工,伐木
+pair_040,木,心,4,7,木心,木心,木心,安心,冥想,思慕
+pair_041,木,王,4,8,木王,神木,神木,玉座,魔杖,巨木
+pair_042,木,中,4,9,木中,空木,空木,樹冠,中柱,樹幹
+pair_043,木,子,4,10,木子,樹精,樹精,梅,木玩具,苗木
+pair_044,木,大,4,11,木大,陰影,陰影,巨木,紙,原木
+pair_045,木,女,4,12,木女,休息處,休息處,攀樹,春花,微風
+pair_046,木,不,4,13,木不,杯,枯木,浮木,不屈,杯
+pair_047,土,土,5,5,土土,寶石,寶石,山,壁,道
+pair_048,土,又,5,6,土又,鏟,鏟,農夫,泥,碗
+pair_049,土,心,5,7,土心,洞窟,洞窟,墓,種子,故鄉
+pair_050,土,王,5,8,土王,金,金,城,金字塔,國
+pair_051,土,中,5,9,土中,地下室,地下室,旗竿,島,沙漠
+pair_052,土,子,5,10,土子,根,根,操場,磚,沙城
+pair_053,土,大,5,11,土大,地震,地震,山,農場,地球
+pair_054,土,女,5,12,土女,自然,自然,女王,魔女,人形
+pair_055,土,不,5,13,土不,破,天,石,塵,破
+pair_056,又,又,6,6,又又,雙,助,問候,雙,習慣
+pair_057,又,心,6,7,又心,約束,約束,安慰,禮物,願
+pair_058,又,王,6,8,又王,王子,王子,王冠,金,劍
+pair_059,又,中,6,9,又中,中,中,擊,圓,半
+pair_060,又,子,6,10,又子,嬰兒,嬰兒,抱,玩具,友
+pair_061,又,大,6,11,又大,拍手,拍手,巨人,英雄,成人
+pair_062,又,女,6,12,又女,僕,姊妹,舞,護士,僕
+pair_063,又,不,6,13,又不,秘密,秘密,止,左,再見
+pair_064,心,心,7,7,心心,憂,憂,勇氣,愛,摯友
+pair_065,心,王,7,8,心王,自信,自信,自尊,真實,首領
+pair_066,心,中,7,9,心中,信賴,信賴,集中,中,秘密
+pair_067,心,子,7,10,心子,希望,希望,微笑,親切,純
+pair_068,心,大,7,11,心大,貪,貪,勇敢,成人,夢
+pair_069,心,女,7,12,心女,母,母,天使,照護,溫柔
+pair_070,心,不,7,13,心不,忘,忘,寒冷,抱,虛言
+pair_071,王,王,8,8,王王,寶石,神,金,寶石,戰
+pair_072,王,中,8,9,王中,心,心,城,標的,都市
+pair_073,王,子,8,10,王子,珍珠,珍珠,王子,玩具,雙生
+pair_074,王,大,8,11,王大,山,山,虎,巨人,英雄
+pair_075,王,女,8,12,王女,女王,公主,女王,鏡,美
+pair_076,王,不,8,13,王不,盜,盜,僕,假,戒指
+pair_077,中,中,9,9,中中,標的,標的,核心,隧道,箭
+pair_078,中,子,9,10,中子,種子,種子,學生,卵,中子
+pair_079,中,大,9,11,中大,胃,胃,老闆,大街,廣場
+pair_080,中,女,9,12,中女,母,母,新娘,星,姊妹
+pair_081,中,不,9,13,中不,失,失,邊,壁,空
+pair_082,子,子,10,10,子子,雙生,孫,果,雙生,友
+pair_083,子,大,10,11,子大,父母,父母,遊,兄,育
+pair_084,子,女,10,12,子女,好,嬰兒,母,女兒,好
+pair_085,子,不,10,13,子不,成人,成人,迷子,石,泣
+pair_086,大,大,11,11,大大,比,塔,巨人,比,巨大
+pair_087,大,女,11,12,大女,祖母,女王,母,女神,祖母
+pair_088,大,不,11,13,大不,小,未曾,小,弱,縮
+pair_089,女,女,12,12,女女,鬥,家族,雙胞,鬥,朋友
+pair_090,女,不,12,13,女不,魔女,魔女,男,隱,悲
+pair_091,不,不,13,13,不不,是,是,空,虛言,鬥
