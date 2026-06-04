@@ -1,9 +1,9 @@
 stim_pair_id,char1,char2,char1_id,char2_id,canonical_pair,meaning,meaning_opt1,meaning_opt2,meaning_opt3,meaning_opt4
 pair_001,月,月,1,1,月月, loyal friend, many months, moon reflection, loyal friend, two nights
 pair_002,月,日,1,2,月日, bright light, day and night, solar eclipse, passing time, bright light
-pair_003,月,人,1,3,月人, night watchman, night watchman, astronaut, physical body, tenant
+pair_003,月,人,1,3,月人, astronaut, astronaut, pale, physical body, tenant
 pair_004,月,木,1,4,月木, bow,bow,calendar,doll,boat
-pair_005,月,土,1,5,月土, stomach,rot,dark,stomach,bowl
+pair_005,月,土,1,5,月土, stomach,status,dark,stomach,bowl
 pair_006,月,又,1,6,月又,to possess,illusion,to possess,massage,routine
 pair_007,月,心,1,7,月心,homesickness,homesickness,self-control,vital organ,yearning
 pair_008,月,王,1,8,月王,calendar,calendar,sacred jage,muscular,brain
