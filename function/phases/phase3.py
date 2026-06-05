@@ -77,7 +77,8 @@ def run_phase3(
         meaning,
         pos=cfg.P3_MEANING_BOX_POS,
         height=34,
-        color="black"
+        color="black",
+        font=cfg.P23_MEANING_FONT,
     )
 
     # Create 5 circles in cross pattern

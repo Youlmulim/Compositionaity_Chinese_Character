@@ -16,7 +16,7 @@ TRIAL_TABLE_CSV = ROOT_DIR / "stimuli" / "trial_table.csv"
 # ─── Window ───────────────────────────────────────────────────────────────────
 WINDOW_SIZE      = (1920, 1080)   # TODO: adjust to your display
 WINDOW_UNITS     = "pix"
-WINDOW_FULLSCR   = False          # Set True for actual experiment
+WINDOW_FULLSCR   = True          # Set True for actual experiment
 BACKGROUND_COLOR = "#2b2b2b"      # Dark gray matching PDF screenshots
 MONITOR_NAME     = "testMonitor"  # TODO: calibrate your monitor
 SCREEN_NUMBER = 1
@@ -51,6 +51,9 @@ P2_QUESTION = (
     "what would its meaning be?"
 )
 # TODO: per-trial meaning options are loaded from trial_table.csv
+P23_MEANING_FONT = "Kaiti SC"
+# macOS fallback candidates:
+# "Kaiti SC", "STKaiti", "PingFang SC", "Songti SC"
 
 # Phase 3
 P3_QUESTION_TMPL = (
@@ -83,7 +86,7 @@ P2_EQ_EQ_POS       = ( 140, 160)
 P2_EQ_QMARK_POS    = ( 260, 160)
 P2_QUESTION_POS    = (0, 360)
 P2_QUESTION_HEIGHT = 36
-P2_CHOICE_HEIGHT   = 34
+P2_CHOICE_HEIGHT   = 50
 P2_CHOICE_CIRCLE_RADIUS = 55
 P2_CHOICE_CIRCLE_POS    = [(-640, 40), (70, 40), (-640, -160), (70, -160)]
 P2_CHOICE_TEXT_POS      = [(-380, 40), (380, 40), (-380, -160), (380, -160)]

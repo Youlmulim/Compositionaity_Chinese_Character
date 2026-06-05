@@ -28,12 +28,13 @@ def make_text(
     color: str = TEXT_COLOR,
     bold: bool = False,
     align_horiz: str = "center",
+    font: Optional[str] = None,
 ) -> visual.TextStim:
     """Return a TextStim (not yet drawn)."""
     return visual.TextStim(
         win,
         text=text,
-        font=FONT,
+        font=font or FONT,
         pos=pos,
         height=height,
         color=color,

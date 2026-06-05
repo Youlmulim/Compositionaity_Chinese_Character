@@ -78,7 +78,11 @@ def run_phase2(
     SINGLE_OPT_DURATION = 1.5  # 노출 시간 (2초)
     
     single_opt_stim = make_text(
-        win, text="", pos=(0, -100), height=cfg.P2_CHOICE_HEIGHT
+        win,
+        text="",
+        pos=(0, -100),
+        height=cfg.P2_CHOICE_HEIGHT,
+        font=cfg.P23_MEANING_FONT,
     )
 
     for seq_num, (orig_idx, opt_text) in enumerate(opts_with_idx, start=1):
@@ -151,7 +155,13 @@ def run_phase2(
         )
 
         # 2. 의미 텍스트: 흰 배경 위에 보이도록 글자 색상을 검은색으로 고정합니다.
-        opt_txt = make_text(win, text=opt_text, pos=panel_pos, height=cfg.P2_CHOICE_HEIGHT)
+        opt_txt = make_text(
+            win,
+            text=opt_text,
+            pos=panel_pos,
+            height=cfg.P2_CHOICE_HEIGHT,
+            font=cfg.P23_MEANING_FONT,
+        )
         opt_txt.color = "black"  # 색상 변경 필요 없으므로 검은색 고정
 
         choice_panels.append(rect)
