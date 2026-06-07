@@ -1,0 +1,21 @@
+{
+  "trial_id": 21,
+  "stim_pair_id": "pair_022",
+  "char1": "子",
+  "char2": "日",
+  "canonical_pair": "日子",
+  "char_order": "BA",
+  "meaning": "发芽",
+  "meaning_opts": [
+    "影",
+    "清晨",
+    "发芽",
+    "青春"
+  ],
+  "phase1_response": "yes",
+  "phase1_rt": 4.418727291660616,
+  "phase2_response": "1",
+  "phase2_rt": 3.9076210833445657,
+  "phase3_response": "LEFT_CENTER",
+  "phase3_rt": 6.7207692916708766
+}

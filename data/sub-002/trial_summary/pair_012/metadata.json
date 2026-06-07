@@ -1,0 +1,21 @@
+{
+  "trial_id": 11,
+  "stim_pair_id": "pair_012",
+  "char1": "月",
+  "char2": "女",
+  "canonical_pair": "月女",
+  "char_order": "AB",
+  "meaning": "美丽",
+  "meaning_opts": [
+    "母亲",
+    "柔软",
+    "仙女",
+    "美丽"
+  ],
+  "phase1_response": "yes",
+  "phase1_rt": 3.3030651250010123,
+  "phase2_response": "3",
+  "phase2_rt": 7.243633916659746,
+  "phase3_response": "RIGHT_CENTER",
+  "phase3_rt": 5.033458999998402
+}

@@ -1,0 +1,21 @@
+{
+  "trial_id": 7,
+  "stim_pair_id": "pair_008",
+  "char1": "王",
+  "char2": "月",
+  "canonical_pair": "月王",
+  "char_order": "BA",
+  "meaning": "圣玉",
+  "meaning_opts": [
+    "肌肉",
+    "日历",
+    "圣玉",
+    "脑"
+  ],
+  "phase1_response": "yes",
+  "phase1_rt": 3.7222456666786456,
+  "phase2_response": null,
+  "phase2_rt": null,
+  "phase3_response": "RIGHT_CENTER",
+  "phase3_rt": 7.849742249993142
+}

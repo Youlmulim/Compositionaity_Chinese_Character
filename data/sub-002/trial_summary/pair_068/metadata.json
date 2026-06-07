@@ -1,0 +1,21 @@
+{
+  "trial_id": 67,
+  "stim_pair_id": "pair_068",
+  "char1": "心",
+  "char2": "大",
+  "canonical_pair": "心大",
+  "char_order": "AB",
+  "meaning": "贪婪",
+  "meaning_opts": [
+    "梦",
+    "勇敢",
+    "成人",
+    "贪婪"
+  ],
+  "phase1_response": "no",
+  "phase1_rt": 5.53913041666965,
+  "phase2_response": "2",
+  "phase2_rt": 1.6619658749987138,
+  "phase3_response": "BOTTOM_CENTER",
+  "phase3_rt": 3.597758583317045
+}

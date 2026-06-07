@@ -1,0 +1,21 @@
+{
+  "trial_id": 38,
+  "stim_pair_id": "pair_039",
+  "char1": "木",
+  "char2": "又",
+  "canonical_pair": "木又",
+  "char_order": "AB",
+  "meaning": "采果",
+  "meaning_opts": [
+    "伐木",
+    "采果",
+    "力量",
+    "木工"
+  ],
+  "phase1_response": "no",
+  "phase1_rt": 11.317331458325498,
+  "phase2_response": null,
+  "phase2_rt": null,
+  "phase3_response": "CENTER_RIGHT",
+  "phase3_rt": 5.967652041668771
+}

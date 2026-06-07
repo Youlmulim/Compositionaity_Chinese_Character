@@ -1,0 +1,21 @@
+{
+  "trial_id": 60,
+  "stim_pair_id": "pair_061",
+  "char1": "大",
+  "char2": "又",
+  "canonical_pair": "又大",
+  "char_order": "BA",
+  "meaning": "拍手",
+  "meaning_opts": [
+    "成人",
+    "拍手",
+    "英雄",
+    "巨人"
+  ],
+  "phase1_response": "yes",
+  "phase1_rt": 5.067757958328002,
+  "phase2_response": "3",
+  "phase2_rt": 8.328519125003368,
+  "phase3_response": "RIGHT_CENTER",
+  "phase3_rt": 3.512846541663748
+}

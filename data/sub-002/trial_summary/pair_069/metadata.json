@@ -1,0 +1,21 @@
+{
+  "trial_id": 68,
+  "stim_pair_id": "pair_069",
+  "char1": "心",
+  "char2": "女",
+  "canonical_pair": "心女",
+  "char_order": "AB",
+  "meaning": "母亲",
+  "meaning_opts": [
+    "母亲",
+    "天使",
+    "温柔",
+    "照护"
+  ],
+  "phase1_response": "no",
+  "phase1_rt": 5.489068583323387,
+  "phase2_response": "3",
+  "phase2_rt": 1.0607182916719466,
+  "phase3_response": "BOTTOM_CENTER",
+  "phase3_rt": 3.1524264166655485
+}

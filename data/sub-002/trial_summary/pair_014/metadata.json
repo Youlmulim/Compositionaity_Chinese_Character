@@ -1,0 +1,21 @@
+{
+  "trial_id": 13,
+  "stim_pair_id": "pair_014",
+  "char1": "日",
+  "char2": "日",
+  "canonical_pair": "日日",
+  "char_order": "BA",
+  "meaning": "明亮",
+  "meaning_opts": [
+    "明亮",
+    "明日",
+    "酷旱",
+    "日记"
+  ],
+  "phase1_response": "yes",
+  "phase1_rt": 3.369427999990876,
+  "phase2_response": "3",
+  "phase2_rt": 1.3282270833296934,
+  "phase3_response": "CENTER_RIGHT",
+  "phase3_rt": 4.2898980416648556
+}

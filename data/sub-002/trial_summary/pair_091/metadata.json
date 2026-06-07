@@ -1,0 +1,21 @@
+{
+  "trial_id": 90,
+  "stim_pair_id": "pair_091",
+  "char1": "不",
+  "char2": "不",
+  "canonical_pair": "不不",
+  "char_order": "AB",
+  "meaning": "是",
+  "meaning_opts": [
+    "争斗",
+    "谎言",
+    "是",
+    "空"
+  ],
+  "phase1_response": "yes",
+  "phase1_rt": 2.0873943333281204,
+  "phase2_response": null,
+  "phase2_rt": null,
+  "phase3_response": "CENTER_RIGHT",
+  "phase3_rt": 3.4025854999927105
+}

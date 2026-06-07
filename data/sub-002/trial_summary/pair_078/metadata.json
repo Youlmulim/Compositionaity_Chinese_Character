@@ -1,0 +1,21 @@
+{
+  "trial_id": 77,
+  "stim_pair_id": "pair_078",
+  "char1": "子",
+  "char2": "中",
+  "canonical_pair": "中子",
+  "char_order": "BA",
+  "meaning": "种子",
+  "meaning_opts": [
+    "中子",
+    "蛋",
+    "学生",
+    "种子"
+  ],
+  "phase1_response": "no",
+  "phase1_rt": 5.921122833329719,
+  "phase2_response": "1",
+  "phase2_rt": 8.294115416661953,
+  "phase3_response": "RIGHT_CENTER",
+  "phase3_rt": 7.553677375006373
+}

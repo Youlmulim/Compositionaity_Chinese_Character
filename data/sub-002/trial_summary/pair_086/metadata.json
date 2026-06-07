@@ -1,0 +1,21 @@
+{
+  "trial_id": 85,
+  "stim_pair_id": "pair_086",
+  "char1": "大",
+  "char2": "大",
+  "canonical_pair": "大大",
+  "char_order": "AB",
+  "meaning": "比较",
+  "meaning_opts": [
+    "塔",
+    "巨大",
+    "巨人",
+    "比较"
+  ],
+  "phase1_response": "no",
+  "phase1_rt": 5.8738628333376255,
+  "phase2_response": "2",
+  "phase2_rt": 1.8097351666510804,
+  "phase3_response": "CENTER_RIGHT",
+  "phase3_rt": 4.176397250004811
+}

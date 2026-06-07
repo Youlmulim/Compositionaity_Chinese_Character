@@ -1,0 +1,21 @@
+{
+  "trial_id": 8,
+  "stim_pair_id": "pair_009",
+  "char1": "中",
+  "char2": "月",
+  "canonical_pair": "月中",
+  "char_order": "BA",
+  "meaning": "肿胀",
+  "meaning_opts": [
+    "月中",
+    "月食",
+    "肿胀",
+    "内核"
+  ],
+  "phase1_response": "yes",
+  "phase1_rt": 3.2017042500083335,
+  "phase2_response": "3",
+  "phase2_rt": 1.8779921249952167,
+  "phase3_response": "RIGHT_CENTER",
+  "phase3_rt": 8.8096277500008
+}

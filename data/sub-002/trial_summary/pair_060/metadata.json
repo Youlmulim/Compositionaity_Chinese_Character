@@ -1,0 +1,21 @@
+{
+  "trial_id": 59,
+  "stim_pair_id": "pair_060",
+  "char1": "子",
+  "char2": "又",
+  "canonical_pair": "又子",
+  "char_order": "BA",
+  "meaning": "婴儿",
+  "meaning_opts": [
+    "玩具",
+    "朋友",
+    "婴儿",
+    "拥抱"
+  ],
+  "phase1_response": "no",
+  "phase1_rt": 9.004374000011012,
+  "phase2_response": "3",
+  "phase2_rt": 1.5781715833436465,
+  "phase3_response": "RIGHT_CENTER",
+  "phase3_rt": 3.6359552500071004
+}

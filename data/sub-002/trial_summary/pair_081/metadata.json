@@ -1,0 +1,21 @@
+{
+  "trial_id": 80,
+  "stim_pair_id": "pair_081",
+  "char1": "不",
+  "char2": "中",
+  "canonical_pair": "中不",
+  "char_order": "BA",
+  "meaning": "失去",
+  "meaning_opts": [
+    "边缘",
+    "失去",
+    "空",
+    "墙"
+  ],
+  "phase1_response": "no",
+  "phase1_rt": 10.018829499997082,
+  "phase2_response": null,
+  "phase2_rt": null,
+  "phase3_response": "BOTTOM_CENTER",
+  "phase3_rt": 4.879290958328056
+}

@@ -1,0 +1,21 @@
+{
+  "trial_id": 84,
+  "stim_pair_id": "pair_085",
+  "char1": "子",
+  "char2": "不",
+  "canonical_pair": "子不",
+  "char_order": "AB",
+  "meaning": "成人",
+  "meaning_opts": [
+    "石头",
+    "成人",
+    "迷子",
+    "哭"
+  ],
+  "phase1_response": "no",
+  "phase1_rt": 9.652977291669231,
+  "phase2_response": null,
+  "phase2_rt": null,
+  "phase3_response": "BOTTOM_CENTER",
+  "phase3_rt": 7.506687708344543
+}

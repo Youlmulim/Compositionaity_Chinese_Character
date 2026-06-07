@@ -1,0 +1,21 @@
+{
+  "trial_id": 14,
+  "stim_pair_id": "pair_015",
+  "char1": "日",
+  "char2": "人",
+  "canonical_pair": "日人",
+  "char_order": "AB",
+  "meaning": "中暑",
+  "meaning_opts": [
+    "日工",
+    "中暑",
+    "晒客",
+    "日神"
+  ],
+  "phase1_response": "yes",
+  "phase1_rt": 10.285224291670602,
+  "phase2_response": null,
+  "phase2_rt": null,
+  "phase3_response": "BOTTOM_CENTER",
+  "phase3_rt": 5.002379833327723
+}

@@ -1,0 +1,21 @@
+{
+  "trial_id": 79,
+  "stim_pair_id": "pair_080",
+  "char1": "女",
+  "char2": "中",
+  "canonical_pair": "中女",
+  "char_order": "BA",
+  "meaning": "母亲",
+  "meaning_opts": [
+    "星",
+    "姐妹",
+    "母亲",
+    "新娘"
+  ],
+  "phase1_response": "no",
+  "phase1_rt": 6.6364728750049835,
+  "phase2_response": "4",
+  "phase2_rt": 5.978166374989087,
+  "phase3_response": "LEFT_CENTER",
+  "phase3_rt": 7.18731720832875
+}

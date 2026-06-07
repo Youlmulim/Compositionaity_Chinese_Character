@@ -1,0 +1,21 @@
+{
+  "trial_id": 54,
+  "stim_pair_id": "pair_055",
+  "char1": "土",
+  "char2": "不",
+  "canonical_pair": "土不",
+  "char_order": "AB",
+  "meaning": "破碎",
+  "meaning_opts": [
+    "灰尘",
+    "石头",
+    "破碎",
+    "天空"
+  ],
+  "phase1_response": "no",
+  "phase1_rt": 3.952284791666898,
+  "phase2_response": "3",
+  "phase2_rt": 6.311597083345987,
+  "phase3_response": "RIGHT_CENTER",
+  "phase3_rt": 4.324502125004074
+}

@@ -1,0 +1,21 @@
+{
+  "trial_id": 26,
+  "stim_pair_id": "pair_027",
+  "char1": "木",
+  "char2": "人",
+  "canonical_pair": "人木",
+  "char_order": "BA",
+  "meaning": "椅子",
+  "meaning_opts": [
+    "树屋",
+    "休息",
+    "木偶",
+    "椅子"
+  ],
+  "phase1_response": "no",
+  "phase1_rt": 7.103309916652506,
+  "phase2_response": "3",
+  "phase2_rt": 1.8114707083295798,
+  "phase3_response": "CENTER_RIGHT",
+  "phase3_rt": 3.81352908333065
+}

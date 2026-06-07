@@ -1,0 +1,21 @@
+{
+  "trial_id": 53,
+  "stim_pair_id": "pair_054",
+  "char1": "土",
+  "char2": "女",
+  "canonical_pair": "土女",
+  "char_order": "AB",
+  "meaning": "自然",
+  "meaning_opts": [
+    "自然",
+    "女王",
+    "巫婆",
+    "玩偶"
+  ],
+  "phase1_response": "no",
+  "phase1_rt": 7.004134333328693,
+  "phase2_response": "3",
+  "phase2_rt": 1.5610145416576415,
+  "phase3_response": "RIGHT_CENTER",
+  "phase3_rt": 3.070223666669335
+}

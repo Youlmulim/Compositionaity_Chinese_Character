@@ -1,0 +1,21 @@
+{
+  "trial_id": 46,
+  "stim_pair_id": "pair_047",
+  "char1": "土",
+  "char2": "土",
+  "canonical_pair": "土土",
+  "char_order": "AB",
+  "meaning": "宝石",
+  "meaning_opts": [
+    "山",
+    "路",
+    "墙",
+    "宝石"
+  ],
+  "phase1_response": "yes",
+  "phase1_rt": 6.754122750004171,
+  "phase2_response": "1",
+  "phase2_rt": 3.8235622916690772,
+  "phase3_response": "CENTER_BOTTOM",
+  "phase3_rt": 3.46394741666154
+}

@@ -1,0 +1,21 @@
+{
+  "trial_id": 30,
+  "stim_pair_id": "pair_031",
+  "char1": "王",
+  "char2": "人",
+  "canonical_pair": "人王",
+  "char_order": "BA",
+  "meaning": "压迫",
+  "meaning_opts": [
+    "压迫",
+    "神",
+    "忠诚",
+    "弓"
+  ],
+  "phase1_response": "yes",
+  "phase1_rt": 6.9844913333363365,
+  "phase2_response": "2",
+  "phase2_rt": 6.4791576666611945,
+  "phase3_response": "BOTTOM_CENTER",
+  "phase3_rt": 4.511836916659377
+}

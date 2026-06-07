@@ -1,0 +1,21 @@
+{
+  "trial_id": 49,
+  "stim_pair_id": "pair_050",
+  "char1": "土",
+  "char2": "王",
+  "canonical_pair": "土王",
+  "char_order": "AB",
+  "meaning": "金",
+  "meaning_opts": [
+    "城堡",
+    "金字塔",
+    "国家",
+    "金"
+  ],
+  "phase1_response": "no",
+  "phase1_rt": 7.604000624996843,
+  "phase2_response": "1",
+  "phase2_rt": 3.1457325416849926,
+  "phase3_response": "RIGHT_CENTER",
+  "phase3_rt": 3.370965708323638
+}

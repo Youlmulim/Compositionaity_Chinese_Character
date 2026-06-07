@@ -1,0 +1,21 @@
+{
+  "trial_id": 39,
+  "stim_pair_id": "pair_040",
+  "char1": "木",
+  "char2": "心",
+  "canonical_pair": "木心",
+  "char_order": "AB",
+  "meaning": "木心",
+  "meaning_opts": [
+    "木心",
+    "思慕",
+    "安心",
+    "冥想"
+  ],
+  "phase1_response": "no",
+  "phase1_rt": 6.373390875000041,
+  "phase2_response": null,
+  "phase2_rt": null,
+  "phase3_response": "CENTER_BOTTOM",
+  "phase3_rt": 4.075139249995118
+}

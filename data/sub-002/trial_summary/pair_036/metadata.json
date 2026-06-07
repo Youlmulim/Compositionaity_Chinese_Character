@@ -1,0 +1,21 @@
+{
+  "trial_id": 35,
+  "stim_pair_id": "pair_036",
+  "char1": "人",
+  "char2": "不",
+  "canonical_pair": "人不",
+  "char_order": "AB",
+  "meaning": "隐形",
+  "meaning_opts": [
+    "隐形",
+    "无生",
+    "鬼",
+    "漂浮"
+  ],
+  "phase1_response": "no",
+  "phase1_rt": 6.373615375006921,
+  "phase2_response": "1",
+  "phase2_rt": 6.344816708326107,
+  "phase3_response": "CENTER_BOTTOM",
+  "phase3_rt": 3.4916550000052666
+}

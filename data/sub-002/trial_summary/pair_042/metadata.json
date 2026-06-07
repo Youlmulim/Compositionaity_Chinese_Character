@@ -1,0 +1,21 @@
+{
+  "trial_id": 41,
+  "stim_pair_id": "pair_042",
+  "char1": "中",
+  "char2": "木",
+  "canonical_pair": "木中",
+  "char_order": "BA",
+  "meaning": "空木",
+  "meaning_opts": [
+    "空木",
+    "树冠",
+    "树干",
+    "中柱"
+  ],
+  "phase1_response": "no",
+  "phase1_rt": 6.155243541667005,
+  "phase2_response": "3",
+  "phase2_rt": 1.2614628750015981,
+  "phase3_response": "CENTER_RIGHT",
+  "phase3_rt": 3.22805920834071
+}

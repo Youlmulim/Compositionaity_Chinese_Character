@@ -1,0 +1,21 @@
+{
+  "trial_id": 64,
+  "stim_pair_id": "pair_065",
+  "char1": "心",
+  "char2": "王",
+  "canonical_pair": "心王",
+  "char_order": "AB",
+  "meaning": "自信",
+  "meaning_opts": [
+    "自信",
+    "真相",
+    "自尊",
+    "首领"
+  ],
+  "phase1_response": "no",
+  "phase1_rt": 8.538247166667134,
+  "phase2_response": "1",
+  "phase2_rt": 5.345410333335167,
+  "phase3_response": "BOTTOM_CENTER",
+  "phase3_rt": 4.9936746249877615
+}

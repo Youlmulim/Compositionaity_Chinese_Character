@@ -1,0 +1,21 @@
+{
+  "trial_id": 20,
+  "stim_pair_id": "pair_021",
+  "char1": "日",
+  "char2": "中",
+  "canonical_pair": "日中",
+  "char_order": "AB",
+  "meaning": "灰尘",
+  "meaning_opts": [
+    "正午",
+    "心梗",
+    "融化",
+    "灰尘"
+  ],
+  "phase1_response": "no",
+  "phase1_rt": 6.321672458347166,
+  "phase2_response": "1",
+  "phase2_rt": 1.345206625002902,
+  "phase3_response": "CENTER_RIGHT",
+  "phase3_rt": 6.733580250001978
+}

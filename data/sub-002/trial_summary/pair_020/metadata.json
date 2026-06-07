@@ -1,0 +1,21 @@
+{
+  "trial_id": 19,
+  "stim_pair_id": "pair_020",
+  "char1": "日",
+  "char2": "王",
+  "canonical_pair": "日王",
+  "char_order": "AB",
+  "meaning": "皇帝",
+  "meaning_opts": [
+    "威严",
+    "冠珠",
+    "皇帝",
+    "繁荣"
+  ],
+  "phase1_response": "yes",
+  "phase1_rt": 3.60461295832647,
+  "phase2_response": "4",
+  "phase2_rt": 7.394286333335913,
+  "phase3_response": "CENTER_BOTTOM",
+  "phase3_rt": 2.934662916668458
+}
