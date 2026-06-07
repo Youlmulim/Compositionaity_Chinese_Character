@@ -8,6 +8,7 @@ from function.io.metadata import make_phase0_result, update_trial, save_trial_me
 from function.io.path_builder import ensure_trial_save_dir, get_subject_dir
 from function.phases.phase0 import run_phase0
 from function.stimuli.trial_loader import build_phase0_trials, preload_images
+from function.utils.screen_utils import show_instructions
 
 
 def run_phase0_loop(
@@ -44,40 +45,62 @@ def run_phase_loop(
         trials,
         global_clock,
         subject_id,
-        phase_num,
-        run_fn,
+        phase_fns
         ):
-
-    """Run one phase over all trials."""
-    phase_key = f"phase{phase_num}"
-
     for i in range(len(trials)):
         trial = trials[i]
 
-        fl = make_frame_log(
-            phase=phase_key,
-            trial_id=trial["trial_id"],
-            stim_pair_id=trial["stim_pair_id"]
-        )
+        trial_frame_rows = []  # 각 trial마다 프레임 로그 누적할 리스트
 
-        result, fl = run_fn(
-            win,
-            trial,
-            global_clock,
-            fl
-        )
+        for phase_num in [1, 2, 3]:
+            phase_key = f"phase{phase_num}"
+            run_fn = phase_fns[phase_num]
 
-        trials[i] = update_trial(trial, {
-            f"{phase_key}_response": result["response"],
-            f"{phase_key}_rt":       result["rt"],
-        })
+            show_instructions(win, cfg.PHASE_CONFIG[phase_num - 1][1])
 
+            # 1. frame logger
+            fl = make_frame_log(
+                phase=phase_key,
+                trial_id=trial["trial_id"],
+                stim_pair_id=trial["stim_pair_id"]
+            )
+
+            # 2. run phase
+            result, fl = run_fn(
+                win,
+                trial,
+                global_clock,
+                fl
+            )
+
+            #3. trial dictionary UPDATE
+            trials[i] = update_trial(trial, {
+                f"{phase_key}_response": result["response"],
+                f"{phase_key}_rt":       result["rt"],
+            })
+
+            trials[i] = trial # 갱신된 trial을 리스트에 반영
+
+            # list에 data 누적 추가
+            trial_frame_rows.extend(get_rows(fl))
+
+            # 4. inter-trial interval
+            run_hover_iti(win)
+
+        # 5. save DATA
+
+        # 5-1. integrated folder path 생성
         save_dir = ensure_trial_save_dir(
             subject_id,
-            phase_key,
+            "trial_summary", # phase_key로 frame logger 생성
             trial["stim_pair_id"]
         )
 
-        save_frame_log(get_rows(fl), save_dir)
+        # 5-2. JSON과 누적된 frame log 저장
         save_trial_metadata_json(trials[i], save_dir)
-        run_hover_iti(win)
+        save_frame_log(trial_frame_rows, save_dir)
+
+        # Q: 통합데이터를 따로 빼는 것이 낫지 않을까?
+        # 프레임 로그는 메모리에 모았다가 트라이얼 종료 시점에 일괄 저장하는 방식이 나을듯?
+
+

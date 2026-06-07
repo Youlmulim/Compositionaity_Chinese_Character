@@ -65,3 +65,77 @@ def log_frame(
 def get_rows(log: FrameLog) -> List[Dict[str, Any]]:
     """Return accumulated rows as a plain list."""
     return list(log["rows"])
+
+
+class FrameRecorder:
+    """Stateful wrapper that removes the per-frame logging boilerplate.
+
+    Every phase used to repeat, inside its flip loop::
+
+        flip_time = win.flip()
+        if frame_idx == 0:
+            frame_log = set_onset(frame_log, flip_time)
+            marker = "stimulus_onset"
+        else:
+            marker = ""
+        frame_log = log_frame(frame_log, frame_idx=frame_idx, flip_time=flip_time,
+                              global_time=global_clock.getTime(), event_marker=marker)
+        frame_idx += 1
+
+    With a recorder that collapses to ``rec.flip_and_log(win)`` and, after the
+    loop, ``rec.log_final(win, result)``. The accumulated log lives on
+    ``rec.frame_log``; functions that take/return a FrameLog (e.g. ITI helpers)
+    can read and reassign it directly.
+    """
+
+    def __init__(self, frame_log: FrameLog, global_clock) -> None:
+        self.frame_log = frame_log
+        self.global_clock = global_clock
+        self.idx = 0
+
+    def start_segment(self) -> None:
+        """Mark the next ``flip_and_log`` as a new segment's first frame.
+
+        Resets the frame counter to 0 so the next flip re-sets onset. Use when
+        one phase presents several independently-timed segments through the same
+        log (e.g. Phase 2's sequential option presentation).
+        """
+        self.idx = 0
+
+    def flip_and_log(self, win, *, marker: Optional[str] = None) -> float:
+        """Flip the window, log the frame, and return ``flip_time``.
+
+        On the first frame of a segment (``idx == 0``) onset is set. When
+        *marker* is None the event marker defaults to ``"stimulus_onset"`` on the
+        first frame and ``""`` afterwards; pass *marker* to override (e.g. a
+        custom per-segment onset label).
+        """
+        flip_time = win.flip()
+        if self.idx == 0:
+            self.frame_log = set_onset(self.frame_log, flip_time)
+        if marker is None:
+            marker = "stimulus_onset" if self.idx == 0 else ""
+        self.frame_log = log_frame(
+            self.frame_log,
+            frame_idx=self.idx,
+            flip_time=flip_time,
+            global_time=self.global_clock.getTime(),
+            event_marker=marker,
+        )
+        self.idx += 1
+        return flip_time
+
+    def log_final(self, win, result) -> FrameLog:
+        """Log the closing row after the loop and return the FrameLog.
+
+        The marker is ``"response"`` when a response was collected, else
+        ``"timeout"``.
+        """
+        self.frame_log = log_frame(
+            self.frame_log,
+            frame_idx=self.idx,
+            flip_time=win.lastFrameT,
+            global_time=self.global_clock.getTime(),
+            event_marker="response" if result["response"] else "timeout",
+        )
+        return self.frame_log

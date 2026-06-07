@@ -126,3 +126,33 @@ def wait_for_mouse_release(mouse: event.Mouse, button: int = 0) -> None:
     """Block until the given mouse button is released (debounce helper)."""
     while mouse.getPressed()[button]:
         core.wait(0.001)
+
+
+def confirm_click(
+    win: visual.Window,
+    mouse: event.Mouse,
+    button: int = 0,
+    redraw_fn=None,
+    hold: float = 0.2,
+) -> None:
+    """Show the selected state briefly, then debounce the mouse release.
+
+    Phases 0/1/2 all repeated the same post-click sequence: redraw the screen
+    with the selection highlighted, flip, pause so the participant sees the
+    feedback, then wait for the button to come back up before returning a
+    response. This bundles that.
+
+    Parameters
+    ----------
+    win       : PsychoPy Window
+    mouse     : PsychoPy Mouse object
+    button    : which button to wait for release on (0 = left)
+    redraw_fn : optional zero-arg callback that draws the highlighted screen;
+                when given it is drawn and flipped once before the pause
+    hold      : seconds to display the selection before debouncing
+    """
+    if redraw_fn is not None:
+        redraw_fn()
+        win.flip()
+    core.wait(hold)
+    wait_for_mouse_release(mouse, button)

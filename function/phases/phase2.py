@@ -28,8 +28,9 @@ from function.config.key_mapping import P2_MOUSE_BUTTON
 from function.utils.draw_utils import (
     make_text, build_char_equation, draw_char_equation, update_button_states
 )
-from function.utils.response import ResponseResult, make_response, wait_for_mouse_release
-from function.io.frame_logger import FrameLog, set_onset, log_frame
+from function.utils.progress_bar import TimeProgressBar
+from function.utils.response import ResponseResult, make_response, confirm_click
+from function.io.frame_logger import FrameLog, FrameRecorder
 from function.utils.event_utils import check_escape
 from function.utils.inter_trial import run_hover_iti, run_gaussian_iti
 
@@ -47,6 +48,8 @@ def run_phase2(
 
     mouse = event.Mouse(visible=True, win=win)
     mouse.clickReset()
+
+    rec = FrameRecorder(frame_log, global_clock)
 
     # ── 1. 순차적 제시용 자극 (수식 및 질문) 생성 ──────────────────────────────
     seq_eq_stims = build_char_equation(
@@ -75,43 +78,33 @@ def run_phase2(
     SINGLE_OPT_DURATION = 1.5  # 노출 시간 (2초)
     
     single_opt_stim = make_text(
-        win, text="", pos=(0, -100), height=cfg.P2_CHOICE_HEIGHT
+        win,
+        text="",
+        pos=(0, -100),
+        height=cfg.P2_CHOICE_HEIGHT,
+        font=cfg.P23_MEANING_FONT,
     )
 
     for seq_num, (orig_idx, opt_text) in enumerate(opts_with_idx, start=1):
         single_opt_stim.text = opt_text
-        
+
         phase_clock = core.Clock()
-        frame_idx = 0
-        
+        rec.start_segment()
+        onset_marker = f"single_opt_onset_seq{seq_num}_opt{orig_idx+1}_{opt_text}"
+
         while phase_clock.getTime() < SINGLE_OPT_DURATION:
             question_stim.draw()
-            draw_char_equation(seq_eq_stims) 
+            draw_char_equation(seq_eq_stims)
             single_opt_stim.draw()
-            
-            flip_time = win.flip()
-            
-            if frame_idx == 0:
-                frame_log = set_onset(frame_log, flip_time)
-                marker = f"single_opt_onset_seq{seq_num}_opt{orig_idx+1}_{opt_text}"
-            else:
-                marker = ""
-                
-            frame_log = log_frame(
-                frame_log,
-                frame_idx=frame_idx,
-                flip_time=flip_time,
-                global_time=global_clock.getTime(),
-                event_marker=marker,
-            )
-            frame_idx += 1
+
+            rec.flip_and_log(win, marker=onset_marker if rec.idx == 0 else None)
             check_escape(win)
-            
+
         # 개별 보기 제시 후 Gaussian ITI 실행
-        frame_log = run_gaussian_iti(
-            win=win, 
-            global_clock=global_clock, 
-            frame_log=frame_log, 
+        rec.frame_log = run_gaussian_iti(
+            win=win,
+            global_clock=global_clock,
+            frame_log=rec.frame_log,
             min_t=0.6, max_t=1.8, mean_t=1.2, sd_t=0.3
         )
 
@@ -162,7 +155,13 @@ def run_phase2(
         )
 
         # 2. 의미 텍스트: 흰 배경 위에 보이도록 글자 색상을 검은색으로 고정합니다.
-        opt_txt = make_text(win, text=opt_text, pos=panel_pos, height=cfg.P2_CHOICE_HEIGHT)
+        opt_txt = make_text(
+            win,
+            text=opt_text,
+            pos=panel_pos,
+            height=cfg.P2_CHOICE_HEIGHT,
+            font=cfg.P23_MEANING_FONT,
+        )
         opt_txt.color = "black"  # 색상 변경 필요 없으므로 검은색 고정
 
         choice_panels.append(rect)
@@ -179,40 +178,31 @@ def run_phase2(
 
     mouse.clickReset()
     phase_clock = core.Clock()
-    frame_idx = 0
+    # Time progress bar for response timeout visualization
+    progress_bar = TimeProgressBar(win=win)
+    rec.start_segment()
     result = make_response()
     prev_pressed = False
     selected_rating = None  # 선택된 라벨을 저장할 변수
 
-    while result["response"] is None and not result["timed_out"]:
-        question_stim.draw()
-        draw_char_equation(final_eq_stims)
-
-        # 1. draw_utils.py의 함수를 그대로 호출하여 호버/선택 상태 업데이트
+    def redraw_final():
+        # draw_utils.py의 함수를 그대로 호출하여 호버/선택 상태 업데이트
         # 클릭되지 않은 상태에서는 기본 fillColor(흰색)가 그대로 유지됩니다.
         update_button_states(resp_data, mouse, selected_button=selected_rating)
-
+        question_stim.draw()
+        draw_char_equation(final_eq_stims)
         # 사각형 패널과 텍스트를 화면에 그리기
-        for i in range(len(choice_panels)):
-            choice_panels[i].draw()
-            choice_texts[i].draw()
+        for panel, txt in zip(choice_panels, choice_texts):
+            panel.draw()
+            txt.draw()
 
-        flip_time = win.flip()
+    while result["response"] is None and not result["timed_out"]:
+        redraw_final()
 
-        if frame_idx == 0:
-            frame_log = set_onset(frame_log, flip_time)
-            marker = "final_choice_onset"
-        else:
-            marker = ""
+        # Time progress bar 그리기
+        progress_bar.draw(phase_clock.getTime())
 
-        frame_log = log_frame(
-            frame_log,
-            frame_idx=frame_idx,
-            flip_time=flip_time,
-            global_time=global_clock.getTime(),
-            event_marker=marker,
-        )
-        frame_idx += 1
+        rec.flip_and_log(win, marker="final_choice_onset" if rec.idx == 0 else None)
 
         # 2. 마우스 클릭 체크 및 0.5초 대기 로직
         btn_pressed = bool(mouse.getPressed()[P2_MOUSE_BUTTON])
@@ -223,23 +213,8 @@ def run_phase2(
                     selected_rating = data["label"]  # 클릭한 선택지의 라벨("1"~"4") 저장
                     rt = float(phase_clock.getTime())
 
-                    # 클릭 상태를 반영하여 선택된 항목의 배경색을 바로 변경(초록색으로 변경됨)
-                    update_button_states(resp_data, mouse, selected_button=selected_rating)
-                    
-                    # 변경된 색상으로 화면을 한 번 새로고침(Flip) 합니다.
-                    question_stim.draw()
-                    draw_char_equation(final_eq_stims)
-                    for i in range(len(choice_panels)):
-                        choice_panels[i].draw()
-                        choice_texts[i].draw()
-                    win.flip()
-                    
-                    # 클릭한 색상을 보여주기 위해 0.5초 대기
-                    core.wait(0.5)
-
-                    # 마우스를 뗄 때까지 대기 (Phase 0, 1과 동일)
-                    while mouse.getPressed()[P2_MOUSE_BUTTON]:
-                        core.wait(0.01)
+                    # 선택색을 0.5초 보여주고 마우스를 뗄 때까지 대기 (Phase 0, 1과 동일)
+                    confirm_click(win, mouse, button=P2_MOUSE_BUTTON, redraw_fn=redraw_final, hold=0.5)
 
                     result = make_response(
                         response=selected_rating,
@@ -255,12 +230,5 @@ def run_phase2(
         if cfg.MAX_RESPONSE_TIME and phase_clock.getTime() > cfg.MAX_RESPONSE_TIME:
             result = make_response(timed_out=True)
 
-    frame_log = log_frame(
-        frame_log,
-        frame_idx=frame_idx,
-        flip_time=win.lastFrameT,
-        global_time=global_clock.getTime(),
-        event_marker="response" if result["response"] else "timeout",
-    )
-
+    frame_log = rec.log_final(win, result)
     return result, frame_log

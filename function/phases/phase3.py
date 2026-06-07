@@ -15,7 +15,7 @@ from function.config import settings as cfg
 from function.config.key_mapping import P3_MOUSE_BUTTON
 from function.utils.draw_utils import make_text, make_chinese_char, is_hovering
 from function.utils.response import ResponseResult, make_response, wait_for_mouse_release
-from function.io.frame_logger import FrameLog, set_onset, log_frame
+from function.io.frame_logger import FrameLog, FrameRecorder
 from function.utils.event_utils import check_escape
 from function.utils.progress_bar import TimeProgressBar
 
@@ -41,8 +41,7 @@ def run_phase3(
     -------
     (ResponseResult, FrameLog)  — response is "{char1_pos}_{char2_pos}"
     """
-    char1 = trial["char1"]
-    char2 = trial["char2"]
+    char1, char2 = trial["char1"], trial["char2"]
 
     # Get meaning from phase2 response (use corrected key)
     if trial.get("phase2_response"):
@@ -64,6 +63,8 @@ def run_phase3(
         align_horiz="center",
     )
 
+    # 1) setting에 Question 내용 옮기기
+
     meaning_bg = visual.Rect(
         win,
         width=260, height=65,
@@ -76,7 +77,8 @@ def run_phase3(
         meaning,
         pos=cfg.P3_MEANING_BOX_POS,
         height=34,
-        color="black"
+        color="black",
+        font=cfg.P23_MEANING_FONT,
     )
 
     # Create 5 circles in cross pattern
@@ -108,11 +110,11 @@ def run_phase3(
 
     # ── Main flip loop ───────────────────────────────────────────────────────────
     phase_clock = core.Clock()
-    frame_idx = 0
     result = make_response()
     prev_pressed = False
 
     progress_bar = TimeProgressBar(win=win)
+    rec = FrameRecorder(frame_log, global_clock)
 
     # 완료 시간을 기록할 변수 초기화
     completion_time = None
@@ -123,7 +125,7 @@ def run_phase3(
 
         # Selected character follows the mouse cursor
         if state["selected_char"] == "char1":
-            char1_stim.pos = mouse_pos
+            char1_stim.pos = mouse_pos # 선택한 mouse 위치가 char1의 위치가 됨. 
         elif state["selected_char"] == "char2":
             char2_stim.pos = mouse_pos
         else:
@@ -141,8 +143,8 @@ def run_phase3(
 
 
         # Update circle colors and placed characters
-        center_filled = state["placements"]["CENTER"] is not None
-        selected = state["selected_char"] is not None
+        center_filled = state["placements"]["CENTER"] is not None # center circle에서 char이 채워짐.
+        selected = state["selected_char"] is not None  # char가 선택됨
 
         for pos_name, circle_data in circles.items():
             placed_char = state["placements"][pos_name]
@@ -203,23 +205,8 @@ def run_phase3(
 
         progress_bar.draw(elapsed_time=phase_clock.getTime())
 
-        flip_time = win.flip()
+        rec.flip_and_log(win)
 
-        if frame_idx == 0:
-            frame_log = set_onset(frame_log, flip_time)
-            marker = "stimulus_onset"
-        else:
-            marker = ""
-
-        frame_log = log_frame(
-            frame_log,
-            frame_idx=frame_idx,
-            flip_time=flip_time,
-            global_time=global_clock.getTime(),
-            event_marker=marker,
-        )
-        frame_idx += 1
-            
         # ── Handle mouse clicks ───────────────────────────────────────────────
         btn = bool(mouse.getPressed()[P3_MOUSE_BUTTON])
 
@@ -230,12 +217,24 @@ def run_phase3(
 
                 # Check if clicking on char1 (right side)
                 if is_hovering(mouse_pos, cfg.P3_CHAR1_POS, 60) and "char1" not in state["placements"].values():
-                    state["selected_char"] = "char1"
+                    # state["selected_char"] = "char1"
+                    if state["selected_char"] == "char1":
+                        state["selected_char"] = None
+                    elif state["selected_char"] == None:
+                        state["selected_char"] = "char1"
                     wait_for_mouse_release(mouse, P3_MOUSE_BUTTON)
+
+
 
                 # Check if clicking on char2 (right side)
                 elif is_hovering(mouse_pos, cfg.P3_CHAR2_POS, 60) and "char2" not in state["placements"].values():
-                    state["selected_char"] = "char2"
+                    # state["selected_char"] = "char2"
+                    if state["selected_char"] == "char2":
+                    # 이미 들고 있는 상태에서 원래 자리를 클릭하면 내려놓기(취소)
+                        state["selected_char"] = None
+                    elif state["selected_char"] is None:
+                        # 빈 손일 때는 집어들기
+                        state["selected_char"] = "char2"
                     wait_for_mouse_release(mouse, P3_MOUSE_BUTTON)
 
                 # Check if clicking on a circle position
@@ -288,14 +287,7 @@ def run_phase3(
         if cfg.MAX_RESPONSE_TIME and phase_clock.getTime() > cfg.MAX_RESPONSE_TIME:
             result = make_response(timed_out=True)
 
-    frame_log = log_frame(
-        frame_log,
-        frame_idx=frame_idx,
-        flip_time=win.lastFrameT,
-        global_time=global_clock.getTime(),
-        event_marker="response" if result["response"] else "timeout",
-    )
-
+    frame_log = rec.log_final(win, result)
     return result, frame_log
 
 
