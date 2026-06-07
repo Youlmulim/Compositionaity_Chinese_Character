@@ -14,7 +14,7 @@ DATA_DIR        = ROOT_DIR / "data"
 TRIAL_TABLE_CSV = ROOT_DIR / "stimuli" / "trial_table.csv"
 
 # ─── Window ───────────────────────────────────────────────────────────────────
-WINDOW_SIZE      = (1920, 1080)   # TODO: adjust to your display
+WINDOW_SIZE      = (1470, 956)   # TODO: adjust to your display
 WINDOW_UNITS     = "pix"
 WINDOW_FULLSCR   = True          # Set True for actual experiment
 BACKGROUND_COLOR = "#2b2b2b"      # Dark gray matching PDF screenshots
@@ -28,27 +28,26 @@ ITI_DURATION      = 1.5          # inter-trial interval (seconds)
 FRAME_RATE        = 60           # Hz – used for frame log sanity checks
 
 # ─── Text ────────────────────────────────────────────────────────────────────
-FONT             = "Arial"        # TODO: swap to a CJK-capable font if needed
+FONT             = "Kaiti SC"        # TODO: swap to a CJK-capable font if needed
 TEXT_COLOR       = "white"
 
 
 # Phase 0
 
 P0_INSTRUCTION = (
-    "Phase 0\n\nFor each character, rate how familiar you are with it\n"
-    "on a scale of 1 to 6 by clicking the number.\n\nPress SPACEBAR to start."
+        "第 0 阶段\n\n请根据你对每个汉字的熟悉程度，\n"
+        "点击 1 到 6 之间的数字进行评分。\n\n按空格键开始。"
 )
-P0_QUESTION = "Q. How familiar are you with this character?"
+P0_QUESTION = "Q. 你对这个汉字有多熟悉？"
 
 # Phase 1
-P1_QUESTION = "Q. Can the two characters below be combined to form a new character?"
-P1_YES_LABEL = "Yes"
-P1_NO_LABEL  = "No"
+P1_QUESTION = "Q. 下面两个汉字可以组合成一个新的汉字吗？"
+P1_YES_LABEL = "是"
+P1_NO_LABEL  = "否"
 
 # Phase 2
 P2_QUESTION = (
-    "Q. If these two characters were combined to form a new character,\n"
-    "what would its meaning be?"
+    "Q. 如果这两个汉字组合成一个新的汉字，\n" "它的意思会是什么？"
 )
 # TODO: per-trial meaning options are loaded from trial_table.csv
 P23_MEANING_FONT = "Kaiti SC"
@@ -57,9 +56,7 @@ P23_MEANING_FONT = "Kaiti SC"
 
 # Phase 3
 P3_QUESTION_TMPL = (
-    "Q. These two characters combine to convey the meaning below.\n"
-    "Where should the second character be placed relative to the first one\n"
-    "to produce that meaning?"
+    "Q. 这两个汉字组合后可以表示下面的意思。\n" "第二个汉字应该放在第一个汉字的哪个相对位置，\n" "才能表达这个意思？"
 )
 CIRCLE_NUMS = ["1", "2", "3", "4"]   # shared across Phase 2 and Phase 3
 
@@ -120,7 +117,7 @@ HOVER_ITI_MIN_DISPLAY  = 0.3     # seconds before button becomes active
 HOVER_ITI_DWELL_TIME   = 0.5     # seconds of continuous hover to proceed
 HOVER_BUTTON_RADIUS    = 45      # pixels
 HOVER_BUTTON_LABEL     = "+"
-HOVER_PROMPT_TEXT      = "Hover to continue"
+HOVER_PROMPT_TEXT      = "悬停以继续"
 
 # ─── Colours ─────────────────────────────────────────────────────────────────
 WHITE_COLOR    = "white"
@@ -134,23 +131,14 @@ HIGHLIGHT_COLOR   = "#ffdd00"    # selected option highlight
 # ─────────────────────────────────────────────────────────────────────────────
 PHASE_CONFIG = [
     (1,
-     "Phase 1\n\n"
-     "For each pair of Chinese characters,\n"
-     "decide whether they can combine to form a new character.\n\n"
-     "Press SPACEBAR to start."),
+    "第1阶段\n\n"
+    "对于每一对汉字，\n"
+    "请判断它们是否可以组合成一个新的汉字。\n\n"
+    "按空格键开始。"),
     
     (2,
-     "Phase 2\n\n"
-     "You will see the character pairs again,\n"
-     "along with a new question.\n\n"
-     "Please read the question carefully\n"
-     "and choose the best answer.\n\n"
-     "Press SPACEBAR to continue."),
+"第2阶段\n\n" "你将再次看到这些汉字组合，\n" "并回答一个新的问题。\n\n" "请仔细阅读问题，\n" "并选择最合适的答案。\n\n" "按空格键继续。"),
     
     (3,
-     "Phase 3\n\n"
-     "You will see each pair once more,\n"
-     "along with a follow-up question.\n\n"
-     "Please select the answer that best fits the question.\n\n"
-     "Press SPACEBAR to continue."),
+"第3阶段\n\n" "你将再次看到每一对汉字，\n" "并回答一个后续问题。\n\n" "请选择最符合问题的答案。\n\n" "按空格键继续。"),
 ]

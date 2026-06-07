@@ -27,6 +27,7 @@ def show_instructions(win, text: str):
     msg = visual.TextStim(
         win,
         text=text,
+        font=cfg.FONT,
         pos=(0, 0),
         height=38,
         color="white",
