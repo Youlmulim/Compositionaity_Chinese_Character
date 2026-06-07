@@ -20,24 +20,14 @@ def get_subject_info():
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# 1. ITI blank screen
-# ─────────────────────────────────────────────────────────────────────────────
-
-def run_iti(win, duration: float = cfg.ITI_DURATION):
-    """Show blank screen for inter-trial interval."""
-    win.flip()
-    core.wait(duration)
-
-
-
-# ─────────────────────────────────────────────────────────────────────────────
-# 2. Instructions screen helper
+# 1. Instructions screen helper
 # ─────────────────────────────────────────────────────────────────────────────
 
 def show_instructions(win, text: str):
     msg = visual.TextStim(
         win,
         text=text,
+        font=cfg.FONT,
         pos=(0, 0),
         height=38,
         color="white",

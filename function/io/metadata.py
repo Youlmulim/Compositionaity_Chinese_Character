@@ -89,9 +89,10 @@ def update_trial(trial: Dict[str, Any], updates: Dict[str, Any]) -> Dict[str, An
 
 def save_trial_metadata_json(trial: Dict[str, Any], save_dir: Path) -> Path:
     """
-    Write a single trial's metadata to  save_dir / metadata.json.
+    Write a single trial's accumulated metadata to save_dir / metadata.json.
 
-    Called after each phase completes for that trial.
+    Called ONCE after all phases (1, 2, 3) for that trial have completed.
+    This prevents unnecessary file I/O between phases and keeps data centralized.
     """
     save_dir.mkdir(parents=True, exist_ok=True)
     out_path = save_dir / "metadata.json"

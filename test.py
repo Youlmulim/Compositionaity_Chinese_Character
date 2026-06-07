@@ -31,6 +31,7 @@ from initiate import initiate_experiment
 # MAIN
 # ─────────────────────────────────────────────────────────────────────────────
 
+
 def main() -> None:
     ctx = initiate_experiment()
 
@@ -46,17 +47,17 @@ def main() -> None:
     # Phases 1–3
     _phase_fns = {1: run_phase1, 2: run_phase2, 3: run_phase3}
     random.shuffle(ctx.trials)
-    ctx.trials = ctx.trials[:3]
-    for phase_num, instruction in cfg.PHASE_CONFIG:
-        show_instructions(ctx.win, instruction)
-        run_phase_loop(
-            ctx.win,
-            ctx.trials,
-            ctx.global_clock,
-            ctx.subject_id,
-            phase_num,
-            _phase_fns[phase_num],
-        )
+
+    run_phase_loop(
+        ctx.win,
+        ctx.trials[:5],
+        ctx.global_clock,
+        ctx.subject_id,
+        _phase_fns,
+    )
+
+
+
 
     # Export full summary
     paths = export_metadata(
@@ -72,6 +73,8 @@ def main() -> None:
     ctx.win.close()
     core.quit()
 
+    if ins_num < len(cfg.PHASE_CONFIG):
+        main()
 
 if __name__ == "__main__":
     main()

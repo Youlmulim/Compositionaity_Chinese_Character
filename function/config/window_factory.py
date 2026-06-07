@@ -9,7 +9,7 @@ monitor profiles or resolution without touching phase logic.
 from psychopy import visual, monitors
 from function.config.settings import (
     WINDOW_SIZE, WINDOW_UNITS, WINDOW_FULLSCR,
-    BACKGROUND_COLOR, MONITOR_NAME,
+    BACKGROUND_COLOR, MONITOR_NAME, SCREEN_NUMBER,
 )
 
 
@@ -33,7 +33,8 @@ def create_window() -> visual.Window:
         monitor=mon,
         color=BACKGROUND_COLOR,
         colorSpace="hex",
-        allowGUI=False,
+        allowGUI=True,
         winType="pyglet",
+        screen=SCREEN_NUMBER,
     )
     return win

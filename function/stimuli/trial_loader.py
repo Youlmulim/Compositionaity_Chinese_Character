@@ -46,7 +46,7 @@ def load_trial_table(
         One dict per stimulus pair.
     """
     trials: List[Dict[str, Any]] = []
-    with open(csv_path, newline="", encoding="utf-8") as f:
+    with open(csv_path, newline="", encoding="utf-8-sig") as f:
         reader = csv.DictReader(f)
         for idx, row in enumerate(reader):
             trial: Dict[str, Any] = {
