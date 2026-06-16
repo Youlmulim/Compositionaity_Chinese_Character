@@ -26,8 +26,9 @@ import random
 from pathlib import Path
 from typing import List, Dict, Any
 
-from function.config.settings import TRIAL_TABLE_CSV
+from function.config.settings import TRIAL_TABLE_CSV, ROOT_DIR
 from function.io.path_builder import get_subject_dir
+from config import TEST_MODE
 
 
 def load_trial_table(
@@ -58,10 +59,12 @@ def load_trial_table(
                 "char_order":      row.get("char_order", "AB").strip(),  # Default to "AB" if not present
                 "meaning":         row["meaning"].strip(),
                 "meaning_opts": [
-                    row["meaning_opt1"].strip(),
-                    row["meaning_opt2"].strip(),
-                    row["meaning_opt3"].strip(),
-                    row["meaning_opt4"].strip(),
+                    opt for opt in [
+                        row["meaning_opt1"].strip(),
+                        row["meaning_opt2"].strip(),
+                        row["meaning_opt3"].strip(),
+                        row["meaning_opt4"].strip(),
+                    ] if opt
                 ],
                 # Phase results – filled in later
                 "phase1_response": None,
@@ -86,7 +89,8 @@ def get_or_create_subject_trials(subject_id: str) -> List[Dict[str, Any]]:
     subject_csv_path = subject_dir / f"sub-{subject_id}_trial_table.csv"
     
     # 1. 이미 피험자의 trial table이 존재한다면 (예: 실험 재시작) 그것을 불러옴
-    if subject_csv_path.exists():
+    # TEST_MODE일 때는 피험자 캐시를 무시하고 test CSV를 사용
+    if not TEST_MODE and subject_csv_path.exists():
         print(f"Loading existing trial table for subject {subject_id}")
         return load_trial_table(subject_csv_path)
     
@@ -117,10 +121,10 @@ def get_or_create_subject_trials(subject_id: str) -> List[Dict[str, Any]]:
             "canonical_pair": trial["canonical_pair"],
             "char_order": trial["char_order"],
             "meaning": trial["meaning"],
-            "meaning_opt1": trial["meaning_opts"][0],
-            "meaning_opt2": trial["meaning_opts"][1],
-            "meaning_opt3": trial["meaning_opts"][2],
-            "meaning_opt4": trial["meaning_opts"][3],
+            "meaning_opt1": trial["meaning_opts"][0] if len(trial["meaning_opts"]) > 0 else "",
+            "meaning_opt2": trial["meaning_opts"][1] if len(trial["meaning_opts"]) > 1 else "",
+            "meaning_opt3": trial["meaning_opts"][2] if len(trial["meaning_opts"]) > 2 else "",
+            "meaning_opt4": trial["meaning_opts"][3] if len(trial["meaning_opts"]) > 3 else "",
         })
 
     fieldnames = list(save_rows[0].keys())
@@ -136,7 +140,7 @@ def get_or_create_subject_trials(subject_id: str) -> List[Dict[str, Any]]:
 def load_char_list(csv_path: Path = None) -> List[str]:
     """Load the basic character list from basic_characters.csv."""
     if csv_path is None:
-        csv_path = TRIAL_TABLE_CSV.parent / "basic_characters.csv"
+        csv_path = ROOT_DIR / "stimuli" / "basic_characters.csv"
     with open(csv_path, encoding="utf-8") as f:
         return [row["character"] for row in csv.DictReader(f)]
 

@@ -6,12 +6,19 @@ All magic numbers, paths, and display parameters live here.
 """
 
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from config import TEST_MODE
 
 # ─── Paths ───────────────────────────────────────────────────────────────────
 ROOT_DIR        = Path(__file__).resolve().parents[2]
 STIMULI_DIR     = ROOT_DIR / "stimuli" / "image"
 DATA_DIR        = ROOT_DIR / "data"
-TRIAL_TABLE_CSV = ROOT_DIR / "stimuli" / "trial_table.csv"
+TRIAL_TABLE_CSV = (
+    ROOT_DIR / "test" / "test_trial.csv"
+    if TEST_MODE
+    else ROOT_DIR / "stimuli" / "trial_table.csv"
+)
 
 # ─── Window ───────────────────────────────────────────────────────────────────
 WINDOW_SIZE      = (1470, 956)   # TODO: adjust to your display

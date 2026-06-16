@@ -38,7 +38,7 @@ def main() -> None:
     show_instructions(ctx.win, cfg.P0_INSTRUCTION)
     run_phase0_loop(
         ctx.win,
-        ctx.char_list,
+        ctx.char_list[:2],
         ctx.global_clock,
         ctx.subject_id,
     )
@@ -46,7 +46,6 @@ def main() -> None:
     # Phases 1–3
     _phase_fns = {1: run_phase1, 2: run_phase2, 3: run_phase3}
     random.shuffle(ctx.trials)
-    ctx.trials = ctx.trials
     run_phase_loop(
         ctx.win,
         ctx.trials,

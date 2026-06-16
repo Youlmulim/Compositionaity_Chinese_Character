@@ -1,0 +1,7 @@
+stim_pair_id,char1,char2,char1_id,char2_id,canonical_pair,meaning,meaning_opt1,meaning_opt2,meaning_opt3,meaning_opt4
+pair_01,日,日,2,2,日日,明亮,酷暑,明天,明亮,日志
+pair_02,日,中,2,9,日中,中午,中午,黄昏,,秋分
+pair_03,日,子,2,10,日子,发芽,,影子,早晨,青春
+pair_04,中,中,9,9,中中,目标,目标,核心,隧道,箭
+pair_05,中,子,9,10,中子,种子,,学生,卵,次子
+pair_06,子,子,10,10,子子,双胞胎,孙子,果实,双胞胎,朋友

@@ -135,7 +135,8 @@ def run_phase2(
     x_radius = 350  # 가로 반경: 이 값을 키울수록 양옆으로 벌어집니다. (예: 350~400)
     y_radius = 200  # 세로 반경: 이 값을 줄일수록 위아래로 가깝게 붙습니다. (예: 150~180)
     
-    angles = [135, 45, 225, 315]
+    all_angles = [135, 45, 225, 315]
+    angles = all_angles[:len(meaning_opts)]
 
     choice_panels = []
     choice_texts = []

@@ -39,7 +39,7 @@ def main() -> None:
     show_instructions(ctx.win, cfg.P0_INSTRUCTION)
     run_phase0_loop(
         ctx.win,
-        ctx.char_list[:3],
+        ctx.char_list[:5],
         ctx.global_clock,
         ctx.subject_id,
     )
