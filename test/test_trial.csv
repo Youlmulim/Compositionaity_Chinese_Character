@@ -1,5 +1,5 @@
 stim_pair_id,char1,char2,char1_id,char2_id,canonical_pair,meaning,meaning_opt1,meaning_opt2,meaning_opt3,meaning_opt4
-pair_01,月,日,1,2,月日,明光,昼夜,日食,流年,明光
-pair_02,王,子,8,10,王子,珍珠,珍珠,王子,玩具,双生
-pair_03,人,王,3,8,人王,压迫,压迫,神,弓,忠诚
-pair_04,心,女,7,12,心女,母亲,母亲,天使,照护,温柔
+pair_01,月,日,1,2,月日,明光,昼夜,,流年,明光
+pair_02,王,子,8,10,王子,珍珠,珍珠,王子,,双生
+pair_03,人,王,3,8,人王,压迫,压迫,神,弓,
+pair_04,心,女,7,12,心女,母亲,母亲,,照护,温柔
