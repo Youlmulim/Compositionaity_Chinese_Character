@@ -124,7 +124,7 @@ HOVER_ITI_MIN_DISPLAY  = 0.3     # seconds before button becomes active
 HOVER_ITI_DWELL_TIME   = 0.5     # seconds of continuous hover to proceed
 HOVER_BUTTON_RADIUS    = 45      # pixels
 HOVER_BUTTON_LABEL     = "+"
-HOVER_PROMPT_TEXT      = "悬停以继续"
+HOVER_PROMPT_TEXT      = "请注视中央的+"
 
 # ─── Colours ─────────────────────────────────────────────────────────────────
 WHITE_COLOR    = "white"
