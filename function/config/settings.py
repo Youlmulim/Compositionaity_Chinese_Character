@@ -35,7 +35,7 @@ ITI_DURATION      = 1.5          # inter-trial interval (seconds)
 FRAME_RATE        = 60           # Hz – used for frame log sanity checks
 
 # ─── Text ────────────────────────────────────────────────────────────────────
-FONT             = "Kaiti SC"        # TODO: swap to a CJK-capable font if needed
+FONT             = "FandolKai-Regular"
 TEXT_COLOR       = "white"
 
 
@@ -57,9 +57,7 @@ P2_QUESTION = (
     "Q. 如果这两个汉字组合成一个新的汉字，\n" "它的意思会是什么？"
 )
 # TODO: per-trial meaning options are loaded from trial_table.csv
-P23_MEANING_FONT = "Kaiti SC"
-# macOS fallback candidates:
-# "Kaiti SC", "STKaiti", "PingFang SC", "Songti SC"
+P23_MEANING_FONT = FONT
 
 # Phase 3
 P3_QUESTION = (
