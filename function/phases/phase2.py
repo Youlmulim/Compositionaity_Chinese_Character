@@ -131,20 +131,23 @@ def run_phase2(
     panel_width = 250
     panel_height = 120
     
-    # 기존 diag_radius를 x와 y로 분리
-    x_radius = 350  # 가로 반경: 이 값을 키울수록 양옆으로 벌어집니다. (예: 350~400)
-    y_radius = 200  # 세로 반경: 이 값을 줄일수록 위아래로 가깝게 붙습니다. (예: 150~180)
+    row_y = - 250
+    panel_gap = 50
+
     
-    all_angles = [135, 45, 225, 315]
-    angles = all_angles[:len(meaning_opts)]
+    n_opts = len(meaning_opts)
+    step = panel_width + panel_gap
+    # 전체 줄을 화면 중앙(x=0) 기준으로 정렬하기 위한 시작 x 좌표
+    start_x = -(n_opts - 1) * step / 2
+
 
     choice_panels = []
     choice_texts = []
 
     for i, opt_text in enumerate(meaning_opts):
-        rad = math.radians(angles[i])
-        cx = x_radius * math.cos(rad)
-        cy = y_radius * math.sin(rad)
+        cx = start_x + i * step
+        cy = row_y
+        panel_pos = (cx, cy)
         panel_pos = (cx, cy)
         
         # 1. 사각형 패널: 배경색(fillColor)을 흰색으로 통째로 채웁니다.
@@ -168,7 +171,6 @@ def run_phase2(
         choice_panels.append(rect)
         choice_texts.append(opt_txt)
 
-    # 내부 기록용으로는 여전히 1~4 값을 사용 (분석 파일이 꼬이지 않도록)
     # update_button_states 규칙({"rect": ..., "label": ...})에 맞게 데이터 구성
     resp_data = []
     for i in range(len(choice_panels)):
@@ -188,11 +190,10 @@ def run_phase2(
 
     def redraw_final():
         # draw_utils.py의 함수를 그대로 호출하여 호버/선택 상태 업데이트
-        # 클릭되지 않은 상태에서는 기본 fillColor(흰색)가 그대로 유지됩니다.
         update_button_states(resp_data, mouse, selected_button=selected_rating)
         question_stim.draw()
         draw_char_equation(final_eq_stims)
-        # 사각형 패널과 텍스트를 화면에 그리기
+
         for panel, txt in zip(choice_panels, choice_texts):
             panel.draw()
             txt.draw()
