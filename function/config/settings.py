@@ -132,6 +132,25 @@ GREEN_COLOR = "green"
 BLACK_COLOR    = "black"
 HIGHLIGHT_COLOR   = "#ffdd00"    # selected option highlight
 
+# ─── Practice ────────────────────────────────────────────────────────────────
+PRACTICE_N_TRIALS = 4    # trial_table.csv에서 샘플링할 연습 trial 수
+
+PRACTICE_INSTRUCTION = (
+    "练习阶段\n\n"
+    "请观察这两个汉字，并判断它们能否组合成一个新字。\n"
+    "准备好开始练习后，请按空格键。\n"
+    "点击下方按钮开始正式实验。.\n\n"
+)
+
+# #"Practice Phase\n\n"
+# "Look at the two Chinese characters and judge whether they\n"
+# "can be combined to form a new character.\n\n"
+# "Press the spacebar when you are ready to start the practice.\n\n"
+# "Click the button below to start the main experiment."
+
+PRACTICE_EXIT_LABEL  = "QUIT"
+PRACTICE_EXIT_BTN_POS = (500, -350)
+
 # ─────────────────────────────────────────────────────────────────────────────
 # Phase configuration  (phase_num, instruction)
 # run_fn is resolved in main.py to avoid circular imports

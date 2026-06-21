@@ -20,6 +20,7 @@ from function.phases.phase1 import run_phase1
 from function.phases.phase2 import run_phase2
 from function.phases.phase3 import run_phase3
 from function.phases.phase_loop import run_phase0_loop, run_phase_loop
+from function.practice.practice_loop import run_practice_loop
 from function.io.metadata import export_metadata
 from function.io.path_builder import get_subject_dir
 from function.config import settings as cfg
@@ -38,10 +39,14 @@ def main() -> None:
     show_instructions(ctx.win, cfg.P0_INSTRUCTION)
     run_phase0_loop(
         ctx.win,
-        ctx.char_list[:2],
+        ctx.char_list[:1],
         ctx.global_clock,
         ctx.subject_id,
     )
+
+    # Practice — unlimited trials, exit button leads to main experiment
+    practice_trials = random.sample(ctx.trials, min(cfg.PRACTICE_N_TRIALS, len(ctx.trials)))
+    run_practice_loop(ctx.win, practice_trials, ctx.global_clock)
 
     # Phases 1–3
     _phase_fns = {1: run_phase1, 2: run_phase2, 3: run_phase3}
