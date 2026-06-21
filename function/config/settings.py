@@ -62,6 +62,10 @@ P23_MEANING_FONT = "Kaiti SC"
 # "Kaiti SC", "STKaiti", "PingFang SC", "Songti SC"
 
 # Phase 3
+P3_QUESTION = (
+    "Q. 这两个字组合在一起，表达以下含义：\n"
+    "先点击右侧的汉字，再点击目标位置进行放置。"
+)
 P3_QUESTION_TMPL = (
     "Q. 这两个汉字组合后可以表示下面的意思。\n" "第二个汉字应该放在第一个汉字的哪个相对位置，\n" "才能表达这个意思？"
 )
