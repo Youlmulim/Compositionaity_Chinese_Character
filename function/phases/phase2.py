@@ -131,28 +131,24 @@ def run_phase2(
     panel_width = 250
     panel_height = 120
     
-    # 기존 diag_radius를 x와 y로 분리
-    x_radius = 350  # 가로 반경: 이 값을 키울수록 양옆으로 벌어집니다. (예: 350~400)
-    y_radius = 200  # 세로 반경: 이 값을 줄일수록 위아래로 가깝게 붙습니다. (예: 150~180)
-    
-    all_angles = [135, 45, 225, 315]
-    angles = all_angles[:len(meaning_opts)]
+    # 2개의 선택지가 위치할 (X, Y) 좌표를 직접 지정합니다.
+    # 수식이 Y=0에 있으므로 Y값을 마이너스(-180)로 주어 수식 아래로 내립니다.
+    # X값을 각각 -200, 200으로 주어 화면 중앙을 기준으로 좌/우로 나란히 배치합니다.
+    panel_positions = [(-200, -180), (200, -180)]
 
     choice_panels = []
     choice_texts = []
 
+    # meaning_opts는 이미 길이가 2라고 가정합니다.
     for i, opt_text in enumerate(meaning_opts):
-        rad = math.radians(angles[i])
-        cx = x_radius * math.cos(rad)
-        cy = y_radius * math.sin(rad)
-        panel_pos = (cx, cy)
+        panel_pos = panel_positions[i]  # 0번 인덱스는 왼쪽, 1번 인덱스는 오른쪽 좌표를 가져옴
         
         # 1. 사각형 패널: 배경색(fillColor)을 흰색으로 통째로 채웁니다.
         rect = visual.Rect(
             win, width=panel_width, height=panel_height,
             pos=panel_pos, 
             lineColor="white", lineWidth=3,
-            fillColor="white", opacity=1,  # 투명(None)에서 흰색으로 변경
+            fillColor="white", opacity=1,
         )
 
         # 2. 의미 텍스트: 흰 배경 위에 보이도록 글자 색상을 검은색으로 고정합니다.
@@ -163,7 +159,7 @@ def run_phase2(
             height=cfg.P2_CHOICE_HEIGHT,
             font=cfg.P23_MEANING_FONT,
         )
-        opt_txt.color = "black"  # 색상 변경 필요 없으므로 검은색 고정
+        opt_txt.color = "black"
 
         choice_panels.append(rect)
         choice_texts.append(opt_txt)
