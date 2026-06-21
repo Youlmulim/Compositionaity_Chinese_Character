@@ -56,8 +56,7 @@ def run_phase3(
     # ── Build stimuli ──────────────────────────────────────────────────────────
     question_stim = make_text(
         win,
-        "Q. These two characters combine to convey the meaning below.\n"
-        "Click a character on the right, then click a position to place it.",
+        cfg.P3_QUESTION,
         pos=(0, 390),
         height=28,
         align_horiz="center",
