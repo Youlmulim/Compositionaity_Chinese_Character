@@ -1,0 +1,21 @@
+{
+  "trial_id": 36,
+  "stim_pair_id": "pair_037",
+  "char1": "木",
+  "char2": "木",
+  "canonical_pair": "木木",
+  "char_order": "AB",
+  "meaning": "森林",
+  "meaning_opts": [
+    "木桥",
+    "深根",
+    "高木",
+    "森林"
+  ],
+  "phase1_response": "yes",
+  "phase1_rt": 1.9556713333295193,
+  "phase2_response": "4",
+  "phase2_rt": 1.2282287083362462,
+  "phase3_response": "CENTER_RIGHT",
+  "phase3_rt": 3.2754104166670004
+}

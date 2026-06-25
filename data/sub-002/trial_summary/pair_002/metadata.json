@@ -1,0 +1,21 @@
+{
+  "trial_id": 1,
+  "stim_pair_id": "pair_002",
+  "char1": "月",
+  "char2": "日",
+  "canonical_pair": "月日",
+  "char_order": "AB",
+  "meaning": "明光",
+  "meaning_opts": [
+    "日食",
+    "流年",
+    "昼夜",
+    "明光"
+  ],
+  "phase1_response": "yes",
+  "phase1_rt": 2.3365837916644523,
+  "phase2_response": null,
+  "phase2_rt": null,
+  "phase3_response": "RIGHT_CENTER",
+  "phase3_rt": 3.7665969583322294
+}

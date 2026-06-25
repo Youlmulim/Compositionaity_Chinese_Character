@@ -1,0 +1,21 @@
+{
+  "trial_id": 18,
+  "stim_pair_id": "pair_019",
+  "char1": "日",
+  "char2": "心",
+  "canonical_pair": "日心",
+  "char_order": "AB",
+  "meaning": "忧郁",
+  "meaning_opts": [
+    "心情",
+    "热情",
+    "忧郁",
+    "记忆"
+  ],
+  "phase1_response": "yes",
+  "phase1_rt": 8.105678541673115,
+  "phase2_response": "1",
+  "phase2_rt": 5.794657249993179,
+  "phase3_response": null,
+  "phase3_rt": null
+}

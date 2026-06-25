@@ -1,0 +1,21 @@
+{
+  "trial_id": 81,
+  "stim_pair_id": "pair_082",
+  "char1": "子",
+  "char2": "子",
+  "canonical_pair": "子子",
+  "char_order": "AB",
+  "meaning": "双生",
+  "meaning_opts": [
+    "果实",
+    "孙子",
+    "朋友",
+    "双生"
+  ],
+  "phase1_response": "yes",
+  "phase1_rt": 3.6194539583229925,
+  "phase2_response": "4",
+  "phase2_rt": 1.3786247083335184,
+  "phase3_response": "RIGHT_CENTER",
+  "phase3_rt": 3.058321458331193
+}

@@ -1,0 +1,21 @@
+{
+  "trial_id": 34,
+  "stim_pair_id": "pair_035",
+  "char1": "人",
+  "char2": "女",
+  "canonical_pair": "人女",
+  "char_order": "AB",
+  "meaning": "出生",
+  "meaning_opts": [
+    "裙子",
+    "夫妻",
+    "出生",
+    "妻子"
+  ],
+  "phase1_response": "no",
+  "phase1_rt": 7.152275208340143,
+  "phase2_response": "4",
+  "phase2_rt": 5.8620289166719886,
+  "phase3_response": "RIGHT_CENTER",
+  "phase3_rt": 5.620258958340855
+}

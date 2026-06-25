@@ -1,0 +1,21 @@
+{
+  "trial_id": 12,
+  "stim_pair_id": "pair_013",
+  "char1": "不",
+  "char2": "月",
+  "canonical_pair": "月不",
+  "char_order": "BA",
+  "meaning": "夜",
+  "meaning_opts": [
+    "病",
+    "骨",
+    "隐藏",
+    "夜"
+  ],
+  "phase1_response": "yes",
+  "phase1_rt": 3.8711555833288003,
+  "phase2_response": null,
+  "phase2_rt": null,
+  "phase3_response": "RIGHT_CENTER",
+  "phase3_rt": 9.164719291657093
+}

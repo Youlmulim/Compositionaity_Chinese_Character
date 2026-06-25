@@ -1,0 +1,21 @@
+{
+  "trial_id": 0,
+  "stim_pair_id": "pair_001",
+  "char1": "月",
+  "char2": "月",
+  "canonical_pair": "月月",
+  "char_order": "BA",
+  "meaning": "忠友",
+  "meaning_opts": [
+    "忠友",
+    "多月",
+    "两夜",
+    "月影"
+  ],
+  "phase1_response": "yes",
+  "phase1_rt": 1.703405374995782,
+  "phase2_response": "1",
+  "phase2_rt": 5.078026208357187,
+  "phase3_response": "RIGHT_CENTER",
+  "phase3_rt": 4.185388291676645
+}

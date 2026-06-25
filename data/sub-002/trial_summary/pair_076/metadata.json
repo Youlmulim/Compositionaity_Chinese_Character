@@ -1,0 +1,21 @@
+{
+  "trial_id": 75,
+  "stim_pair_id": "pair_076",
+  "char1": "王",
+  "char2": "不",
+  "canonical_pair": "王不",
+  "char_order": "AB",
+  "meaning": "小偷",
+  "meaning_opts": [
+    "假",
+    "戒指",
+    "小偷",
+    "仆人"
+  ],
+  "phase1_response": "no",
+  "phase1_rt": 6.321919624999282,
+  "phase2_response": "3",
+  "phase2_rt": 6.941728666672134,
+  "phase3_response": "CENTER_RIGHT",
+  "phase3_rt": 3.0416705000097863
+}

@@ -1,0 +1,21 @@
+{
+  "trial_id": 45,
+  "stim_pair_id": "pair_046",
+  "char1": "木",
+  "char2": "不",
+  "canonical_pair": "木不",
+  "char_order": "AB",
+  "meaning": "杯子",
+  "meaning_opts": [
+    "浮木",
+    "不屈",
+    "枯木",
+    "杯子"
+  ],
+  "phase1_response": "no",
+  "phase1_rt": 4.471093874992221,
+  "phase2_response": "3",
+  "phase2_rt": 4.561930708339787,
+  "phase3_response": "RIGHT_CENTER",
+  "phase3_rt": 3.7642712499946356
+}

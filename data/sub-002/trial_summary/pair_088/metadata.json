@@ -1,0 +1,21 @@
+{
+  "trial_id": 87,
+  "stim_pair_id": "pair_088",
+  "char1": "大",
+  "char2": "不",
+  "canonical_pair": "大不",
+  "char_order": "AB",
+  "meaning": "小",
+  "meaning_opts": [
+    "未曾",
+    "小",
+    "缩小",
+    "弱"
+  ],
+  "phase1_response": "no",
+  "phase1_rt": 7.936419375007972,
+  "phase2_response": "2",
+  "phase2_rt": 6.6450700416608015,
+  "phase3_response": "CENTER_BOTTOM",
+  "phase3_rt": 5.613283666665666
+}

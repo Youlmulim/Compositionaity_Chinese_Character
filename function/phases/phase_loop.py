@@ -47,6 +47,7 @@ def run_phase_loop(
         subject_id,
         phase_fns
         ):
+
     for i in range(len(trials)):
         trial = trials[i]
 
@@ -56,7 +57,9 @@ def run_phase_loop(
             phase_key = f"phase{phase_num}"
             run_fn = phase_fns[phase_num]
 
-            show_instructions(win, cfg.PHASE_CONFIG[phase_num - 1][1])
+            # 첫 번째 pair에서만 instruction 제시
+            if i == 0:
+                show_instructions(win, cfg.PHASE_CONFIG[phase_num - 1][1])
 
             # 1. frame logger
             fl = make_frame_log(
@@ -73,13 +76,13 @@ def run_phase_loop(
                 fl
             )
 
-            #3. trial dictionary UPDATE
-            trials[i] = update_trial(trial, {
+            # 3. trial dictionary UPDATE
+            trial = update_trial(trial, {
                 f"{phase_key}_response": result["response"],
                 f"{phase_key}_rt":       result["rt"],
             })
 
-            trials[i] = trial # 갱신된 trial을 리스트에 반영
+            trials[i] = trial  # 갱신된 trial을 리스트에 반영
 
             # list에 data 누적 추가
             trial_frame_rows.extend(get_rows(fl))
@@ -92,15 +95,10 @@ def run_phase_loop(
         # 5-1. integrated folder path 생성
         save_dir = ensure_trial_save_dir(
             subject_id,
-            "trial_summary", # phase_key로 frame logger 생성
+            "trial_summary",
             trial["stim_pair_id"]
         )
 
         # 5-2. JSON과 누적된 frame log 저장
-        save_trial_metadata_json(trials[i], save_dir)
+        save_trial_metadata_json(trial, save_dir)
         save_frame_log(trial_frame_rows, save_dir)
-
-        # Q: 통합데이터를 따로 빼는 것이 낫지 않을까?
-        # 프레임 로그는 메모리에 모았다가 트라이얼 종료 시점에 일괄 저장하는 방식이 나을듯?
-
-

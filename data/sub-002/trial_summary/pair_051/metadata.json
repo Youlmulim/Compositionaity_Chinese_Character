@@ -1,0 +1,21 @@
+{
+  "trial_id": 50,
+  "stim_pair_id": "pair_051",
+  "char1": "土",
+  "char2": "中",
+  "canonical_pair": "土中",
+  "char_order": "AB",
+  "meaning": "地下室",
+  "meaning_opts": [
+    "沙漠",
+    "地下室",
+    "岛",
+    "旗杆"
+  ],
+  "phase1_response": "no",
+  "phase1_rt": 8.786992291672505,
+  "phase2_response": "3",
+  "phase2_rt": 2.6945089583314257,
+  "phase3_response": "RIGHT_CENTER",
+  "phase3_rt": 3.8537946666765492
+}

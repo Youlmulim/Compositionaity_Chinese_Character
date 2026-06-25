@@ -1,0 +1,21 @@
+{
+  "trial_id": 33,
+  "stim_pair_id": "pair_034",
+  "char1": "大",
+  "char2": "人",
+  "canonical_pair": "人大",
+  "char_order": "BA",
+  "meaning": "主人",
+  "meaning_opts": [
+    "成人",
+    "阶级",
+    "主人",
+    "杂技"
+  ],
+  "phase1_response": "no",
+  "phase1_rt": 9.218435458329623,
+  "phase2_response": null,
+  "phase2_rt": null,
+  "phase3_response": "CENTER_RIGHT",
+  "phase3_rt": 6.100976000001538
+}

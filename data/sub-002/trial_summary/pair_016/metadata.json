@@ -1,0 +1,21 @@
+{
+  "trial_id": 15,
+  "stim_pair_id": "pair_016",
+  "char1": "日",
+  "char2": "木",
+  "canonical_pair": "日木",
+  "char_order": "AB",
+  "meaning": "干燥",
+  "meaning_opts": [
+    "烈日",
+    "日落",
+    "春季",
+    "干燥"
+  ],
+  "phase1_response": "yes",
+  "phase1_rt": 10.487207208338077,
+  "phase2_response": "4",
+  "phase2_rt": 4.6768076666485285,
+  "phase3_response": "BOTTOM_CENTER",
+  "phase3_rt": 5.452574750001077
+}

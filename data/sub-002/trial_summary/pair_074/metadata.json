@@ -1,0 +1,21 @@
+{
+  "trial_id": 73,
+  "stim_pair_id": "pair_074",
+  "char1": "大",
+  "char2": "王",
+  "canonical_pair": "王大",
+  "char_order": "BA",
+  "meaning": "山",
+  "meaning_opts": [
+    "老虎",
+    "山",
+    "巨人",
+    "英雄"
+  ],
+  "phase1_response": "yes",
+  "phase1_rt": 4.710267000002204,
+  "phase2_response": "4",
+  "phase2_rt": 6.461262291661114,
+  "phase3_response": null,
+  "phase3_rt": null
+}

@@ -1,0 +1,21 @@
+{
+  "trial_id": 66,
+  "stim_pair_id": "pair_067",
+  "char1": "心",
+  "char2": "子",
+  "canonical_pair": "心子",
+  "char_order": "AB",
+  "meaning": "希望",
+  "meaning_opts": [
+    "希望",
+    "微笑",
+    "纯净",
+    "善意"
+  ],
+  "phase1_response": "yes",
+  "phase1_rt": 4.387780625009327,
+  "phase2_response": "3",
+  "phase2_rt": 1.5272915416717296,
+  "phase3_response": "BOTTOM_CENTER",
+  "phase3_rt": 3.8742008749977686
+}

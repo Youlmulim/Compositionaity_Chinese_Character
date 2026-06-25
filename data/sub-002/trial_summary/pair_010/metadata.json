@@ -1,0 +1,21 @@
+{
+  "trial_id": 9,
+  "stim_pair_id": "pair_010",
+  "char1": "子",
+  "char2": "月",
+  "canonical_pair": "月子",
+  "char_order": "BA",
+  "meaning": "胚胎",
+  "meaning_opts": [
+    "摇篮曲",
+    "成长",
+    "种子",
+    "胚胎"
+  ],
+  "phase1_response": "yes",
+  "phase1_rt": 4.2367821666557575,
+  "phase2_response": "4",
+  "phase2_rt": 1.0764065416587982,
+  "phase3_response": "RIGHT_CENTER",
+  "phase3_rt": 3.5550277500005905
+}

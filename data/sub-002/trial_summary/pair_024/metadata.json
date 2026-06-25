@@ -1,0 +1,21 @@
+{
+  "trial_id": 23,
+  "stim_pair_id": "pair_024",
+  "char1": "日",
+  "char2": "女",
+  "canonical_pair": "日女",
+  "char_order": "AB",
+  "meaning": "日女神",
+  "meaning_opts": [
+    "孵化",
+    "日女神",
+    "照耀",
+    "暖意"
+  ],
+  "phase1_response": "no",
+  "phase1_rt": 5.855167374989833,
+  "phase2_response": "4",
+  "phase2_rt": 2.011216124999919,
+  "phase3_response": "RIGHT_CENTER",
+  "phase3_rt": 2.866328916672501
+}

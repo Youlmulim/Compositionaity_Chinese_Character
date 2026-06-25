@@ -1,0 +1,21 @@
+{
+  "trial_id": 72,
+  "stim_pair_id": "pair_073",
+  "char1": "子",
+  "char2": "王",
+  "canonical_pair": "王子",
+  "char_order": "BA",
+  "meaning": "珍珠",
+  "meaning_opts": [
+    "王子",
+    "玩具",
+    "双生",
+    "珍珠"
+  ],
+  "phase1_response": "yes",
+  "phase1_rt": 4.6509720833273605,
+  "phase2_response": null,
+  "phase2_rt": null,
+  "phase3_response": "RIGHT_CENTER",
+  "phase3_rt": 4.111767541675363
+}

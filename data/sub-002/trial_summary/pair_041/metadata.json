@@ -1,0 +1,21 @@
+{
+  "trial_id": 40,
+  "stim_pair_id": "pair_041",
+  "char1": "王",
+  "char2": "木",
+  "canonical_pair": "木王",
+  "char_order": "BA",
+  "meaning": "神木",
+  "meaning_opts": [
+    "巨木",
+    "魔杖",
+    "神木",
+    "王座"
+  ],
+  "phase1_response": "yes",
+  "phase1_rt": 2.470517291658325,
+  "phase2_response": null,
+  "phase2_rt": null,
+  "phase3_response": "RIGHT_CENTER",
+  "phase3_rt": 6.019704374994035
+}

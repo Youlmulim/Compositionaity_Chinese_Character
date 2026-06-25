@@ -6,10 +6,10 @@ from PIL import Image, ImageDraw, ImageFont
 # 설정
 # ============================================================
 
-PROJECT_ROOT = Path("/Users/youlimkim/Downloads/Compositionaity_Chinese_Character-feature/stimuli")
+PROJECT_ROOT = Path(__file__).resolve().parent
 
 FONT_PATH = PROJECT_ROOT / "FandolKai-Regular.otf"
-OUT_DIR = PROJECT_ROOT / "image_regular"
+OUT_DIR = PROJECT_ROOT / "image"
 
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 

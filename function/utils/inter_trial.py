@@ -9,6 +9,7 @@ from function.config.settings import (
     HOVER_PROMPT_TEXT,
     WHITE_COLOR,   
     GREEN_COLOR,
+    FONT,
 )
 from function.io.frame_logger import set_onset, log_frame
 import random
@@ -89,6 +90,7 @@ def _build_stims(win) -> dict:
     label = visual.TextStim(
         win,
         text=HOVER_BUTTON_LABEL,
+        font=FONT,
         pos=(0, 0),
         color=WHITE_COLOR,
         height=28,
@@ -96,6 +98,7 @@ def _build_stims(win) -> dict:
     prompt = visual.TextStim(
         win,
         text=HOVER_PROMPT_TEXT,
+        font=FONT,
         pos=(0, HOVER_BUTTON_RADIUS + 60),
         color=WHITE_COLOR,
         height=22,

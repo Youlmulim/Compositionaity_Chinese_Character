@@ -1,0 +1,21 @@
+{
+  "trial_id": 10,
+  "stim_pair_id": "pair_011",
+  "char1": "大",
+  "char2": "月",
+  "canonical_pair": "月大",
+  "char_order": "BA",
+  "meaning": "满月",
+  "meaning_opts": [
+    "巨影",
+    "肥胖",
+    "闰月",
+    "满月"
+  ],
+  "phase1_response": "yes",
+  "phase1_rt": 5.551457458321238,
+  "phase2_response": "4",
+  "phase2_rt": 1.5109613333188463,
+  "phase3_response": "RIGHT_CENTER",
+  "phase3_rt": 3.6814361666620243
+}

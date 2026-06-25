@@ -1,0 +1,21 @@
+{
+  "trial_id": 57,
+  "stim_pair_id": "pair_058",
+  "char1": "又",
+  "char2": "王",
+  "canonical_pair": "又王",
+  "char_order": "AB",
+  "meaning": "王子",
+  "meaning_opts": [
+    "剑",
+    "王冠",
+    "王子",
+    "金"
+  ],
+  "phase1_response": "no",
+  "phase1_rt": 7.600260041668662,
+  "phase2_response": null,
+  "phase2_rt": null,
+  "phase3_response": "CENTER_BOTTOM",
+  "phase3_rt": 4.804088000004413
+}

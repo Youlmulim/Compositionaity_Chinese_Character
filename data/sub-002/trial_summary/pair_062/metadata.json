@@ -1,0 +1,21 @@
+{
+  "trial_id": 61,
+  "stim_pair_id": "pair_062",
+  "char1": "女",
+  "char2": "又",
+  "canonical_pair": "又女",
+  "char_order": "BA",
+  "meaning": "仆人",
+  "meaning_opts": [
+    "舞蹈",
+    "姐妹",
+    "护士",
+    "仆人"
+  ],
+  "phase1_response": "yes",
+  "phase1_rt": 5.903611333327717,
+  "phase2_response": "4",
+  "phase2_rt": 1.526924958336167,
+  "phase3_response": "CENTER_RIGHT",
+  "phase3_rt": 3.476124458335107
+}

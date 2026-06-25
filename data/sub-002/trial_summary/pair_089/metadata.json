@@ -1,0 +1,21 @@
+{
+  "trial_id": 88,
+  "stim_pair_id": "pair_089",
+  "char1": "女",
+  "char2": "女",
+  "canonical_pair": "女女",
+  "char_order": "BA",
+  "meaning": "争斗",
+  "meaning_opts": [
+    "朋友",
+    "家族",
+    "双胞",
+    "争斗"
+  ],
+  "phase1_response": "yes",
+  "phase1_rt": 5.57147933334636,
+  "phase2_response": "3",
+  "phase2_rt": 2.1776999166613678,
+  "phase3_response": "CENTER_RIGHT",
+  "phase3_rt": 3.4076498333306517
+}

@@ -1,0 +1,21 @@
+{
+  "trial_id": 37,
+  "stim_pair_id": "pair_038",
+  "char1": "木",
+  "char2": "土",
+  "canonical_pair": "木土",
+  "char_order": "AB",
+  "meaning": "阻挡",
+  "meaning_opts": [
+    "阻挡",
+    "埋木",
+    "植树",
+    "开垦"
+  ],
+  "phase1_response": "no",
+  "phase1_rt": 9.10654820833588,
+  "phase2_response": "3",
+  "phase2_rt": 5.461400375002995,
+  "phase3_response": "RIGHT_CENTER",
+  "phase3_rt": 4.390407208338729
+}

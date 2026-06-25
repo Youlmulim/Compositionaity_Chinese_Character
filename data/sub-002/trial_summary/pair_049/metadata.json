@@ -1,0 +1,21 @@
+{
+  "trial_id": 48,
+  "stim_pair_id": "pair_049",
+  "char1": "心",
+  "char2": "土",
+  "canonical_pair": "土心",
+  "char_order": "BA",
+  "meaning": "洞穴",
+  "meaning_opts": [
+    "洞穴",
+    "故乡",
+    "坟墓",
+    "种子"
+  ],
+  "phase1_response": "no",
+  "phase1_rt": 7.488473000004888,
+  "phase2_response": "2",
+  "phase2_rt": 1.2784678750031162,
+  "phase3_response": "CENTER_BOTTOM",
+  "phase3_rt": 5.552803000013228
+}

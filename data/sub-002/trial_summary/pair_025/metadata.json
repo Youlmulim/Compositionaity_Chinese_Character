@@ -1,0 +1,21 @@
+{
+  "trial_id": 24,
+  "stim_pair_id": "pair_025",
+  "char1": "日",
+  "char2": "不",
+  "canonical_pair": "日不",
+  "char_order": "AB",
+  "meaning": "阴天",
+  "meaning_opts": [
+    "阴天",
+    "盲",
+    "幼小",
+    "冻结"
+  ],
+  "phase1_response": "no",
+  "phase1_rt": 7.072405541664921,
+  "phase2_response": "1",
+  "phase2_rt": 2.362686375010526,
+  "phase3_response": "BOTTOM_CENTER",
+  "phase3_rt": 5.694582208321663
+}

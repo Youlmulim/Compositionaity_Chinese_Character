@@ -1,0 +1,21 @@
+{
+  "trial_id": 25,
+  "stim_pair_id": "pair_026",
+  "char1": "人",
+  "char2": "人",
+  "canonical_pair": "人人",
+  "char_order": "BA",
+  "meaning": "随从",
+  "meaning_opts": [
+    "倒影",
+    "双生",
+    "杂技",
+    "随从"
+  ],
+  "phase1_response": "yes",
+  "phase1_rt": 1.7328767916624201,
+  "phase2_response": "4",
+  "phase2_rt": 1.4948269166634418,
+  "phase3_response": "CENTER_RIGHT",
+  "phase3_rt": 4.134508500006632
+}

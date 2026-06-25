@@ -1,0 +1,21 @@
+{
+  "trial_id": 62,
+  "stim_pair_id": "pair_063",
+  "char1": "又",
+  "char2": "不",
+  "canonical_pair": "又不",
+  "char_order": "AB",
+  "meaning": "秘密",
+  "meaning_opts": [
+    "停止",
+    "再见",
+    "左",
+    "秘密"
+  ],
+  "phase1_response": "no",
+  "phase1_rt": 11.200860583339818,
+  "phase2_response": "1",
+  "phase2_rt": 7.995292333333055,
+  "phase3_response": "CENTER_BOTTOM",
+  "phase3_rt": 5.826446041668532
+}

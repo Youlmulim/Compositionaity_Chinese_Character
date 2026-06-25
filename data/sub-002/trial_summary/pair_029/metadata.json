@@ -1,0 +1,21 @@
+{
+  "trial_id": 28,
+  "stim_pair_id": "pair_029",
+  "char1": "又",
+  "char2": "人",
+  "canonical_pair": "人又",
+  "char_order": "BA",
+  "meaning": "祝福",
+  "meaning_opts": [
+    "举起",
+    "祝福",
+    "重复",
+    "仅"
+  ],
+  "phase1_response": "no",
+  "phase1_rt": 5.072805291667464,
+  "phase2_response": "4",
+  "phase2_rt": 2.828878916669055,
+  "phase3_response": "RIGHT_CENTER",
+  "phase3_rt": 5.000166208323208
+}

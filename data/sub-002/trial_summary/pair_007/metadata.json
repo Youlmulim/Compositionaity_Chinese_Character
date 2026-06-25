@@ -1,0 +1,21 @@
+{
+  "trial_id": 6,
+  "stim_pair_id": "pair_007",
+  "char1": "月",
+  "char2": "心",
+  "canonical_pair": "月心",
+  "char_order": "AB",
+  "meaning": "乡愁",
+  "meaning_opts": [
+    "自制",
+    "脏器",
+    "思念",
+    "乡愁"
+  ],
+  "phase1_response": "yes",
+  "phase1_rt": 4.2700789166701725,
+  "phase2_response": "4",
+  "phase2_rt": 3.7279344583221246,
+  "phase3_response": "CENTER_RIGHT",
+  "phase3_rt": 4.062645708327182
+}

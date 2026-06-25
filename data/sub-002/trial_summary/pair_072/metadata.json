@@ -1,0 +1,21 @@
+{
+  "trial_id": 71,
+  "stim_pair_id": "pair_072",
+  "char1": "中",
+  "char2": "王",
+  "canonical_pair": "王中",
+  "char_order": "BA",
+  "meaning": "心",
+  "meaning_opts": [
+    "心",
+    "目标",
+    "城市",
+    "城堡"
+  ],
+  "phase1_response": "yes",
+  "phase1_rt": 5.3547693333239295,
+  "phase2_response": "4",
+  "phase2_rt": 1.9789047916565323,
+  "phase3_response": "RIGHT_CENTER",
+  "phase3_rt": 3.2579367499856744
+}

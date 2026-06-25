@@ -1,0 +1,21 @@
+{
+  "trial_id": 3,
+  "stim_pair_id": "pair_004",
+  "char1": "月",
+  "char2": "木",
+  "canonical_pair": "月木",
+  "char_order": "AB",
+  "meaning": "弓",
+  "meaning_opts": [
+    "弓",
+    "玩偶",
+    "日历",
+    "船"
+  ],
+  "phase1_response": "no",
+  "phase1_rt": 6.056410999997752,
+  "phase2_response": "4",
+  "phase2_rt": 7.578947624991997,
+  "phase3_response": "CENTER_RIGHT",
+  "phase3_rt": 3.446039500006009
+}
