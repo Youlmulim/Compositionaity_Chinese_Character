@@ -62,8 +62,6 @@ def run_phase3(
         align_horiz="center",
     )
 
-    # 1) setting에 Question 내용 옮기기
-
     meaning_bg = visual.Rect(
         win,
         width=260, height=65,

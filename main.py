@@ -69,7 +69,7 @@ def main() -> None:
     print(f"[main] Summary saved → {paths}")
 
     # Farewell & close
-    show_instructions(ctx.win, "Experiment complete.\n\nThank you!\n\nPress SPACEBAR to exit.")
+    show_instructions(ctx.win, "实验完成。\n\n谢谢！\n\n按空格键退出。")
     ctx.win.close()
     core.quit()
 

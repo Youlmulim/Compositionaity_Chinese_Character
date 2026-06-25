@@ -62,8 +62,6 @@ def load_trial_table(
                     opt for opt in [
                         row["meaning_opt1"].strip(),
                         row["meaning_opt2"].strip(),
-                        row["meaning_opt3"].strip(),
-                        row["meaning_opt4"].strip(),
                     ] if opt
                 ],
                 # Phase results – filled in later
@@ -123,8 +121,6 @@ def get_or_create_subject_trials(subject_id: str) -> List[Dict[str, Any]]:
             "meaning": trial["meaning"],
             "meaning_opt1": trial["meaning_opts"][0] if len(trial["meaning_opts"]) > 0 else "",
             "meaning_opt2": trial["meaning_opts"][1] if len(trial["meaning_opts"]) > 1 else "",
-            "meaning_opt3": trial["meaning_opts"][2] if len(trial["meaning_opts"]) > 2 else "",
-            "meaning_opt4": trial["meaning_opts"][3] if len(trial["meaning_opts"]) > 3 else "",
         })
 
     fieldnames = list(save_rows[0].keys())
