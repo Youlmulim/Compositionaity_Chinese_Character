@@ -9,6 +9,7 @@ from pathlib import Path
 import sys
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from config import TEST_MODE
+import platform
 
 # ─── Paths ───────────────────────────────────────────────────────────────────
 ROOT_DIR        = Path(__file__).resolve().parents[2]
@@ -35,7 +36,7 @@ ITI_DURATION      = 1.5          # inter-trial interval (seconds)
 FRAME_RATE        = 60           # Hz – used for frame log sanity checks
 
 # ─── Text ────────────────────────────────────────────────────────────────────
-FONT             = "FandolKai-Regular"
+FONT = "AppleGothic" if platform.system() == "Darwin" else "Malgun Gothic"
 TEXT_COLOR       = "white"
 
 
