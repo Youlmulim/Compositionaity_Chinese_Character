@@ -1,26 +1,56 @@
 """
 practice_loop.py
 ----------------
-연습 모드 루프. Exit 버튼을 누를 때까지 Phase 1→2→3 순서로 무한 반복합니다.
+연습 모드 루프.
 
-Flow per iteration
-------------------
-  show_practice_screen()
-      ├── [본 실험 시작] 클릭 → 루프 종료 → 본 실험으로 이동
-      └── SPACE 키 → Phase 1 → Phase 2 → Phase 3 → Hover ITI → 처음으로
+Flow
+----
+1. run_practice_phase0_loop()
+       데이터 저장 없이 char_list의 모든 글자에 대해 Phase 0 친숙도 평가 실행.
+
+2. run_practice_loop()
+       [본 실험 시작] 클릭 때까지 Phase 1→2→3 순서로 무한 반복.
+       show_practice_screen() → SPACE → Phase 1 → Phase 2 → Phase 3 → Hover ITI → 처음으로
 """
 
 import itertools
 import random
+from pathlib import Path
 
 from psychopy import visual, core
 
+from function.practice.practice_phase0 import run_practice_phase0
 from function.practice.practice_phase1 import run_practice_trial
 from function.practice.practice_phase2 import run_practice_phase2
 from function.practice.practice_phase3 import run_practice_phase3
 from function.utils.screen_utils import show_practice_screen
 from function.utils.inter_trial import run_hover_iti
+from function.stimuli.trial_loader import build_phase0_trials, preload_images
 from function.config import settings as cfg
+
+
+def run_practice_phase0_loop(
+        win: visual.Window,
+        char_list: list,
+        global_clock: core.Clock,
+) -> None:
+    """
+    연습용 Phase 0 루프 — 친숙도 평가 화면을 char_list 전체에 걸쳐 순서대로 실행합니다.
+    데이터는 저장하지 않습니다 (연습 전용).
+
+    Parameters
+    ----------
+    win          : PsychoPy Window
+    char_list    : 평가할 한자 목록
+    global_clock : 실험 전체 시계
+    """
+    image_dir   = Path(cfg.STIMULI_DIR)
+    image_cache = preload_images(char_list, win, image_dir)
+    trials      = build_phase0_trials(char_list, image_dir, image_cache=image_cache)
+
+    for trial in trials:
+        run_practice_phase0(win, trial, global_clock)
+        run_hover_iti(win)
 
 
 def run_practice_loop(

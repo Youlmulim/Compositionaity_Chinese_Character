@@ -21,6 +21,8 @@ TRIAL_TABLE_CSV = (
     else ROOT_DIR / "stimuli" / "trial_table.csv"
 )
 
+PRACTICE_TABLE_CSV = ROOT_DIR / "stimuli" / "practice_table.csv"
+
 # ─── Window ───────────────────────────────────────────────────────────────────
 WINDOW_SIZE      = (1470, 956)   # TODO: adjust to your display
 WINDOW_UNITS     = "pix"
