@@ -72,8 +72,8 @@ def run_practice_phase3(
             "char_stim": None,
         }
 
-    char1_stim = make_chinese_char(win, char1, pos=cfg.P3_CHAR1_POS, size=100)
-    char2_stim = make_chinese_char(win, char2, pos=cfg.P3_CHAR2_POS, size=100)
+    char1_stim = make_chinese_char(win, char1, pos=cfg.P3_CHAR1_POS, size=100, stim_dir=cfg.STIMULI_PRAC_DIR)
+    char2_stim = make_chinese_char(win, char2, pos=cfg.P3_CHAR2_POS, size=100, stim_dir=cfg.STIMULI_PRAC_DIR)
 
     state = {
         "selected_char": None,
@@ -129,7 +129,8 @@ def run_practice_phase3(
                 displayed_char = char1 if placed_char == "char1" else char2
                 if circle_data["char_stim"] is None:
                     circle_data["char_stim"] = make_chinese_char(
-                        win, displayed_char, pos=circle_data["pos"], size=80
+                        win, displayed_char, pos=circle_data["pos"], size=80,
+                        stim_dir=cfg.STIMULI_PRAC_DIR,
                     )
                 circle_data["char_stim"].color = "white"
                 circle_data["stim"].opacity = 0

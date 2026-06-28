@@ -75,6 +75,23 @@ def load_trial_table(
             trials.append(trial)
     return trials
 
+
+def load_practice_trials(
+        csv_path: Path = None,
+) -> List[Dict[str, Any]]:
+    from function.config.settings import PRACTICE_TABLE_CSV
+    if csv_path is None:
+        csv_path = PRACTICE_TABLE_CSV
+
+        trials = load_trial_table(csv_path)  # 기존 함수 재사용
+
+    for trial in trials:
+        if random.choice([True, False]):
+            trial["char1"], trial["char2"] = trial["char2"], trial["char1"]
+        random.shuffle(trial["meaning_opts"])
+
+    return trials
+
 def get_or_create_subject_trials(subject_id: str) -> List[Dict[str, Any]]:
     """
     피험자 고유의 trial_table을 불러오거나, 없다면 새로 생성하여 저장합니다.

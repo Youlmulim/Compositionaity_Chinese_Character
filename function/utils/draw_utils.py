@@ -7,6 +7,7 @@ visual objects themselves.
 """
 
 import math
+from pathlib import Path
 from typing import Optional, Tuple
 from psychopy import visual, event
 from function.config.settings import (
@@ -14,6 +15,7 @@ from function.config.settings import (
     GREEN_COLOR, WHITE_COLOR, BLACK_COLOR,
     HIGHLIGHT_COLOR,
     P1_BTN_WIDTH, P1_BTN_HEIGHT,
+    STIMULI_DIR,
 )
 from function.stimuli.image_paths import get_char_image_path
 
@@ -49,11 +51,13 @@ def make_chinese_char(
     char: str,
     pos: Tuple[float, float],
     size: int = STIM_CHAR_SIZE,
+    stim_dir: Optional[Path] = None,
 ) -> visual.ImageStim:
     """Chinese character as ImageStim loaded from stimuli/image/{char}.png."""
+    image_path = (stim_dir or STIMULI_DIR) / f"{char}.png"
     return visual.ImageStim(
         win,
-        image=str(get_char_image_path(char)),
+        image=str(image_path),
         pos=pos,
         size=(size, size),
     )
@@ -170,15 +174,16 @@ def build_char_equation(
     char2_pos: Tuple[float, float],
     eq_pos: Tuple[float, float],
     qmark_pos: Tuple[float, float],
+    stim_dir: Optional[Path] = None,
 ) -> dict:
     """
     Pre-build all stimuli for the  char1 + char2 = ?  equation.
     Call once before the flip loop; pass the result to draw_char_equation().
     """
     return {
-        "char1":  make_chinese_char(win, char1, char1_pos),
+        "char1":  make_chinese_char(win, char1, char1_pos, stim_dir=stim_dir),
         "plus":   make_text(win, "+",  pos=plus_pos,   height=STIM_CHAR_SIZE),
-        "char2":  make_chinese_char(win, char2, char2_pos),
+        "char2":  make_chinese_char(win, char2, char2_pos, stim_dir=stim_dir),
         "eq":     make_text(win, "=",  pos=eq_pos,     height=STIM_CHAR_SIZE),
         "qmark":  make_text(win, "?",  pos=qmark_pos,  height=STIM_CHAR_SIZE, bold=True),
     }

@@ -14,6 +14,7 @@ import platform
 # ─── Paths ───────────────────────────────────────────────────────────────────
 ROOT_DIR        = Path(__file__).resolve().parents[2]
 STIMULI_DIR     = ROOT_DIR / "stimuli" / "image"
+STIMULI_PRAC_DIR = ROOT_DIR / "stimuli" / "practice_image"
 DATA_DIR        = ROOT_DIR / "data"
 TRIAL_TABLE_CSV = (
     ROOT_DIR / "test" / "test_trial.csv"
