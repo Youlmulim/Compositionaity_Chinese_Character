@@ -199,6 +199,9 @@ def run_phase2(
 
         rec.flip_and_log(win, marker="final_choice_onset" if rec.idx == 0 else None)
 
+        if rec.idx == 1:
+            phase_clock.reset()
+
         # 2. 마우스 클릭 체크 및 0.5초 대기 로직
         btn_pressed = bool(mouse.getPressed()[P2_MOUSE_BUTTON])
         if btn_pressed and not prev_pressed:

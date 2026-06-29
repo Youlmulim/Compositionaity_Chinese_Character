@@ -204,6 +204,9 @@ def run_phase3(
 
         rec.flip_and_log(win)
 
+        if rec.idx == 1:
+            phase_clock.reset()
+
         # ── Handle mouse clicks ───────────────────────────────────────────────
         btn = bool(mouse.getPressed()[P3_MOUSE_BUTTON])
 

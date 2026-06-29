@@ -109,6 +109,9 @@ def run_phase1(
 
         rec.flip_and_log(win)
 
+        if rec.idx == 1:
+            phase_clock.reset()
+
         # ── Response check (mouse) ────────────────────────────────────────────
         btn = bool(mouse.getPressed()[P1_MOUSE_BUTTON])
         if btn and not prev_pressed:
