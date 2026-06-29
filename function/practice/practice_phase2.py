@@ -60,7 +60,7 @@ def run_practice_phase2(
     panel_width  = 250
     panel_height = 120
     row_y        = -250
-    panel_gap    = 50
+    panel_gap    = 100
 
     n_opts = len(meaning_opts)
     step   = panel_width + panel_gap
