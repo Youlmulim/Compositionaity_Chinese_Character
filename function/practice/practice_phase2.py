@@ -46,6 +46,7 @@ def run_practice_phase2(
         char2_pos=(cfg.P2_EQ_CHAR2_POS[0], 0),
         eq_pos=(cfg.P2_EQ_EQ_POS[0], 0),
         qmark_pos=(cfg.P2_EQ_QMARK_POS[0], 0),
+        stim_dir=cfg.STIMULI_PRAC_DIR,
     )
 
     question_stim = make_text(

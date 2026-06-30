@@ -1,3 +1,4 @@
+import gc
 from pathlib import Path
 
 from function.config import settings as cfg
@@ -50,6 +51,7 @@ def run_phase_loop(
 
     for i in range(len(trials)):
         trial = trials[i]
+        gc.disable()
 
         trial_frame_rows = []  # 각 trial마다 프레임 로그 누적할 리스트
 

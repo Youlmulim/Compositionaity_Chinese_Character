@@ -104,10 +104,13 @@ def run_phase1(
     while result["response"] is None and not result["timed_out"]:
         redraw()
 
-        # Show running progress bar from trial start (like Phase 0).
-        progress_bar.draw(elapsed_time=phase_clock.getTime())
+        current_time = phase_clock.getTime() if rec.idx > 0 else 0.0
+        progress_bar.draw(elapsed_time=current_time)
 
         rec.flip_and_log(win)
+
+        if rec.idx == 1:
+            phase_clock.reset()
 
         # ── Response check (mouse) ────────────────────────────────────────────
         btn = bool(mouse.getPressed()[P1_MOUSE_BUTTON])

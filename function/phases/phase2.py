@@ -75,7 +75,7 @@ def run_phase2(
     opts_with_idx = list(enumerate(meaning_opts))
     random.shuffle(opts_with_idx)
 
-    SINGLE_OPT_DURATION = 1.5  # 노출 시간 (2초)
+    SINGLE_OPT_DURATION = 1.5  # 노출 시간
     
     single_opt_stim = make_text(
         win,
@@ -85,12 +85,17 @@ def run_phase2(
         font=cfg.P23_MEANING_FONT,
     )
 
+    # [수정] Clock 객체는 단 한 번만 생성하여 재사용 (메모리 파편화 및 드롭 방지)
+    phase_clock = core.Clock()
+
     for seq_num, (orig_idx, opt_text) in enumerate(opts_with_idx, start=1):
         single_opt_stim.text = opt_text
 
-        phase_clock = core.Clock()
         rec.start_segment()
         onset_marker = f"single_opt_onset_seq{seq_num}_opt{orig_idx+1}_{opt_text}"
+        
+        # 각 시퀀스 시작 전 시계 초기화 (임시 구동용)
+        phase_clock.reset()
 
         while phase_clock.getTime() < SINGLE_OPT_DURATION:
             question_stim.draw()
@@ -98,6 +103,11 @@ def run_phase2(
             single_opt_stim.draw()
 
             rec.flip_and_log(win, marker=onset_marker if rec.idx == 0 else None)
+            
+            # [수정] 첫 번째 자극 프레임이 화면에 완전히 출력(V-Sync 완료)된 직후 시계 리셋
+            if rec.idx == 1:
+                phase_clock.reset()
+                
             check_escape(win)
 
         # 개별 보기 제시 후 Gaussian ITI 실행
@@ -116,8 +126,6 @@ def run_phase2(
     # ────────────────────────────────────────────────────────────────────────
     # 단계 3: 최종 응답 화면 (사각형 패널 내부에 텍스트만 배치)
     # ────────────────────────────────────────────────────────────────────────
-    
-    # 화면 '정중앙(Y=0)' 수식 빌드
     final_eq_stims = build_char_equation(
         win, char1, char2,
         char1_pos=(cfg.P2_EQ_CHAR1_POS[0], 0),
@@ -127,31 +135,21 @@ def run_phase2(
         qmark_pos=(cfg.P2_EQ_QMARK_POS[0], 0),
     )
 
-    # UI 디자인 변수 설정
     panel_width = 250
     panel_height = 120
-    
-    # 2개의 선택지가 위치할 (X, Y) 좌표를 직접 지정합니다.
-    # 수식이 Y=0에 있으므로 Y값을 마이너스(-180)로 주어 수식 아래로 내립니다.
-    # X값을 각각 -200, 200으로 주어 화면 중앙을 기준으로 좌/우로 나란히 배치합니다.
     panel_positions = [(-200, -180), (200, -180)]
 
     choice_panels = []
     choice_texts = []
 
-    # meaning_opts는 이미 길이가 2라고 가정합니다.
     for i, opt_text in enumerate(meaning_opts):
-        panel_pos = panel_positions[i]  # 0번 인덱스는 왼쪽, 1번 인덱스는 오른쪽 좌표를 가져옴
-        
-        # 1. 사각형 패널: 배경색(fillColor)을 흰색으로 통째로 채웁니다.
+        panel_pos = panel_positions[i]
         rect = visual.Rect(
             win, width=panel_width, height=panel_height,
             pos=panel_pos, 
             lineColor="white", lineWidth=3,
             fillColor="white", opacity=1,
         )
-
-        # 2. 의미 텍스트: 흰 배경 위에 보이도록 글자 색상을 검은색으로 고정합니다.
         opt_txt = make_text(
             win,
             text=opt_text,
@@ -164,7 +162,6 @@ def run_phase2(
         choice_panels.append(rect)
         choice_texts.append(opt_txt)
 
-    # update_button_states 규칙({"rect": ..., "label": ...})에 맞게 데이터 구성
     resp_data = []
     for i in range(len(choice_panels)):
         resp_data.append({
@@ -173,16 +170,16 @@ def run_phase2(
         })
 
     mouse.clickReset()
-    phase_clock = core.Clock()
-    # Time progress bar for response timeout visualization
+    
+    # 최종 응답용으로 클록 리셋
+    phase_clock.reset()
     progress_bar = TimeProgressBar(win=win)
     rec.start_segment()
     result = make_response()
     prev_pressed = False
-    selected_rating = None  # 선택된 라벨을 저장할 변수
+    selected_rating = None
 
     def redraw_final():
-        # draw_utils.py의 함수를 그대로 호출하여 호버/선택 상태 업데이트
         update_button_states(resp_data, mouse, selected_button=selected_rating)
         question_stim.draw()
         draw_char_equation(final_eq_stims)
@@ -194,21 +191,26 @@ def run_phase2(
     while result["response"] is None and not result["timed_out"]:
         redraw_final()
 
-        # Time progress bar 그리기
-        progress_bar.draw(phase_clock.getTime())
+        # [수정] 첫 번째 flip(idx==0)이 완전히 끝나 모니터에 자극이 켜지기 전까지는 
+        # 진행바에 0초를 강제 주입하여 비정상적인 게이지 튐 및 연산 부하 방지
+        current_time = phase_clock.getTime() if rec.idx > 0 else 0.0
+        progress_bar.draw(elapsed_time=current_time)
 
         rec.flip_and_log(win, marker="final_choice_onset" if rec.idx == 0 else None)
 
-        # 2. 마우스 클릭 체크 및 0.5초 대기 로직
+        # [수정] 자극이 모니터에 처음 켜진 바로 그 순간 RT 시계를 0.000초로 고정
+        if rec.idx == 1:
+            phase_clock.reset()
+
         btn_pressed = bool(mouse.getPressed()[P2_MOUSE_BUTTON])
         if btn_pressed and not prev_pressed:
             pos = mouse.getPos()
             for data in resp_data:
                 if data["rect"].contains(pos):
-                    selected_rating = data["label"]  # 클릭한 선택지의 라벨("1"~"4") 저장
+                    selected_rating = data["label"]
+                    # 순수 자극 등장 기점(0ms)으로부터의 RT 정확히 측정
                     rt = float(phase_clock.getTime())
 
-                    # 선택색을 0.5초 보여주고 마우스를 뗄 때까지 대기 (Phase 0, 1과 동일)
                     confirm_click(win, mouse, button=P2_MOUSE_BUTTON, redraw_fn=redraw_final, hold=0.5)
 
                     result = make_response(
@@ -222,6 +224,7 @@ def run_phase2(
 
         check_escape(win)
 
+        # 타임아웃 계산도 정렬된 시계 기준으로 처리
         if cfg.MAX_RESPONSE_TIME and phase_clock.getTime() > cfg.MAX_RESPONSE_TIME:
             result = make_response(timed_out=True)
 

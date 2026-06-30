@@ -1,3 +1,5 @@
+import gc
+
 from psychopy import visual, core, event
 
 from function.utils.event_utils import check_escape
@@ -23,6 +25,8 @@ def run_gaussian_iti(win, global_clock, frame_log, min_t=0.6, max_t=1.8, mean_t=
     phase_clock = core.Clock()
     frame_idx = 0
 
+    temp_log_data=[]
+
     while phase_clock.getTime() < iti_duration:
         flip_time = win.flip()
 
@@ -32,21 +36,21 @@ def run_gaussian_iti(win, global_clock, frame_log, min_t=0.6, max_t=1.8, mean_t=
         else:
             marker = ""
 
-        frame_log = log_frame(
-            frame_log,
-            frame_idx=frame_idx,
-            flip_time=flip_time,
-            global_time=global_clock.getTime(),
-            event_marker=marker,
-        )
-        frame_idx += 1
+        temp_log_data.append((
+            frame_idx, 
+            flip_time, 
+            global_clock.getTime(), 
+            marker
+        ))
 
+        frame_idx += 1
         check_escape(win)
 
     return frame_log
 
 def run_hover_iti(win) -> None:
     """Show a center button; proceed when the mouse dwells over it."""
+    gc.collect()
     mouse = event.Mouse(win=win)
     clock = core.Clock()
     stims = _build_stims(win)

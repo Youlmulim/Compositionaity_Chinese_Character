@@ -37,7 +37,8 @@ def make_frame_log(phase: str, trial_id: int, stim_pair_id: str) -> FrameLog:
 
 def set_onset(log: FrameLog, t: float) -> FrameLog:
     """Return a new FrameLog with onset_time set to *t*."""
-    return {**log, "onset_time": t}
+    log["onset_time"] = t
+    return log
 
 
 def log_frame(
@@ -59,7 +60,9 @@ def log_frame(
         "flip_time":    round(flip_time, 6),
         "event_marker": event_marker,
     }
-    return {**log, "rows": log["rows"] + [row]}
+
+    log["rows"].append(row)
+    return log
 
 
 def get_rows(log: FrameLog) -> List[Dict[str, Any]]:

@@ -56,6 +56,7 @@ def run_practice_trial(
         char2_pos=cfg.STIM_CHAR2_POS,
         eq_pos=cfg.STIM_EQ_POS,
         qmark_pos=cfg.STIM_QMARK_POS,
+        stim_dir=cfg.STIMULI_PRAC_DIR,
     )
 
     clickable       = [(yes_rect, "yes"), (no_rect, "no")]

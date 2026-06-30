@@ -44,7 +44,7 @@ def run_practice_phase0_loop(
     char_list    : 평가할 한자 목록
     global_clock : 실험 전체 시계
     """
-    image_dir   = Path(cfg.STIMULI_DIR)
+    image_dir   = Path(cfg.STIMULI_PRAC_DIR)
     image_cache = preload_images(char_list, win, image_dir)
     trials      = build_phase0_trials(char_list, image_dir, image_cache=image_cache)
 
