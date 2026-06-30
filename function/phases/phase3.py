@@ -78,10 +78,17 @@ def run_phase3(
         font=cfg.P23_MEANING_FONT,
     )
 
-    # Create 5 circles in cross pattern
+    # Create 5 circles in cross pattern AND pre-load character stimuli
     circles = {}
     for pos_name, offset in cfg.P3_POSITIONS.items():
         circle_pos = (cfg.P3_CROSS_CENTER[0] + offset[0], cfg.P3_CROSS_CENTER[1] + offset[1])
+        
+        # [최적화] 각 위치별로 배치될 글자 스티뮬러스를 루프 밖에서 미리 모두 생성해 둡니다.
+        char1_placed_stim = make_chinese_char(win, char1, pos=circle_pos, size=80)
+        char2_placed_stim = make_chinese_char(win, char2, pos=circle_pos, size=80)
+        char1_placed_stim.color = "white"
+        char2_placed_stim.color = "white"
+        
         circles[pos_name] = {
             "stim": visual.Circle(
                 win,
@@ -92,7 +99,11 @@ def run_phase3(
                 lineWidth=3,
             ),
             "pos": circle_pos,
-            "char_stim": None,
+            # [최적화] 미리 생성한 스티뮬러스를 딕셔너리에 저장합니다.
+            "char_stims": {
+                "char1": char1_placed_stim,
+                "char2": char2_placed_stim
+            }
         }
 
     # Create character stimuli on the right (clickable)
@@ -119,6 +130,9 @@ def run_phase3(
     while result["response"] is None and not result["timed_out"]:
         # ── Update visual states ──────────────────────────────────────────────
         mouse_pos = mouse.getPos()
+        
+        # [최적화] 매 프레임 리스트 생성을 피하기 위해 한 번만 캐싱합니다.
+        placed_chars = list(state["placements"].values())
 
         # Selected character follows the mouse cursor
         if state["selected_char"] == "char1":
@@ -129,8 +143,9 @@ def run_phase3(
             char1_stim.pos = cfg.P3_CHAR1_POS
             char2_stim.pos = cfg.P3_CHAR2_POS
 
-        char1_color, char1_opacity = get_char_color(state, "char1", mouse_pos, cfg.P3_CHAR1_POS)
-        char2_color, char2_opacity = get_char_color(state, "char2", mouse_pos, cfg.P3_CHAR2_POS)
+        # [최적화] 인자로 캐싱해둔 placed_chars를 넘깁니다.
+        char1_color, char1_opacity = get_char_color(state, "char1", mouse_pos, cfg.P3_CHAR1_POS, placed_chars)
+        char2_color, char2_opacity = get_char_color(state, "char2", mouse_pos, cfg.P3_CHAR2_POS, placed_chars)
 
         char1_stim.color = char1_color
         char1_stim.opacity = char1_opacity
@@ -169,16 +184,9 @@ def run_phase3(
 
             circle_data["stim"].lineColor = circle_color
 
-            # 배치된 글자
+            # [최적화] 배치된 글자 처리는 그리기(draw) 단계에서 미리 생성된 객체를 사용하므로, 
+            # 여기서는 원의 투명도만 조절합니다.
             if placed_char:
-                displayed_char = char1 if placed_char == "char1" else char2
-                if circle_data["char_stim"] is None:
-                    circle_data["char_stim"] = make_chinese_char(
-                        win, displayed_char, pos=circle_data["pos"], size=80
-                    )
-                
-                # 배치된 글자의 색상과 원의 테두리 투명도
-                circle_data["char_stim"].color = "white"
                 circle_data["stim"].opacity = 0
             else:
                 circle_data["stim"].opacity = 1
@@ -194,11 +202,14 @@ def run_phase3(
         char1_stim.draw()
         char2_stim.draw()
 
+        # [최적화] 이미 배치된 글자 그리기 (미리 생성해둔 객체 사용)
         for pos_name, circle_data in circles.items():
-            if circle_data["char_stim"] and state["placements"][pos_name]:
+            placed_char = state["placements"][pos_name]
+            if placed_char:
                 if selected and is_hovering(mouse_pos, circle_data["pos"], cfg.P3_CIRCLE_RADIUS):
                     continue
-                circle_data["char_stim"].draw()
+                # 미리 만들어둔 객체를 가져와 draw()만 호출 (연산 비용 대폭 감소)
+                circle_data["char_stims"][placed_char].draw()
 
         progress_bar.draw(elapsed_time=phase_clock.getTime())
 
@@ -216,21 +227,17 @@ def run_phase3(
                 rt = phase_clock.getTime()
 
                 # Check if clicking on char1 (right side)
-                if is_hovering(mouse_pos, cfg.P3_CHAR1_POS, 60) and "char1" not in state["placements"].values():
-                    # state["selected_char"] = "char1"
+                if is_hovering(mouse_pos, cfg.P3_CHAR1_POS, 60) and "char1" not in placed_chars:
                     if state["selected_char"] == "char1":
                         state["selected_char"] = None
                     elif state["selected_char"] == None:
                         state["selected_char"] = "char1"
                     wait_for_mouse_release(mouse, P3_MOUSE_BUTTON)
 
-
-
                 # Check if clicking on char2 (right side)
-                elif is_hovering(mouse_pos, cfg.P3_CHAR2_POS, 60) and "char2" not in state["placements"].values():
-                    # state["selected_char"] = "char2"
+                elif is_hovering(mouse_pos, cfg.P3_CHAR2_POS, 60) and "char2" not in placed_chars:
                     if state["selected_char"] == "char2":
-                    # 이미 들고 있는 상태에서 원래 자리를 클릭하면 내려놓기(취소)
+                        # 이미 들고 있는 상태에서 원래 자리를 클릭하면 내려놓기(취소)
                         state["selected_char"] = None
                     elif state["selected_char"] is None:
                         # 빈 손일 때는 집어들기
@@ -255,7 +262,7 @@ def run_phase3(
                             elif placed_char:
                                 state["selected_char"] = placed_char
                                 state["placements"][pos_name] = None
-                                circle_data["char_stim"] = None  # clear stim to remove residue
+                                # [최적화] 동적 객체 삭제가 더 이상 필요하지 않아 제거되었습니다.
 
                             wait_for_mouse_release(mouse, P3_MOUSE_BUTTON)
                             break
@@ -293,11 +300,12 @@ def run_phase3(
 
 # ─── Helper functions ────────────────────────────────────────────────────────
 
-def get_char_color(state: Dict[str, Any], char_name: str, mouse_pos: Tuple[float, float], char_pos: Tuple[float, float]) -> str:
+# [최적화] 매 프레임 dict.values() 호출을 방지하기 위해 placed_chars 매개변수를 추가했습니다.
+def get_char_color(state: Dict[str, Any], char_name: str, mouse_pos: Tuple[float, float], char_pos: Tuple[float, float], placed_chars: list) -> str:
     """Determine display color for a character based on state."""
 
     # 이미 왼쪽 원에 배치된 경우
-    if char_name in state["placements"].values():
+    if char_name in placed_chars:
         return "white", 0.0
 
     # 마우스 선택해서 들고 이동중

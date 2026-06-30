@@ -69,14 +69,15 @@ def main(hz: float, threshold: float, subject: str | None) -> None:
 
     RESULTS_DIR.mkdir(exist_ok=True)
 
+    tag = subject if subject else "all"
     summary = pd.DataFrame(summary_rows)
-    summary_path = RESULTS_DIR / "frame_drop_summary.csv"
+    summary_path = RESULTS_DIR / f"frame_drop_summary_{tag}.csv"
     summary.to_csv(summary_path, index=False)
     print(f"Summary saved -> {summary_path}")
 
     if all_drops:
         detail = pd.concat(all_drops, ignore_index=True)
-        detail_path = RESULTS_DIR / "frame_drop_detail.csv"
+        detail_path = RESULTS_DIR / f"frame_drop_detail_{tag}.csv"
         detail.to_csv(detail_path, index=False)
         print(f"Detail  saved -> {detail_path}")
     else:
