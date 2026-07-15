@@ -6,10 +6,10 @@ from function.config import settings as cfg
 
 class TimeProgressBar:
     """
-    Response time의 남은 시간을 화면 하단에 표시하는 progress bar.
+    Progress bar showing the remaining response time at the bottom of the screen.
 
-    기본 위치/크기/색상은 이 파일 안에서 관리한다.
-    phase 코드에서는 TimeProgressBar(win)만 호출하면 된다.
+    Default position, size, and colors are managed in this file.
+    Phase code only needs to instantiate ``TimeProgressBar(win)``.
     """
 
     DEFAULT_WIDTH = 600
@@ -72,11 +72,11 @@ class TimeProgressBar:
     def draw(self, elapsed_time, max_time=None):
         """
         elapsed_time:
-            phase_clock.getTime() 값
+            Value returned by ``phase_clock.getTime()``.
 
         max_time:
-            기본값은 settings.py의 cfg.MAX_RESPONSE_TIME.
-            phase 코드에서 따로 넘기지 않아도 된다.
+            Defaults to ``cfg.MAX_RESPONSE_TIME`` from settings.py.
+            Phase code does not need to pass it explicitly.
         """
 
         if max_time is None:
@@ -95,7 +95,7 @@ class TimeProgressBar:
         if current_width > 0:
             self.fill.width = current_width
 
-            # 왼쪽 끝을 고정한 채 오른쪽에서 줄어들게 만드는 보정
+            # Keep the left edge fixed while shrinking from the right.
             self.fill.pos = (
                 self.left_x + current_width / 2,
                 self.pos[1],

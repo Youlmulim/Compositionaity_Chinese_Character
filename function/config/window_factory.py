@@ -36,5 +36,6 @@ def create_window() -> visual.Window:
         allowGUI=True,
         winType="pyglet",
         screen=SCREEN_NUMBER,
+        useRetina=False,
     )
     return win

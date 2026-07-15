@@ -17,8 +17,8 @@ from function.io.frame_logger import set_onset, log_frame
 import random
 
 def run_gaussian_iti(win, global_clock, frame_log, min_t=0.6, max_t=1.8, mean_t=1.2, sd_t=0.3):
-    """지정된 가우시안 분포의 랜덤한 시간 동안 빈 화면(ITI)을 띄우고 로그를 남깁니다."""
-    # ITI 시간 계산 (가우시안 분포 및 min/max 클램핑)
+    """Show a blank ITI for a Gaussian-distributed duration and record its log."""
+    # Calculate the ITI duration and clamp it to the configured minimum/maximum.
     iti_duration = random.gauss(mean_t, sd_t)
     iti_duration = max(min_t, min(iti_duration, max_t))
 

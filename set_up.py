@@ -1,10 +1,21 @@
 import os
+import shutil
 import subprocess
+import sys
 from pathlib import Path
 
 
 VENV_DIR = Path(".venv")
 REQUIREMENTS_FILE = Path("requirements.txt")
+PROJECT_NAME = "compositionality-chinese-character"
+PROJECT_VERSION = "0.1.0"
+SUPPORTED_PYTHON = ">=3.11,<3.12"
+SOUNDS_DIR = Path("function/utils/sounds")
+REQUIRED_SOUND_FILES = (
+    "sound_effect.wav",
+    "sound_effect_quit.wav",
+    "sound_effect_done.wav",
+)
 
 
 def run(cmd):
@@ -13,17 +24,28 @@ def run(cmd):
 
 
 def find_python311():
-    """Windows py launcher에서 Python 3.11 찾기"""
-    try:
-        result = subprocess.run(
-            ["py", "-3.11", "--version"],
-            capture_output=True,
-            text=True
-        )
-        if result.returncode == 0:
-            return ["py", "-3.11"]
-    except FileNotFoundError:
-        pass
+    """Find Python 3.11 on Windows, macOS, or Linux."""
+    candidates = []
+    if os.name == "nt":
+        candidates.append(["py", "-3.11"])
+    else:
+        if sys.version_info[:2] == (3, 11):
+            candidates.append([sys.executable])
+        python311 = shutil.which("python3.11")
+        if python311:
+            candidates.append([python311])
+
+    for candidate in candidates:
+        try:
+            result = subprocess.run(
+                candidate + ["--version"],
+                capture_output=True,
+                text=True,
+            )
+            if result.returncode == 0 and "Python 3.11" in result.stdout:
+                return candidate
+        except FileNotFoundError:
+            continue
 
     print("\n[ERROR] Python 3.11이 설치되어 있지 않습니다.")
     print("👉 Python 3.11 설치 후 다시 실행하세요.")
@@ -61,8 +83,26 @@ def install_requirements():
     run([str(python_path), "-m", "pip", "install", "-r", str(REQUIREMENTS_FILE)])
 
 
+def validate_project_assets():
+    """Ensure sound assets formerly declared as setup.py package data exist."""
+    missing = [
+        str(SOUNDS_DIR / filename)
+        for filename in REQUIRED_SOUND_FILES
+        if not (SOUNDS_DIR / filename).is_file()
+    ]
+    if missing:
+        raise FileNotFoundError(
+            "Required sound file(s) missing:\n  " + "\n  ".join(missing)
+        )
+
+    print(f"[INFO] Project: {PROJECT_NAME} {PROJECT_VERSION}")
+    print(f"[INFO] Python: {SUPPORTED_PYTHON}")
+    print(f"[INFO] Sound assets verified: {len(REQUIRED_SOUND_FILES)}")
+
+
 def main():
     try:
+        validate_project_assets()
         create_venv()
         install_requirements()
 
@@ -72,7 +112,7 @@ def main():
         else:
             print("source .venv/bin/activate")
 
-    except subprocess.CalledProcessError as e:
+    except (FileNotFoundError, subprocess.CalledProcessError) as e:
         print("\n[ERROR] 설치 실패")
         print(e)
         exit(1)

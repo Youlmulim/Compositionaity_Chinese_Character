@@ -1,9 +1,9 @@
 """
 practice_phase2.py
 ------------------
-Phase 2 연습용 — 최종 4선택지 화면만 표시합니다.
-순차 제시(선택지 하나씩), Gaussian ITI, Hover ITI 없음.
-타이머와 데이터 저장 없음.
+Practice Phase 2 displays only the final four-option screen.
+It omits sequential option presentation, Gaussian ITI, and Hover ITI.
+It does not use a timer or save data.
 """
 
 from typing import Dict, Any, List
@@ -25,11 +25,11 @@ def run_practice_phase2(
     global_clock: core.Clock,
 ) -> ResponseResult:
     """
-    연습용 Phase 2 trial — 최종 선택 화면만 표시합니다.
+    Practice Phase 2 trial displaying only the final choice screen.
 
     Returns
     -------
-    ResponseResult — response는 "1"~"4" (의미 선택지 인덱스)
+    ResponseResult — response is "1" to "4" (meaning-option index)
     """
     char1 = trial["char1"]
     char2 = trial["char2"]
@@ -38,7 +38,7 @@ def run_practice_phase2(
     mouse = event.Mouse(visible=True, win=win)
     mouse.clickReset()
 
-    # ── 수식 (화면 중앙 Y=0) ───────────────────────────────────────────────────
+    # ── Equation (screen center, Y=0) ───────────────────────────────────────
     eq_stims = build_char_equation(
         win, char1, char2,
         char1_pos=(cfg.P2_EQ_CHAR1_POS[0], 0),
@@ -57,7 +57,7 @@ def run_practice_phase2(
         align_horiz="center",
     )
 
-    # ── 선택지 패널 ────────────────────────────────────────────────────────────
+    # ── Choice panels ────────────────────────────────────────────────────────
     panel_width  = 250
     panel_height = 120
     row_y        = -250
@@ -92,7 +92,7 @@ def run_practice_phase2(
 
     resp_data = [{"rect": choice_panels[i], "label": str(i + 1)} for i in range(n_opts)]
 
-    # ── 응답 루프 ──────────────────────────────────────────────────────────────
+    # ── Response loop ──────────────────────────────────────────────────────────
     phase_clock     = core.Clock()
     result          = make_response()
     prev_pressed    = False

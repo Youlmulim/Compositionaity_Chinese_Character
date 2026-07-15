@@ -5,7 +5,7 @@ Phase 1
 
 Screen layout
 -------------
-  [top]    Q. 두 한자가 합쳐져 새로운 한자가 될 수 있습니까?
+  [top]    Q. Can the two characters combine to form a new character?
 
   [centre]        水   +   火   =   ?
 
@@ -39,7 +39,7 @@ def run_practice_trial(
     char2 = trial["char2"]
     mouse = event.Mouse(visible=True, win=win)
 
-    # ── 자극 생성 ──────────────────────────────────────────────────────────────
+    # ── Build stimuli ──────────────────────────────────────────────────────────
     question_stim = make_text(win, cfg.P1_QUESTION, pos=(0, 380), height=38)
 
     yes_rect, yes_txt = make_button(win, cfg.P1_YES_LABEL, pos=cfg.P1_YES_BOX_POS)
@@ -73,7 +73,7 @@ def run_practice_trial(
         yes_rect.draw(); yes_txt.draw()
         no_rect.draw();  no_txt.draw()
 
-    # ── 응답 대기 루프 (시간 제한 없음) ───────────────────────────────────────
+    # ── Response loop (no time limit) ──────────────────────────────────────
     while result["response"] is None:
         redraw()
         win.flip()

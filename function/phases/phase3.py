@@ -19,6 +19,7 @@ from function.io.frame_logger import FrameLog, FrameRecorder
 from function.utils.event_utils import check_escape
 from function.utils.progress_bar import TimeProgressBar
 from function.utils.draw_marker import draw_marker
+from function.utils.sounds import preload_sound, schedule_sound
 
 
 def run_phase3(
@@ -54,6 +55,10 @@ def run_phase3(
     mouse = event.Mouse(visible=True, win=win)
     mouse.clickReset()
 
+    # Load/decode once before the frame loop. ``preload_sound`` is cached, so
+    # all later Phase 3 trials reuse the same in-memory Sound object.
+    response_sound = preload_sound("sound_effect.wav")
+
     # ── Build stimuli ──────────────────────────────────────────────────────────
     question_stim = make_text(
         win,
@@ -84,7 +89,7 @@ def run_phase3(
     for pos_name, offset in cfg.P3_POSITIONS.items():
         circle_pos = (cfg.P3_CROSS_CENTER[0] + offset[0], cfg.P3_CROSS_CENTER[1] + offset[1])
         
-        # [최적화] 각 위치별로 배치될 글자 스티뮬러스를 루프 밖에서 미리 모두 생성해 둡니다.
+        # Pre-create both character stimuli for every position outside the frame loop.
         char1_placed_stim = make_chinese_char(win, char1, pos=circle_pos, size=80)
         char2_placed_stim = make_chinese_char(win, char2, pos=circle_pos, size=80)
         char1_placed_stim.color = "white"
@@ -100,7 +105,7 @@ def run_phase3(
                 lineWidth=3,
             ),
             "pos": circle_pos,
-            # [최적화] 미리 생성한 스티뮬러스를 딕셔너리에 저장합니다.
+            # Store the pre-created stimuli in the dictionary.
             "char_stims": {
                 "char1": char1_placed_stim,
                 "char2": char2_placed_stim
@@ -125,28 +130,29 @@ def run_phase3(
     progress_bar = TimeProgressBar(win=win)
     rec = FrameRecorder(frame_log, global_clock)
 
-    # 완료 시간을 기록할 변수 초기화
+    # Initialize response-completion timing state.
     completion_time = None
-    # 응답(배치 완료) 시점의 rec.idx를 기록 — 여기서부터 몇 프레임 동안 마커를 켤지 계산하는 기준점
+    completion_delay = 0.5
+    # Record rec.idx at placement completion as the start of the response-marker window.
     response_frame_start = None
 
     while result["response"] is None and not result["timed_out"]:
         # ── Update visual states ──────────────────────────────────────────────
         mouse_pos = mouse.getPos()
         
-        # [최적화] 매 프레임 리스트 생성을 피하기 위해 한 번만 캐싱합니다.
+        # Cache placed characters once to avoid repeated list creation within the frame.
         placed_chars = list(state["placements"].values())
 
         # Selected character follows the mouse cursor
         if state["selected_char"] == "char1":
-            char1_stim.pos = mouse_pos # 선택한 mouse 위치가 char1의 위치가 됨. 
+            char1_stim.pos = mouse_pos  # Move char1 to the selected mouse position.
         elif state["selected_char"] == "char2":
             char2_stim.pos = mouse_pos
         else:
             char1_stim.pos = cfg.P3_CHAR1_POS
             char2_stim.pos = cfg.P3_CHAR2_POS
 
-        # [최적화] 인자로 캐싱해둔 placed_chars를 넘깁니다.
+        # Pass the cached placed_chars list to the color helpers.
         char1_color, char1_opacity = get_char_color(state, "char1", mouse_pos, cfg.P3_CHAR1_POS, placed_chars)
         char2_color, char2_opacity = get_char_color(state, "char2", mouse_pos, cfg.P3_CHAR2_POS, placed_chars)
 
@@ -158,8 +164,8 @@ def run_phase3(
 
 
         # Update circle colors and placed characters
-        center_filled = state["placements"]["CENTER"] is not None # center circle에서 char이 채워짐.
-        selected = state["selected_char"] is not None  # char가 선택됨
+        center_filled = state["placements"]["CENTER"] is not None  # Center contains a character.
+        selected = state["selected_char"] is not None  # A character is selected.
 
         for pos_name, circle_data in circles.items():
             placed_char = state["placements"][pos_name]
@@ -182,13 +188,13 @@ def run_phase3(
                     else:
                         circle_color = "white"
             else:
-                # 처음부터 CENTER는 보라색으로 표시
+                # Display CENTER in purple from the initial frame.
                 circle_color = "purple" if pos_name == "CENTER" else "white"
 
             circle_data["stim"].lineColor = circle_color
 
-            # [최적화] 배치된 글자 처리는 그리기(draw) 단계에서 미리 생성된 객체를 사용하므로, 
-            # 여기서는 원의 투명도만 조절합니다.
+            # Placed-character stimuli are pre-created and handled during draw;
+            # only circle opacity needs to be updated here.
             if placed_char:
                 circle_data["stim"].opacity = 0
             else:
@@ -205,19 +211,19 @@ def run_phase3(
         char1_stim.draw()
         char2_stim.draw()
 
-        # [최적화] 이미 배치된 글자 그리기 (미리 생성해둔 객체 사용)
+        # Draw placed characters using the pre-created stimuli.
         for pos_name, circle_data in circles.items():
             placed_char = state["placements"][pos_name]
             if placed_char:
                 if selected and is_hovering(mouse_pos, circle_data["pos"], cfg.P3_CIRCLE_RADIUS):
                     continue
-                # 미리 만들어둔 객체를 가져와 draw()만 호출 (연산 비용 대폭 감소)
+                # Retrieve the pre-created object and only call draw().
                 circle_data["char_stims"][placed_char].draw()
 
         progress_bar.draw(elapsed_time=phase_clock.getTime())
 
-        # 응답(두 글자 배치 완료) 시점부터 MARKER_FRAMES_RESPONSE["phase3"] 프레임 동안 마커 표시.
-        # rec.flip_and_log()가 그리는 onset 마커와는 별개로, 응답 시점 마커는 여기서 직접 그린다.
+        # Show the marker for MARKER_FRAMES_RESPONSE["phase3"] frames after both
+        # characters are placed. This response marker is separate from the onset marker.
         if response_frame_start is not None:
             n_resp_frames = cfg.MARKER_FRAMES_RESPONSE.get("phase3", 0)
             if (rec.idx - response_frame_start) < n_resp_frames:
@@ -234,7 +240,7 @@ def run_phase3(
         # ── Handle mouse clicks ───────────────────────────────────────────────
         btn = bool(mouse.getPressed()[P3_MOUSE_BUTTON])
 
-        #  실험이 완료되어 지연 중이 아닐 때만 처리
+        # Process clicks only while the completion delay is inactive.
         if completion_time is None:
             if btn and not prev_pressed:
                 rt = phase_clock.getTime()
@@ -249,10 +255,10 @@ def run_phase3(
                 # Check if clicking on char2 (right side)
                 elif is_hovering(mouse_pos, cfg.P3_CHAR2_POS, 60) and "char2" not in placed_chars:
                     if state["selected_char"] == "char2":
-                        # 이미 들고 있는 상태에서 원래 자리를 클릭하면 내려놓기(취소)
+                        # Clicking the original position while holding char2 cancels the selection.
                         state["selected_char"] = None
                     elif state["selected_char"] is None:
-                        # 빈 손일 때는 집어들기
+                        # Pick up char2 when no character is selected.
                         state["selected_char"] = "char2"
 
                 # Check if clicking on a circle position
@@ -273,23 +279,25 @@ def run_phase3(
                             elif placed_char:
                                 state["selected_char"] = placed_char
                                 state["placements"][pos_name] = None
-                                # [최적화] 동적 객체 삭제가 더 이상 필요하지 않아 제거되었습니다.
+                                # Dynamic stimulus deletion is no longer necessary.
 
                             break
 
-        # 마우스에서 손을 떼었을 때 prev_pressed 상태가 False로 갱신
+        # Update prev_pressed after the mouse button is released.
         prev_pressed = btn
         check_escape(win)
 
-        # ── 논블로킹 타이머 로직 (자동 넘김 지연 처리) ────────────────────────────────
+        # ── Non-blocking timer for the automatic transition delay ────────────
         if is_complete(state):
             if completion_time is None:
-                # 0.5 counting start
+                # Reserve playback for the exact response-completion time.
+                # Scheduling is non-blocking and performs no file I/O here.
                 completion_time = phase_clock.getTime()
                 response_frame_start = rec.idx
+                schedule_sound(response_sound, delay=completion_delay)
                 
-            elif phase_clock.getTime() - completion_time >= 0.5:
-                # 완료 후 0.5초가 경과 -> 루프 탈출
+            elif phase_clock.getTime() - completion_time >= completion_delay:
+                # Exit the loop after the completion feedback delay.
                 char1_pos = [k for k, v in state["placements"].items() if v == "char1"][0]
                 char2_pos = [k for k, v in state["placements"].items() if v == "char2"][0]
                 response_str = f"{char1_pos}_{char2_pos}"
@@ -297,7 +305,7 @@ def run_phase3(
                 result = make_response(
                     response=response_str,
                     response_idx=0,
-                    rt=completion_time, # '완료된 순간' 기록
+                    rt=completion_time,  # Record the exact completion time.
                     raw_key="mouse",
                 )
 
@@ -311,23 +319,23 @@ def run_phase3(
 
 # ─── Helper functions ────────────────────────────────────────────────────────
 
-# [최적화] 매 프레임 dict.values() 호출을 방지하기 위해 placed_chars 매개변수를 추가했습니다.
+# Accept placed_chars as an argument to avoid repeated dict.values() calls.
 def get_char_color(state: Dict[str, Any], char_name: str, mouse_pos: Tuple[float, float], char_pos: Tuple[float, float], placed_chars: list) -> str:
     """Determine display color for a character based on state."""
 
-    # 이미 왼쪽 원에 배치된 경우
+    # The character has already been placed in a circle on the left.
     if char_name in placed_chars:
         return "white", 0.0
 
-    # 마우스 선택해서 들고 이동중
+    # The character is selected and follows the mouse.
     if state["selected_char"] == char_name:
         return "purple", 1.0
 
-    # 마우스 글자 위에 올라간 경우
+    # The mouse is hovering over the character.
     if is_hovering(mouse_pos, char_pos, 60):
         return "purple", 1.0
 
-    # 아무 상호작용이 없는 기본 대기 상태
+    # Default idle state with no interaction.
     return "white", 1.0
 
 

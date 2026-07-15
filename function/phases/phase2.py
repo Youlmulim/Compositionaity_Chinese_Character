@@ -52,7 +52,7 @@ def run_phase2(
 
     rec = FrameRecorder(frame_log, global_clock)
 
-    # ── 1. 순차적 제시용 자극 (수식 및 질문) 생성 ──────────────────────────────
+    # ── 1. Build stimuli for sequential presentation (equation and question) ──
     seq_eq_stims = build_char_equation(
         win, char1, char2,
         char1_pos=cfg.P2_EQ_CHAR1_POS,
@@ -71,12 +71,12 @@ def run_phase2(
     )
 
     # ────────────────────────────────────────────────────────────────────────
-    # 단계 1: 단일 선택지 순차적 제시
+    # Stage 1: Present individual options sequentially
     # ────────────────────────────────────────────────────────────────────────
     opts_with_idx = list(enumerate(meaning_opts))
     random.shuffle(opts_with_idx)
 
-    SINGLE_OPT_DURATION = 1.5  # 노출 시간
+    SINGLE_OPT_DURATION = 1.5  # Presentation duration
     
     single_opt_stim = make_text(
         win,
@@ -86,7 +86,7 @@ def run_phase2(
         font=cfg.P23_MEANING_FONT,
     )
 
-    # [수정] Clock 객체는 단 한 번만 생성하여 재사용 (메모리 파편화 및 드롭 방지)
+    # Create the Clock once and reuse it to avoid fragmentation and frame drops.
     phase_clock = core.Clock()
 
     for seq_num, (orig_idx, opt_text) in enumerate(opts_with_idx, start=1):
@@ -102,7 +102,7 @@ def run_phase2(
         rec.start_segment()
         onset_marker = f"single_opt_onset_seq{seq_num}_opt{orig_idx+1}_{opt_text}"
         
-        # 각 시퀀스 시작 전 시계 초기화 (임시 구동용)
+        # Reset the clock before each sequence begins.
         phase_clock.reset()
 
         while phase_clock.getTime() < SINGLE_OPT_DURATION:
@@ -110,13 +110,13 @@ def run_phase2(
 
             rec.flip_and_log(win, marker=onset_marker if rec.idx == 0 else None)
             
-            # [수정] 첫 번째 자극 프레임이 화면에 완전히 출력(V-Sync 완료)된 직후 시계 리셋
+            # Reset the clock immediately after the first stimulus frame completes V-Sync.
             if rec.idx == 1:
                 phase_clock.reset()
                 
             check_escape(win)
 
-        # 개별 보기 제시 후 Gaussian ITI 실행
+        # Run the Gaussian ITI after presenting each option.
         rec.frame_log = run_gaussian_iti(
             win=win,
             global_clock=global_clock,
@@ -125,12 +125,12 @@ def run_phase2(
         )
 
     # ────────────────────────────────────────────────────────────────────────
-    # 단계 2: Hover ITI
+    # Stage 2: Hover ITI
     # ────────────────────────────────────────────────────────────────────────
     run_hover_iti(win)
 
     # ────────────────────────────────────────────────────────────────────────
-    # 단계 3: 최종 응답 화면 (사각형 패널 내부에 텍스트만 배치)
+    # Stage 3: Final response screen with text inside rectangular panels
     # ────────────────────────────────────────────────────────────────────────
     final_eq_stims = build_char_equation(
         win, char1, char2,
@@ -177,7 +177,7 @@ def run_phase2(
 
     mouse.clickReset()
     
-    # 최종 응답용으로 클록 리셋
+    # Reset the clock for the final response.
     phase_clock.reset()
     progress_bar = TimeProgressBar(win=win)
     rec.start_segment()
@@ -205,14 +205,14 @@ def run_phase2(
     while result["response"] is None and not result["timed_out"]:
         redraw_final()
 
-        # [수정] 첫 번째 flip(idx==0)이 완전히 끝나 모니터에 자극이 켜지기 전까지는 
-        # 진행바에 0초를 강제 주입하여 비정상적인 게이지 튐 및 연산 부하 방지
+        # Keep the progress bar at zero until the first flip (idx == 0) has
+        # completed and the stimulus is visible, preventing gauge jumps and extra work.
         current_time = phase_clock.getTime() if rec.idx > 0 else 0.0
         progress_bar.draw(elapsed_time=current_time)
 
         rec.flip_and_log(win, marker="final_choice_onset" if rec.idx == 0 else None)
 
-        # [수정] 자극이 모니터에 처음 켜진 바로 그 순간 RT 시계를 0.000초로 고정
+        # Set the RT clock to 0.000 when the stimulus first appears on the monitor.
         if rec.idx == 1:
             phase_clock.reset()
 
@@ -222,7 +222,7 @@ def run_phase2(
             for data in resp_data:
                 if data["rect"].contains(pos):
                     selected_rating = data["label"]
-                    # 순수 자극 등장 기점(0ms)으로부터의 RT 정확히 측정
+                    # Measure RT precisely from the stimulus onset (0 ms).
                     rt = float(phase_clock.getTime())
 
                     confirm_click(win, mouse, button=P2_MOUSE_BUTTON, redraw_fn=redraw_final, hold=0.5, phase="phase2", rec=rec)
@@ -238,7 +238,7 @@ def run_phase2(
 
         check_escape(win)
 
-        # 타임아웃 계산도 정렬된 시계 기준으로 처리
+        # Calculate timeout using the aligned clock as well.
         if cfg.MAX_RESPONSE_TIME and phase_clock.getTime() > cfg.MAX_RESPONSE_TIME:
             result = make_response(timed_out=True)
 

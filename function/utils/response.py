@@ -142,10 +142,10 @@ def confirm_click(
     response_marker: str = "response_onset",
 ) -> None:
     """
-    phase : "phase1" 등 — MARKER_FRAMES_RESPONSE에서 프레임 수를 찾을 키
-    rec   : 호출한 phase의 FrameRecorder. 반드시 넘겨야 마커 프레임들이
-            CSV에 개별 row로 남는다 (안 넘기면 화면엔 보이지만 로그엔 안 남음).
-    response_marker : 첫 마커 프레임에 붙는 event_marker 태그 문자열
+    phase : key such as "phase1" used to look up MARKER_FRAMES_RESPONSE
+    rec   : FrameRecorder for the calling phase. Pass it to record each marker
+            frame as a separate CSV row; without it, frames appear but are not logged.
+    response_marker : event_marker tag applied to the first marker frame
     """
     n_marker_frames = MARKER_FRAMES_RESPONSE.get(phase, 0) if phase else 0
 

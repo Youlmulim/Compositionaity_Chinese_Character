@@ -1,9 +1,9 @@
 """
 practice_phase3.py
 ------------------
-Phase 3 연습용 — click-and-paste 배치 과제.
-타이머(TimeProgressBar)와 데이터 저장(FrameLog) 없음.
-로직은 phase3.py와 동일합니다.
+Practice Phase 3 click-and-paste placement task.
+It omits the timer (TimeProgressBar) and data logging (FrameLog).
+Its logic matches phase3.py.
 """
 
 from typing import Dict, Any, Tuple
@@ -23,16 +23,16 @@ def run_practice_phase3(
     global_clock: core.Clock,
 ) -> ResponseResult:
     """
-    연습용 Phase 3 trial — click-and-paste 배치.
+    Practice Phase 3 click-and-paste placement trial.
 
     Parameters
     ----------
-    trial : "char1", "char2", "meaning_opts", "phase2_response" 키 필요
-            phase2_response가 없으면 meaning = "?" 로 폴백.
+    trial : requires "char1", "char2", "meaning_opts", and "phase2_response";
+            falls back to meaning = "?" when phase2_response is absent.
 
     Returns
     -------
-    ResponseResult — response는 "{char1_pos}_{char2_pos}"
+    ResponseResult — response is "{char1_pos}_{char2_pos}"
     """
     char1, char2 = trial["char1"], trial["char2"]
 
@@ -45,7 +45,7 @@ def run_practice_phase3(
     mouse = event.Mouse(visible=True, win=win)
     mouse.clickReset()
 
-    # ── 자극 생성 ──────────────────────────────────────────────────────────────
+    # ── Build stimuli ──────────────────────────────────────────────────────────
     question_stim = make_text(
         win, cfg.P3_QUESTION, pos=(0, 390), height=28, align_horiz="center",
     )
@@ -80,7 +80,7 @@ def run_practice_phase3(
         "placements": {pos: None for pos in circles.keys()},
     }
 
-    # ── 응답 루프 ──────────────────────────────────────────────────────────────
+    # ── Response loop ──────────────────────────────────────────────────────────
     phase_clock     = core.Clock()
     result          = make_response()
     prev_pressed    = False
@@ -137,7 +137,7 @@ def run_practice_phase3(
             else:
                 circle_data["stim"].opacity = 1
 
-        # ── 그리기 ─────────────────────────────────────────────────────────────
+        # ── Draw ──────────────────────────────────────────────────────────
         question_stim.draw()
         meaning_bg.draw()
         meaning_txt.draw()
@@ -156,7 +156,7 @@ def run_practice_phase3(
 
         win.flip()
 
-        # ── 클릭 처리 ──────────────────────────────────────────────────────────
+        # ── Handle clicks ────────────────────────────────────────────────────
         btn = bool(mouse.getPressed()[P3_MOUSE_BUTTON])
 
         if completion_time is None:
@@ -195,7 +195,7 @@ def run_practice_phase3(
         prev_pressed = btn
         check_escape(win)
 
-        # ── 완료 감지 (0.5초 지연 후 루프 종료) ───────────────────────────────
+        # ── Detect completion and exit after a 0.5-second delay ────────────
         if _is_complete(state):
             if completion_time is None:
                 completion_time = phase_clock.getTime()
@@ -212,7 +212,7 @@ def run_practice_phase3(
     return result
 
 
-# ─── 헬퍼 ────────────────────────────────────────────────────────────────────
+# ─── Helpers ───────────────────────────────────────────────────────────────
 
 def _get_char_color(
     state: Dict[str, Any],

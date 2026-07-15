@@ -40,8 +40,8 @@ def draw_phase0_screen(
     rating_buttons,
 ):
     """
-    Phase 0 한 trial의 모든 시각 자극을 draw합니다.
-    win.flip()은 이 함수 밖에서 호출합니다.
+    Draw all visual stimuli for one Phase 0 trial.
+    ``win.flip()`` is called outside this function.
     """
 
     question_text.draw()
