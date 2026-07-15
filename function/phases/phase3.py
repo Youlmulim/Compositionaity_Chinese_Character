@@ -288,7 +288,7 @@ def run_phase3(
         check_escape(win)
 
         # ── Non-blocking timer for the automatic transition delay ────────────
-        if is_complete(state):
+        if "char1" in placed_chars and "char2" in placed_chars:
             if completion_time is None:
                 # Reserve playback for the exact response-completion time.
                 # Scheduling is non-blocking and performs no file I/O here.
@@ -341,5 +341,5 @@ def get_char_color(state: Dict[str, Any], char_name: str, mouse_pos: Tuple[float
 
 def is_complete(state: Dict[str, Any]) -> bool:
     """Check if both characters are placed."""
-    placed = list(state["placements"].values())
-    return "char1" in placed and "char2" in placed
+    v = state["placements"].values()
+    return "char1" in v and "char2" in v

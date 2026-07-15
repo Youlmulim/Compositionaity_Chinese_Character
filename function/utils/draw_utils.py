@@ -135,13 +135,17 @@ def set_button_border_color(
 ) -> None:
     """
     Update border color based on button state.
-    Priority: selected > hovered > normal
+    Priority: selected > hovered > normal.
+    Both fillColor and lineColor are always set so no color leaks on state transitions.
     """
     if selected:
         stim.fillColor = selected_color
+        stim.lineColor = selected_color
     elif hovered:
+        stim.fillColor = normal_color
         stim.lineColor = hover_color
     else:
+        stim.fillColor = normal_color
         stim.lineColor = normal_color
 
 def make_circle_button(
@@ -250,23 +254,21 @@ def update_rating_button_states(rating_buttons, mouse, selected_rating=None) -> 
         hovered = hovered_rating == rating
         selected = selected_rating == rating
 
-        set_button_border_color(
-            stim=button["circle"],
-            hovered=hovered,
-            selected=selected,
-            normal_color=WHITE_COLOR,
-            hover_color=GREEN_COLOR,
-            selected_color=GREEN_COLOR,
-        )
-        
-        if selected_rating is not None:
-            button["label"].opacity = 1.0 if selected else 0.0
+        new_state = "selected" if selected else "hovered" if hovered else "normal"
+        if button.get("_state") != new_state:
+            button["_state"] = new_state
+            set_button_border_color(
+                stim=button["circle"],
+                hovered=hovered,
+                selected=selected,
+                normal_color=WHITE_COLOR,
+                hover_color=GREEN_COLOR,
+                selected_color=GREEN_COLOR,
+            )
 
-            # for all labels
-            # button["label"].opacity = 0.0 
-        
-        else:
-            button["label"].opacity = 1.0
+        new_opacity = 1.0 if (selected_rating is None or selected) else 0.0
+        if button["label"].opacity != new_opacity:
+            button["label"].opacity = new_opacity
 
 
 # ─── Rect button state (Yes/No style) ────────────────────────────────────────
@@ -280,7 +282,10 @@ def update_button_states(buttons, mouse, selected_button=None) -> None:
     for button in buttons:
         hovered = is_hovered(button["rect"], mouse)
         selected = selected_button == button["label"]
-        set_button_border_color(button["rect"], hovered, selected, selected_color=GREEN_COLOR)
+        new_state = "selected" if selected else "hovered" if hovered else "normal"
+        if button.get("_state") != new_state:
+            button["_state"] = new_state
+            set_button_border_color(button["rect"], hovered, selected, selected_color=GREEN_COLOR)
 
 # ---- circle hovering ----
 def is_hovering(pos: Tuple[float, float], target: Tuple[float, float], radius: float) -> bool:

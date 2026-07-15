@@ -13,10 +13,15 @@ Usage
     rows = get_rows(log)
 """
 
-from typing import Any, Dict, List, Optional, TypedDict
+from typing import Any, Dict, List, Optional, Tuple, TypedDict
 
 from function.config.settings import MARKER_FRAMES_ONSET
 from function.utils.draw_marker import draw_marker
+
+_ROW_KEYS: Tuple[str, ...] = (
+    "frame_idx", "phase", "trial_id", "stim_pair_id",
+    "elapsed_time", "global_time", "flip_time", "event_marker",
+)
 
 
 class FrameLog(TypedDict):
@@ -25,7 +30,7 @@ class FrameLog(TypedDict):
     trial_id:     int
     stim_pair_id: str
     onset_time:   Optional[float]
-    rows:         List[Dict[str, Any]]
+    rows:         List[Tuple]
 
 
 def make_frame_log(phase: str, trial_id: int, stim_pair_id: str) -> FrameLog:
@@ -53,24 +58,22 @@ def log_frame(
 ) -> FrameLog:
     """Return a new FrameLog with one frame entry appended."""
     elapsed = (flip_time - log["onset_time"]) if log["onset_time"] is not None else 0.0
-    row: Dict[str, Any] = {
-        "frame_idx":    frame_idx,
-        "phase":        log["phase"],
-        "trial_id":     log["trial_id"],
-        "stim_pair_id": log["stim_pair_id"],
-        "elapsed_time": round(elapsed, 6),
-        "global_time":  round(global_time, 6),
-        "flip_time":    round(flip_time, 6),
-        "event_marker": event_marker,
-    }
-
-    log["rows"].append(row)
+    log["rows"].append((
+        frame_idx,
+        log["phase"],
+        log["trial_id"],
+        log["stim_pair_id"],
+        round(elapsed, 6),
+        round(global_time, 6),
+        round(flip_time, 6),
+        event_marker,
+    ))
     return log
 
 
 def get_rows(log: FrameLog) -> List[Dict[str, Any]]:
-    """Return accumulated rows as a plain list."""
-    return list(log["rows"])
+    """Return accumulated rows as a plain list of dicts."""
+    return [dict(zip(_ROW_KEYS, row)) for row in log["rows"]]
 
 
 class FrameRecorder:
