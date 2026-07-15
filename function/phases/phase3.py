@@ -19,6 +19,7 @@ from function.io.frame_logger import FrameLog, FrameRecorder
 from function.utils.event_utils import check_escape
 from function.utils.progress_bar import TimeProgressBar
 from function.utils.draw_marker import draw_marker
+from function.utils.sounds import preload_sound, schedule_sound
 
 
 def run_phase3(
@@ -53,6 +54,10 @@ def run_phase3(
 
     mouse = event.Mouse(visible=True, win=win)
     mouse.clickReset()
+
+    # Load/decode once before the frame loop. ``preload_sound`` is cached, so
+    # all later Phase 3 trials reuse the same in-memory Sound object.
+    response_sound = preload_sound("sound_effect.wav")
 
     # ── Build stimuli ──────────────────────────────────────────────────────────
     question_stim = make_text(
@@ -127,6 +132,7 @@ def run_phase3(
 
     # 완료 시간을 기록할 변수 초기화
     completion_time = None
+    completion_delay = 0.5
     # 응답(배치 완료) 시점의 rec.idx를 기록 — 여기서부터 몇 프레임 동안 마커를 켤지 계산하는 기준점
     response_frame_start = None
 
@@ -284,12 +290,14 @@ def run_phase3(
         # ── 논블로킹 타이머 로직 (자동 넘김 지연 처리) ────────────────────────────────
         if is_complete(state):
             if completion_time is None:
-                # 0.5 counting start
+                # Reserve playback for the exact response-completion time.
+                # Scheduling is non-blocking and performs no file I/O here.
                 completion_time = phase_clock.getTime()
                 response_frame_start = rec.idx
+                schedule_sound(response_sound, delay=completion_delay)
                 
-            elif phase_clock.getTime() - completion_time >= 0.5:
-                # 완료 후 0.5초가 경과 -> 루프 탈출
+            elif phase_clock.getTime() - completion_time >= completion_delay:
+                # 완료 후 feedback delay가 경과 -> 루프 탈출
                 char1_pos = [k for k, v in state["placements"].items() if v == "char1"][0]
                 char2_pos = [k for k, v in state["placements"].items() if v == "char2"][0]
                 response_str = f"{char1_pos}_{char2_pos}"

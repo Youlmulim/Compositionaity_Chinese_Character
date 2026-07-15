@@ -1,6 +1,7 @@
 from psychopy import core, event, visual, gui
 from function.config import settings as cfg
 from function.utils.draw_utils import make_button, update_button_states
+from function.utils.sounds import preload_sound, schedule_sound
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -48,6 +49,9 @@ def show_practice_screen(win, text: str) -> str:
     "continue"  : 스페이스바 → 다음 연습 trial 시작
     "exit"      : Exit 버튼 클릭 → 본 실험으로 이동
     """
+    # Decode before the screen's frame loop. Later calls reuse the cached Sound.
+    quit_sound = preload_sound("sound_effect_quit.wav")
+
     msg = visual.TextStim(
         win,
         text=text,
@@ -81,6 +85,7 @@ def show_practice_screen(win, text: str) -> str:
         btn = bool(mouse.getPressed()[0])
         if btn and not prev_pressed:
             if exit_rect.contains(mouse.getPos()):
+                schedule_sound(quit_sound)
                 return "exit"
         prev_pressed = btn
 
@@ -90,6 +95,5 @@ def show_practice_screen(win, text: str) -> str:
             core.quit()
         if "space" in keys:
             return "continue"
-
 
 

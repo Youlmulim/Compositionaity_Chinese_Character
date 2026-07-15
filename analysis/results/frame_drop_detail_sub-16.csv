@@ -1,0 +1,6 @@
+source,frame_idx,flip_time,ifi,event_marker
+sub-16/phase_0/不/frame_log.csv,25,41.537174,0.11352699999999771,
+sub-16/phase_0/人/frame_log.csv,1,20.907206,0.025786000000000087,
+sub-16/phase_0/王/frame_log.csv,37,31.21591,0.1251660000000001,
+sub-16/phase_0/王/frame_log.csv,38,31.241202,0.025292000000000314,
+sub-16/trial_summary/pair_014/frame_log.csv,57,58.576567,0.036418999999995094,

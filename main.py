@@ -28,6 +28,7 @@ from function.io.metadata import export_metadata
 from function.io.path_builder import get_subject_dir
 from function.config import settings as cfg
 from function.utils.screen_utils import show_instructions, show_practice_screen
+from function.utils.sounds import play_sound, preload_sound
 from initiate import initiate_experiment
 from function.stimuli.trial_loader import load_practice_trials
 
@@ -82,6 +83,8 @@ def main() -> None:
     print(f"[main] Summary saved → {paths}")
 
     # Farewell & close
+    done_sound = preload_sound("sound_effect_done.wav")
+    ctx.win.callOnFlip(play_sound, done_sound)
     show_instructions(ctx.win, "实验完成。\n\n谢谢！\n\n按空格键退出。")
     ctx.win.close()
     core.quit()

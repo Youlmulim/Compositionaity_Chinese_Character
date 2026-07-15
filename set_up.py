@@ -1,5 +1,7 @@
 import os
+import shutil
 import subprocess
+import sys
 from pathlib import Path
 
 
@@ -13,17 +15,28 @@ def run(cmd):
 
 
 def find_python311():
-    """Windows py launcher에서 Python 3.11 찾기"""
-    try:
-        result = subprocess.run(
-            ["py", "-3.11", "--version"],
-            capture_output=True,
-            text=True
-        )
-        if result.returncode == 0:
-            return ["py", "-3.11"]
-    except FileNotFoundError:
-        pass
+    """Find Python 3.11 on Windows, macOS, or Linux."""
+    candidates = []
+    if os.name == "nt":
+        candidates.append(["py", "-3.11"])
+    else:
+        if sys.version_info[:2] == (3, 11):
+            candidates.append([sys.executable])
+        python311 = shutil.which("python3.11")
+        if python311:
+            candidates.append([python311])
+
+    for candidate in candidates:
+        try:
+            result = subprocess.run(
+                candidate + ["--version"],
+                capture_output=True,
+                text=True,
+            )
+            if result.returncode == 0 and "Python 3.11" in result.stdout:
+                return candidate
+        except FileNotFoundError:
+            continue
 
     print("\n[ERROR] Python 3.11이 설치되어 있지 않습니다.")
     print("👉 Python 3.11 설치 후 다시 실행하세요.")
