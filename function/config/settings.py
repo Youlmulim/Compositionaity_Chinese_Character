@@ -125,6 +125,26 @@ P3_POSITIONS = {
 }
 
 
+# ─── Photodiode marker (white square, bottom-left) ───────────────────────────
+# phase key는 make_frame_log(phase=...)/FrameLog["phase"]에서 쓰는 값과 반드시 일치해야 함:
+# "phase_0", "phase1", "phase2", "phase3"
+
+# 각 phase의 "자극 제시(onset)" 시작 시 마커를 몇 프레임 동안 켤지
+# (phase2처럼 한 phase 안에 여러 세그먼트가 있으면 rec.start_segment()로 새로 시작될 때마다 적용됨)
+MARKER_FRAMES_ONSET = {
+    "phase_0": 2,
+    "phase1": 3,
+    "phase2": 4,
+    "phase3": 5,
+}
+
+MARKER_FRAMES_RESPONSE = {
+    "phase_0": 2,
+    "phase1": 6,
+    "phase2": 7,
+    "phase3": 8,
+}
+
 # ─── Hover ITI ───────────────────────────────────────────────────────────────
 HOVER_ITI_MIN_DISPLAY  = 0.3     # seconds before button becomes active
 HOVER_ITI_DWELL_TIME   = 0.5     # seconds of continuous hover to proceed

@@ -14,10 +14,11 @@ from psychopy import visual, core, event
 from function.config import settings as cfg
 from function.config.key_mapping import P3_MOUSE_BUTTON
 from function.utils.draw_utils import make_text, make_chinese_char, is_hovering
-from function.utils.response import ResponseResult, make_response, wait_for_mouse_release
+from function.utils.response import ResponseResult, make_response
 from function.io.frame_logger import FrameLog, FrameRecorder
 from function.utils.event_utils import check_escape
 from function.utils.progress_bar import TimeProgressBar
+from function.utils.draw_marker import draw_marker
 
 
 def run_phase3(
@@ -126,6 +127,8 @@ def run_phase3(
 
     # 완료 시간을 기록할 변수 초기화
     completion_time = None
+    # 응답(배치 완료) 시점의 rec.idx를 기록 — 여기서부터 몇 프레임 동안 마커를 켤지 계산하는 기준점
+    response_frame_start = None
 
     while result["response"] is None and not result["timed_out"]:
         # ── Update visual states ──────────────────────────────────────────────
@@ -213,7 +216,17 @@ def run_phase3(
 
         progress_bar.draw(elapsed_time=phase_clock.getTime())
 
-        rec.flip_and_log(win)
+        # 응답(두 글자 배치 완료) 시점부터 MARKER_FRAMES_RESPONSE["phase3"] 프레임 동안 마커 표시.
+        # rec.flip_and_log()가 그리는 onset 마커와는 별개로, 응답 시점 마커는 여기서 직접 그린다.
+        if response_frame_start is not None:
+            n_resp_frames = cfg.MARKER_FRAMES_RESPONSE.get("phase3", 0)
+            if (rec.idx - response_frame_start) < n_resp_frames:
+                draw_marker(win)
+
+        rec.flip_and_log(
+            win,
+            marker="phase3_response_onset" if rec.idx == response_frame_start else None,
+        )
 
         if rec.idx == 1:
             phase_clock.reset()
@@ -232,7 +245,6 @@ def run_phase3(
                         state["selected_char"] = None
                     elif state["selected_char"] == None:
                         state["selected_char"] = "char1"
-                    wait_for_mouse_release(mouse, P3_MOUSE_BUTTON)
 
                 # Check if clicking on char2 (right side)
                 elif is_hovering(mouse_pos, cfg.P3_CHAR2_POS, 60) and "char2" not in placed_chars:
@@ -242,7 +254,6 @@ def run_phase3(
                     elif state["selected_char"] is None:
                         # 빈 손일 때는 집어들기
                         state["selected_char"] = "char2"
-                    wait_for_mouse_release(mouse, P3_MOUSE_BUTTON)
 
                 # Check if clicking on a circle position
                 else:
@@ -264,7 +275,6 @@ def run_phase3(
                                 state["placements"][pos_name] = None
                                 # [최적화] 동적 객체 삭제가 더 이상 필요하지 않아 제거되었습니다.
 
-                            wait_for_mouse_release(mouse, P3_MOUSE_BUTTON)
                             break
 
         # 마우스에서 손을 떼었을 때 prev_pressed 상태가 False로 갱신
@@ -276,6 +286,7 @@ def run_phase3(
             if completion_time is None:
                 # 0.5 counting start
                 completion_time = phase_clock.getTime()
+                response_frame_start = rec.idx
                 
             elif phase_clock.getTime() - completion_time >= 0.5:
                 # 완료 후 0.5초가 경과 -> 루프 탈출

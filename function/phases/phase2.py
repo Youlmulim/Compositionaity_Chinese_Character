@@ -26,7 +26,8 @@ from psychopy import visual, core, event
 from function.config import settings as cfg
 from function.config.key_mapping import P2_MOUSE_BUTTON
 from function.utils.draw_utils import (
-    make_text, build_char_equation, draw_char_equation, update_button_states
+    make_text, build_char_equation, draw_char_equation, update_button_states,
+    warm_up_frame,
 )
 from function.utils.progress_bar import TimeProgressBar
 from function.utils.response import ResponseResult, make_response, confirm_click
@@ -91,6 +92,13 @@ def run_phase2(
     for seq_num, (orig_idx, opt_text) in enumerate(opts_with_idx, start=1):
         single_opt_stim.text = opt_text
 
+        def draw_single_option():
+            question_stim.draw()
+            draw_char_equation(seq_eq_stims)
+            single_opt_stim.draw()
+
+        warm_up_frame(win, draw_single_option)
+
         rec.start_segment()
         onset_marker = f"single_opt_onset_seq{seq_num}_opt{orig_idx+1}_{opt_text}"
         
@@ -98,9 +106,7 @@ def run_phase2(
         phase_clock.reset()
 
         while phase_clock.getTime() < SINGLE_OPT_DURATION:
-            question_stim.draw()
-            draw_char_equation(seq_eq_stims)
-            single_opt_stim.draw()
+            draw_single_option()
 
             rec.flip_and_log(win, marker=onset_marker if rec.idx == 0 else None)
             
@@ -188,6 +194,14 @@ def run_phase2(
             panel.draw()
             txt.draw()
 
+    # Prepare the neutral and every possible selected-feedback state before
+    # the final-choice onset.
+    warm_up_frame(win, redraw_final)
+    for data in resp_data:
+        selected_rating = data["label"]
+        warm_up_frame(win, redraw_final)
+    selected_rating = None
+
     while result["response"] is None and not result["timed_out"]:
         redraw_final()
 
@@ -211,7 +225,7 @@ def run_phase2(
                     # 순수 자극 등장 기점(0ms)으로부터의 RT 정확히 측정
                     rt = float(phase_clock.getTime())
 
-                    confirm_click(win, mouse, button=P2_MOUSE_BUTTON, redraw_fn=redraw_final, hold=0.5)
+                    confirm_click(win, mouse, button=P2_MOUSE_BUTTON, redraw_fn=redraw_final, hold=0.5, phase="phase2", rec=rec)
 
                     result = make_response(
                         response=selected_rating,

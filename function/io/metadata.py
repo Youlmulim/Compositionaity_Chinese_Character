@@ -14,6 +14,7 @@ at the end (or on demand when export_metadata is called).
 
 import csv
 import json
+from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List
 
@@ -21,6 +22,30 @@ from function.io.frame_logger import FrameLog, get_rows
 from function.io.frame_saver import save_frame_log
 from function.io.path_builder import ensure_trial_save_dir
 from function.utils.response import ResponseResult
+
+
+def save_session_metadata(
+    subject_dir: Path,
+    subject_id: str,
+    refresh_rate_hz: float,
+    refresh_rate_measured: bool,
+    window_size,
+    configured_refresh_rate_hz: float,
+) -> Path:
+    """Save display timing information used to interpret frame logs."""
+    subject_dir.mkdir(parents=True, exist_ok=True)
+    path = subject_dir / "session_metadata.json"
+    payload = {
+        "subject_id": subject_id,
+        "created_at": datetime.now().astimezone().isoformat(),
+        "refresh_rate_hz": round(float(refresh_rate_hz), 6),
+        "refresh_rate_measured": bool(refresh_rate_measured),
+        "configured_refresh_rate_hz": float(configured_refresh_rate_hz),
+        "window_size_px": [int(window_size[0]), int(window_size[1])],
+    }
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(payload, f, ensure_ascii=False, indent=2)
+    return path
 
 
 # ─── Phase 0 result builder ───────────────────────────────────────────────────
@@ -112,6 +137,8 @@ _SUMMARY_CSV_COLUMNS = [
     "char1",
     "char2",
     "meaning",
+    "refresh_rate_hz",
+    "refresh_rate_measured",
     "phase0_response",
     "phase0_rt",
     "phase1_response",

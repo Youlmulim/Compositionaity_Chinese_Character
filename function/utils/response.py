@@ -9,6 +9,9 @@ from typing import TypedDict, Optional, List, Tuple
 
 from psychopy import visual, event, core
 
+from function.config.settings import MARKER_FRAMES_RESPONSE
+from function.utils.draw_marker import draw_marker
+
 
 class ResponseResult(TypedDict):
     """Outcome of a single response collection window."""
@@ -134,25 +137,53 @@ def confirm_click(
     button: int = 0,
     redraw_fn=None,
     hold: float = 0.2,
+    phase: Optional[str] = None,
+    rec=None,
+    response_marker: str = "response_onset",
 ) -> None:
-    """Show the selected state briefly, then debounce the mouse release.
-
-    Phases 0/1/2 all repeated the same post-click sequence: redraw the screen
-    with the selection highlighted, flip, pause so the participant sees the
-    feedback, then wait for the button to come back up before returning a
-    response. This bundles that.
-
-    Parameters
-    ----------
-    win       : PsychoPy Window
-    mouse     : PsychoPy Mouse object
-    button    : which button to wait for release on (0 = left)
-    redraw_fn : optional zero-arg callback that draws the highlighted screen;
-                when given it is drawn and flipped once before the pause
-    hold      : seconds to display the selection before debouncing
     """
-    if redraw_fn is not None:
+    phase : "phase1" 등 — MARKER_FRAMES_RESPONSE에서 프레임 수를 찾을 키
+    rec   : 호출한 phase의 FrameRecorder. 반드시 넘겨야 마커 프레임들이
+            CSV에 개별 row로 남는다 (안 넘기면 화면엔 보이지만 로그엔 안 남음).
+    response_marker : 첫 마커 프레임에 붙는 event_marker 태그 문자열
+    """
+    n_marker_frames = MARKER_FRAMES_RESPONSE.get(phase, 0) if phase else 0
+
+    if redraw_fn is None:
+        # A frame cannot be redrawn safely without the caller's draw callback.
+        core.wait(hold)
+        wait_for_mouse_release(mouse, button)
+        return
+
+    hold_clock = core.Clock()
+
+    # Keep flipping throughout the marker interval. Exactly the configured
+    # number of rendered frames contain the photodiode square.
+    for i in range(n_marker_frames):
         redraw_fn()
-        win.flip()
-    core.wait(hold)
-    wait_for_mouse_release(mouse, button)
+        draw_marker(win)
+        if rec is not None:
+            rec.flip_and_log(
+                win,
+                marker=response_marker if i == 0 else "",
+            )
+        else:
+            win.flip()
+
+    # The first marker-free flip is mandatory: otherwise the final marker
+    # frame remains physically visible until some later screen performs a flip.
+    # Continue marker-free flips for the remainder of the selection hold and
+    # while the mouse button is still down, so response handling never freezes
+    # the display.
+    first_marker_free_frame = True
+    while (
+        first_marker_free_frame
+        or hold_clock.getTime() < hold
+        or mouse.getPressed()[button]
+    ):
+        redraw_fn()
+        if rec is not None:
+            rec.flip_and_log(win, marker="")
+        else:
+            win.flip()
+        first_marker_free_frame = False

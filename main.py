@@ -6,12 +6,13 @@ Top-level experiment controller.
 Execution flow
 --------------
 1. initiate_experiment() — subject info, trials, window, EyeLink
-2. Practice Phase 0 — familiarity rating practice (no data saved)
-3. Practice Phases 1-3 — exit button leads to main experiment
-4. Phase 0 — familiarity ratings for basic characters (data saved)
-5. Phases 1-3 — phase loops
-6. Export full summary (CSV + JSON)
-7. Close window
+2. Practice entry screen — QUIT skips all practice and starts the main experiment
+3. Practice Phase 0 — familiarity rating practice (no data saved)
+4. Practice Phases 1-3 — exit button leads to main experiment
+5. Phase 0 — familiarity ratings for basic characters (data saved)
+6. Phases 1-3 — phase loops
+7. Export full summary (CSV + JSON)
+8. Close window
 """
 
 import random
@@ -26,7 +27,7 @@ from function.practice.practice_loop import run_practice_loop, run_practice_phas
 from function.io.metadata import export_metadata
 from function.io.path_builder import get_subject_dir
 from function.config import settings as cfg
-from function.utils.screen_utils import show_instructions
+from function.utils.screen_utils import show_instructions, show_practice_screen
 from initiate import initiate_experiment
 from function.stimuli.trial_loader import load_practice_trials
 
@@ -41,11 +42,15 @@ def main() -> None:
     practice_trials = load_practice_trials()
     practice_char_list = list({char for t in practice_trials for char in (t["char1"], t["char2"])})
 
-    # Practice Phase 0 — familiarity rating practice (no data saved)
-    run_practice_phase0_loop(ctx.win, practice_char_list, ctx.global_clock)
+    # Show the practice/QUIT screen before entering any practice phase.
+    # QUIT skips all practice and proceeds directly to the main experiment.
+    practice_action = show_practice_screen(ctx.win, cfg.PRACTICE_INSTRUCTION)
+    if practice_action != "exit":
+        # Practice Phase 0 — familiarity rating practice (no data saved)
+        run_practice_phase0_loop(ctx.win, practice_char_list, ctx.global_clock)
 
-    # Practice Phases 1–3 — unlimited trials, exit button leads to main experiment
-    run_practice_loop(ctx.win, practice_trials, ctx.global_clock)
+        # Practice Phases 1–3 — unlimited trials, exit button leads to main experiment
+        run_practice_loop(ctx.win, practice_trials, ctx.global_clock)
 
     # Phase 0 — familiarity ratings
     show_instructions(ctx.win, cfg.P0_INSTRUCTION)

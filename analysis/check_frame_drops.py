@@ -16,6 +16,7 @@ Output (saved to analysis/results/)
 """
 
 import argparse
+import json
 from pathlib import Path
 
 import pandas as pd
@@ -42,8 +43,27 @@ def collect_logs(subject: str | None) -> list[Path]:
     return [p for root in roots for p in root.rglob("frame_log.csv")]
 
 
-def main(hz: float, threshold: float, subject: str | None) -> None:
-    expected_ifi = 1 / hz
+def get_log_refresh_rate(path: Path, hz_override: float | None) -> tuple[float, str]:
+    if hz_override is not None:
+        return hz_override, "command line"
+
+    subject_dir = next(
+        (parent for parent in path.parents if parent.parent == DATA_DIR),
+        None,
+    )
+    if subject_dir is not None:
+        metadata_path = subject_dir / "session_metadata.json"
+        if metadata_path.exists():
+            with open(metadata_path, encoding="utf-8") as f:
+                metadata = json.load(f)
+            rate = metadata.get("refresh_rate_hz")
+            if rate:
+                return float(rate), str(metadata_path.relative_to(DATA_DIR))
+
+    return 60.0, "legacy fallback"
+
+
+def main(hz: float | None, threshold: float, subject: str | None) -> None:
     logs = collect_logs(subject)
 
     if not logs:
@@ -54,11 +74,15 @@ def main(hz: float, threshold: float, subject: str | None) -> None:
     summary_rows: list[dict] = []
 
     for path in sorted(logs):
+        log_hz, hz_source = get_log_refresh_rate(path, hz)
+        expected_ifi = 1 / log_hz
         drops = detect_drops(path, expected_ifi, threshold)
         n_frames = len(pd.read_csv(path)) - 1  # exclude response row
         drop_rate = len(drops) / n_frames * 100 if n_frames > 0 else 0.0
         summary_rows.append({
             "path":       str(path.relative_to(DATA_DIR)),
+            "refresh_rate_hz": round(log_hz, 6),
+            "hz_source": hz_source,
             "total_frames": n_frames,
             "drops":      len(drops),
             "drop_rate%": round(drop_rate, 2),
@@ -92,7 +116,7 @@ def main(hz: float, threshold: float, subject: str | None) -> None:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--hz",        type=float, default=60.0,  help="Monitor refresh rate (default 60)")
+    parser.add_argument("--hz",        type=float, default=None,  help="Override monitor refresh rate; otherwise use session_metadata.json")
     parser.add_argument("--threshold", type=float, default=1.5,   help="IFI multiplier to flag as drop (default 1.5)")
     parser.add_argument("--subject",   type=str,   default=None,  help="Limit to one subject, e.g. sub-002")
     args = parser.parse_args()

@@ -9,7 +9,9 @@ from function.config.window_factory import create_window
 from function.config import settings as cfg
 from function.stimuli.trial_loader import get_or_create_subject_trials, load_char_list
 from function.io.path_builder import get_subject_dir
+from function.io.metadata import save_session_metadata
 from function.utils.screen_utils import get_subject_info
+from function.utils.draw_marker import draw_marker
 
 if USE_EYELINK:
     import pylink
@@ -24,6 +26,8 @@ class ExperimentContext:
     win:          Any
     global_clock: Any
     el_tracker:   Optional[Any]
+    refresh_rate_hz: float
+    refresh_rate_measured: bool
 
 
 def initiate_experiment() -> ExperimentContext:
@@ -36,6 +40,36 @@ def initiate_experiment() -> ExperimentContext:
     win = create_window()
     global_clock = core.Clock()
 
+    measured_rate = win.getActualFrameRate(
+        nIdentical=20,
+        nMaxFrames=240,
+        nWarmUpFrames=20,
+        threshold=1,
+    )
+    refresh_rate_measured = measured_rate is not None
+    refresh_rate_hz = float(measured_rate if measured_rate is not None else cfg.FRAME_RATE)
+    source = "measured" if refresh_rate_measured else "configured fallback"
+    print(f"[window] Refresh rate: {refresh_rate_hz:.3f} Hz ({source})")
+
+    for trial in trials:
+        trial["refresh_rate_hz"] = refresh_rate_hz
+        trial["refresh_rate_measured"] = refresh_rate_measured
+
+    session_metadata_path = save_session_metadata(
+        get_subject_dir(subject_id),
+        subject_id,
+        refresh_rate_hz,
+        refresh_rate_measured,
+        win.size,
+        cfg.FRAME_RATE,
+    )
+    print(f"[window] Session metadata saved → {session_metadata_path}")
+
+    # Create/upload the photodiode stimulus before any timed phase. Drawing to
+    # the back buffer and clearing it does not present the marker on screen.
+    draw_marker(win)
+    win.clearBuffer()
+
     el_tracker = initiate_eyelink(win, get_subject_dir(subject_id))
 
     return ExperimentContext(
@@ -45,6 +79,8 @@ def initiate_experiment() -> ExperimentContext:
         win          = win,
         global_clock = global_clock,
         el_tracker   = el_tracker,
+        refresh_rate_hz = refresh_rate_hz,
+        refresh_rate_measured = refresh_rate_measured,
     )
 
 

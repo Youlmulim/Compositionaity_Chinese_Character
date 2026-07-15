@@ -20,6 +20,17 @@ from function.config.settings import (
 from function.stimuli.image_paths import get_char_image_path
 
 
+def warm_up_frame(win: visual.Window, draw_fn) -> None:
+    """Render once to the back buffer, then clear it without presenting it.
+
+    PsychoPy/OpenGL may defer texture uploads, glyph creation, and shader setup
+    until a stimulus is first drawn. Doing that work before the timed onset
+    keeps it out of the first measured frame interval.
+    """
+    draw_fn()
+    win.clearBuffer()
+
+
 # ─── Text helpers ─────────────────────────────────────────────────────────────
 
 def make_text(

@@ -15,6 +15,9 @@ Usage
 
 from typing import Any, Dict, List, Optional, TypedDict
 
+from function.config.settings import MARKER_FRAMES_ONSET
+from function.utils.draw_marker import draw_marker
+
 
 class FrameLog(TypedDict):
     """Accumulator for per-frame log entries of one trial/phase."""
@@ -112,7 +115,17 @@ class FrameRecorder:
         *marker* is None the event marker defaults to ``"stimulus_onset"`` on the
         first frame and ``""`` afterwards; pass *marker* to override (e.g. a
         custom per-segment onset label).
+
+        The photodiode marker (white square) is drawn automatically for the
+        first ``MARKER_FRAMES_ONSET[phase]`` frames of every segment (i.e.
+        while ``self.idx < MARKER_FRAMES_ONSET[phase]``), using the phase
+        name stored on ``self.frame_log``. Configure the frame counts in
+        function/config/settings.py.
         """
+        n_marker_frames = MARKER_FRAMES_ONSET.get(self.frame_log["phase"], 0)
+        if self.idx < n_marker_frames:
+            draw_marker(win)
+
         flip_time = win.flip()
         if self.idx == 0:
             self.frame_log = set_onset(self.frame_log, flip_time)

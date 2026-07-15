@@ -5,7 +5,13 @@ from function.config import settings as cfg
 from function.utils.inter_trial import run_hover_iti
 from function.io.frame_logger import make_frame_log, get_rows
 from function.io.frame_saver import save_frame_log
-from function.io.metadata import make_phase0_result, update_trial, save_trial_metadata_json, save_phase0
+from function.io.metadata import (
+    export_metadata,
+    make_phase0_result,
+    save_phase0,
+    save_trial_metadata_json,
+    update_trial,
+)
 from function.io.path_builder import ensure_trial_save_dir, get_subject_dir
 from function.phases.phase0 import run_phase0
 from function.stimuli.trial_loader import build_phase0_trials, preload_images
@@ -24,7 +30,6 @@ def run_phase0_loop(
     image_cache = preload_images(char_list, win, image_dir)
     trials      = build_phase0_trials(char_list, image_dir, image_cache=image_cache)
     results     = []
-    frame_logs  = []
 
     for trial in trials:
         fl = make_frame_log(
@@ -35,10 +40,11 @@ def run_phase0_loop(
         result, fl = run_phase0(win, trial, global_clock, fl)
 
         results.append(make_phase0_result(trial, result))
-        frame_logs.append(fl)
+        # Checkpoint immediately after each completed trial. The cumulative
+        # summary is rewritten with all completed results, while this trial's
+        # frame log is persisted in its own directory.
+        save_phase0(results, [fl], get_subject_dir(subject_id), subject_id)
         run_hover_iti(win)
-
-    save_phase0(results, frame_logs, get_subject_dir(subject_id), subject_id)
 
 
 def run_phase_loop(
@@ -54,6 +60,11 @@ def run_phase_loop(
         gc.disable()
 
         trial_frame_rows = []  # 각 trial마다 프레임 로그 누적할 리스트
+        save_dir = ensure_trial_save_dir(
+            subject_id,
+            "trial_summary",
+            trial["stim_pair_id"],
+        )
 
         for phase_num in [1, 2, 3]:
             phase_key = f"phase{phase_num}"
@@ -89,18 +100,21 @@ def run_phase_loop(
             # list에 data 누적 추가
             trial_frame_rows.extend(get_rows(fl))
 
+            # Checkpoint after every completed phase. If the experiment stops
+            # during a later phase, all earlier phase rows remain on disk.
+            save_trial_metadata_json(trial, save_dir)
+            save_frame_log(trial_frame_rows, save_dir)
+
+            # Phase 3 completes one full trial. Update the subject-level
+            # cumulative CSV/JSON before entering the ITI, so an Escape during
+            # or after the ITI cannot discard this completed trial.
+            if phase_num == 3:
+                export_metadata(
+                    trials[:i + 1],
+                    get_subject_dir(subject_id),
+                    subject_id,
+                    fmt="both",
+                )
+
             # 4. inter-trial interval
             run_hover_iti(win)
-
-        # 5. save DATA
-
-        # 5-1. integrated folder path 생성
-        save_dir = ensure_trial_save_dir(
-            subject_id,
-            "trial_summary",
-            trial["stim_pair_id"]
-        )
-
-        # 5-2. JSON과 누적된 frame log 저장
-        save_trial_metadata_json(trial, save_dir)
-        save_frame_log(trial_frame_rows, save_dir)

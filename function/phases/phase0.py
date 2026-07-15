@@ -25,6 +25,7 @@ from function.utils.draw_utils import (
     make_text,
     build_rating_buttons,
     update_rating_button_states,
+    warm_up_frame,
 )
 from function.utils.response import ResponseResult, make_response, confirm_click
 from function.config import settings as cfg
@@ -130,6 +131,13 @@ def run_phase0(
             rating_buttons=rating_buttons,
         )
 
+    # Warm both the neutral screen and every possible selected-feedback state.
+    warm_up_frame(win, redraw)
+    for warmup_rating in range(1, 7):
+        selected_rating = warmup_rating
+        warm_up_frame(win, redraw)
+    selected_rating = None
+
     while result["response"] is None and not result["timed_out"]:
         check_escape(win)
 
@@ -147,7 +155,7 @@ def run_phase0(
                     selected_rating = int(button["rating"])
                     rt = float(phase_clock.getTime())
 
-                    confirm_click(win, mouse, button=0, redraw_fn=redraw, hold=0.2)
+                    confirm_click(win, mouse, button=0, redraw_fn=redraw, hold=0.2, phase="phase_0", rec=rec)
 
                     result = make_response(
                         response=str(selected_rating),

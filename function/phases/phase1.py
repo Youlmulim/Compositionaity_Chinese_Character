@@ -22,7 +22,7 @@ from function.config import settings as cfg
 from function.config.key_mapping import P1_YES_KEY, P1_NO_KEY, P1_MOUSE_BUTTON
 from function.utils.draw_utils import (
     make_text, make_button, build_char_equation, draw_char_equation, is_clicked,
-    update_button_states,
+    update_button_states, warm_up_frame,
 )
 from function.utils.response import ResponseResult, make_response, confirm_click
 from function.io.frame_logger import FrameLog, FrameRecorder
@@ -101,6 +101,14 @@ def run_phase1(
         yes_rect.draw(); yes_txt.draw()
         no_rect.draw();  no_txt.draw()
 
+    # Prepare the neutral, Yes-selected, and No-selected render states before
+    # the timed onset so response feedback does not trigger first-use work.
+    warm_up_frame(win, redraw)
+    for warmup_selection in ("yes", "no"):
+        selected_button = warmup_selection
+        warm_up_frame(win, redraw)
+    selected_button = None
+
     while result["response"] is None and not result["timed_out"]:
         redraw()
 
@@ -121,7 +129,7 @@ def run_phase1(
                     selected_button = label
                     rt = phase_clock.getTime()
 
-                    confirm_click(win, mouse, button=P1_MOUSE_BUTTON, redraw_fn=redraw, hold=0.2)
+                    confirm_click(win, mouse, button=P1_MOUSE_BUTTON, redraw_fn=redraw, hold=0.2, phase="phase1", rec=rec)
 
                     result = make_response(response=label, rt=rt, raw_key="mouse")
                     break
