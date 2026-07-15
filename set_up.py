@@ -7,6 +7,15 @@ from pathlib import Path
 
 VENV_DIR = Path(".venv")
 REQUIREMENTS_FILE = Path("requirements.txt")
+PROJECT_NAME = "compositionality-chinese-character"
+PROJECT_VERSION = "0.1.0"
+SUPPORTED_PYTHON = ">=3.11,<3.12"
+SOUNDS_DIR = Path("function/utils/sounds")
+REQUIRED_SOUND_FILES = (
+    "sound_effect.wav",
+    "sound_effect_quit.wav",
+    "sound_effect_done.wav",
+)
 
 
 def run(cmd):
@@ -74,8 +83,26 @@ def install_requirements():
     run([str(python_path), "-m", "pip", "install", "-r", str(REQUIREMENTS_FILE)])
 
 
+def validate_project_assets():
+    """Ensure sound assets formerly declared as setup.py package data exist."""
+    missing = [
+        str(SOUNDS_DIR / filename)
+        for filename in REQUIRED_SOUND_FILES
+        if not (SOUNDS_DIR / filename).is_file()
+    ]
+    if missing:
+        raise FileNotFoundError(
+            "Required sound file(s) missing:\n  " + "\n  ".join(missing)
+        )
+
+    print(f"[INFO] Project: {PROJECT_NAME} {PROJECT_VERSION}")
+    print(f"[INFO] Python: {SUPPORTED_PYTHON}")
+    print(f"[INFO] Sound assets verified: {len(REQUIRED_SOUND_FILES)}")
+
+
 def main():
     try:
+        validate_project_assets()
         create_venv()
         install_requirements()
 
@@ -85,7 +112,7 @@ def main():
         else:
             print("source .venv/bin/activate")
 
-    except subprocess.CalledProcessError as e:
+    except (FileNotFoundError, subprocess.CalledProcessError) as e:
         print("\n[ERROR] 설치 실패")
         print(e)
         exit(1)

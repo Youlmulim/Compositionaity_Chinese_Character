@@ -42,12 +42,12 @@ def show_instructions(win, text: str):
 
 def show_practice_screen(win, text: str) -> str:
     """
-    연습 안내 화면을 표시합니다. Exit 버튼이 함께 표시됩니다.
+    Display the practice instruction screen with an Exit button.
 
     Returns
     -------
-    "continue"  : 스페이스바 → 다음 연습 trial 시작
-    "exit"      : Exit 버튼 클릭 → 본 실험으로 이동
+    "continue"  : press Space to start the next practice trial
+    "exit"      : click Exit to proceed to the main experiment
     """
     # Decode before the screen's frame loop. Later calls reuse the cached Sound.
     quit_sound = preload_sound("sound_effect_quit.wav")
@@ -74,14 +74,14 @@ def show_practice_screen(win, text: str) -> str:
     prev_pressed = False
 
     while True:
-        # 버튼 hover 상태 업데이트 후 draw
+        # Update the button hover state before drawing.
         update_button_states([exit_button], mouse, selected_button=None)
         msg.draw()
         exit_rect.draw()
         exit_txt.draw()
         win.flip()
 
-        # Exit 버튼 클릭 감지
+        # Detect an Exit-button click.
         btn = bool(mouse.getPressed()[0])
         if btn and not prev_pressed:
             if exit_rect.contains(mouse.getPos()):
@@ -89,11 +89,10 @@ def show_practice_screen(win, text: str) -> str:
                 return "exit"
         prev_pressed = btn
 
-        # 스페이스바 → 연습 계속
+        # Press Space to continue practice.
         keys = event.getKeys(keyList=["space", "escape"])
         if "escape" in keys:
             core.quit()
         if "space" in keys:
             return "continue"
-
 

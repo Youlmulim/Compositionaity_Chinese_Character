@@ -125,12 +125,14 @@ P3_POSITIONS = {
 }
 
 
-# ─── Photodiode marker (white square, bottom-left) ───────────────────────────
-# phase key는 make_frame_log(phase=...)/FrameLog["phase"]에서 쓰는 값과 반드시 일치해야 함:
+# ─── Photodiode marker (white square, top-right) ────────────────────────────
+# Phase keys must exactly match the values used by
+# make_frame_log(phase=...) and FrameLog["phase"]:
 # "phase_0", "phase1", "phase2", "phase3"
 
-# 각 phase의 "자극 제시(onset)" 시작 시 마커를 몇 프레임 동안 켤지
-# (phase2처럼 한 phase 안에 여러 세그먼트가 있으면 rec.start_segment()로 새로 시작될 때마다 적용됨)
+# Number of frames for which the marker remains on at the start of each
+# stimulus onset. For phases with multiple segments, such as Phase 2, this is
+# applied every time a new segment begins via rec.start_segment().
 MARKER_FRAMES_ONSET = {
     "phase_0": 2,
     "phase1": 3,
@@ -159,7 +161,7 @@ BLACK_COLOR    = "black"
 HIGHLIGHT_COLOR   = "#ffdd00"    # selected option highlight
 
 # ─── Practice ────────────────────────────────────────────────────────────────
-PRACTICE_N_TRIALS = 4    # trial_table.csv에서 샘플링할 연습 trial 수
+PRACTICE_N_TRIALS = 4    # Number of practice trials sampled from trial_table.csv
 
 PRACTICE_INSTRUCTION = (
     "练习阶段\n\n"

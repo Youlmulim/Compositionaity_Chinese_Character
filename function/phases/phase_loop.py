@@ -59,7 +59,7 @@ def run_phase_loop(
         trial = trials[i]
         gc.disable()
 
-        trial_frame_rows = []  # 각 trial마다 프레임 로그 누적할 리스트
+        trial_frame_rows = []
         save_dir = ensure_trial_save_dir(
             subject_id,
             "trial_summary",
@@ -70,7 +70,6 @@ def run_phase_loop(
             phase_key = f"phase{phase_num}"
             run_fn = phase_fns[phase_num]
 
-            # 첫 번째 pair에서만 instruction 제시
             if i == 0:
                 show_instructions(win, cfg.PHASE_CONFIG[phase_num - 1][1])
 
@@ -95,9 +94,7 @@ def run_phase_loop(
                 f"{phase_key}_rt":       result["rt"],
             })
 
-            trials[i] = trial  # 갱신된 trial을 리스트에 반영
-
-            # list에 data 누적 추가
+            trials[i] = trial
             trial_frame_rows.extend(get_rows(fl))
 
             # Checkpoint after every completed phase. If the experiment stops

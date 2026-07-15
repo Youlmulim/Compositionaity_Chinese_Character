@@ -6,10 +6,10 @@ from function.config.settings import WINDOW_SIZE
 N_ROWS = 6
 N_COLS = 8
 MARKER_ROW = 1
-MARKER_COL = N_COLS  # 오른쪽 위
+MARKER_COL = N_COLS  # top-right
 
 # ─── Marker size ──────────────────────────────────────────────────────────
-MARKER_SIZE_FRAC = 0.6  # 셀의 짧은 변에 대한 비율
+MARKER_SIZE_FRAC = 0.6  # ratio to the shorter side of the cell
 
 # Cache the stimulus on the PsychoPy Window itself. The experiment normally
 # owns one window, and keeping the cache there also prevents a marker created
