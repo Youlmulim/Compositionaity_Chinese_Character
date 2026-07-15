@@ -230,5 +230,5 @@ def _get_char_color(
 
 
 def _is_complete(state: Dict[str, Any]) -> bool:
-    placed = list(state["placements"].values())
-    return "char1" in placed and "char2" in placed
+    v = state["placements"].values()
+    return "char1" in v and "char2" in v
